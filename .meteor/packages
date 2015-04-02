@@ -5,17 +5,17 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
 accounts-password
 iron:router
 jquery
 less
 mizzao:jquery-ui
 monbro:iron-router-breadcrumb
-mrt:accounts-ui-bootstrap-3
 mrt:chartjs
 mrt:moment
 mystor:device-detection
-nemo64:bootstrap
-tsega:bootstrap3-datetimepicker
+accounts-ui
+accounts-facebook
+accounts-google
+materialize:materialize
+useraccounts:materialize

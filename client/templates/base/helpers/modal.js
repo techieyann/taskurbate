@@ -1,7 +1,4 @@
 Template.modal.helpers({
-	modalHeader: function () {
-		return Session.get("modal-header");
-	},
 	modalBody: function () {
 		return Session.get("modal-body");
 	},
@@ -13,23 +10,28 @@ Template.modal.helpers({
 	}
 });
 
-openModal = function (header, body, footer, data) {
-	if (header) Session.set("modal-header", header);
+openModal = function (body, footer, data) {
 	if (body) Session.set("modal-body", body);
 	if (footer) Session.set("modal-footer", footer);
 	if (data) Session.set("modal-data", data);
-	$('#modal').modal('show');
+	$('#modal').openModal();
 };
 
 closeModal = function () {
-	$('#modal').modal('hide');
+	$('#modal').closeModal();
 };
 
 Template.modal.rendered = function () {
-	$('#modal').on('hidden.bs.modal', function () {
-		Session.set("modal-header", '');
-		Session.set("modal-body", '');
-		Session.set("modal-footer", '');
-		Session.set("modal-data", '');
+	$('#modal').leanModal({
+		dismissable: true,
+		opacity: .5,
+		in_duration: 300,
+		out_duration: 200,
+		//ready: function (){},
+		complete: function (){
+			Session.set("modal-body", '');
+			Session.set("modal-footer", '');
+			Session.set("modal-data", '');
+		}
 	});
 };

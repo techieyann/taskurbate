@@ -3,21 +3,14 @@
 	<title>Taskurbate - Get off on tracking tasks</title>
 </head>
 
-<template name="index">
-	{{> yield region="navbar"}}
+<template name="layout">
+	{{> navbar}}
 	{{> modal}}
-	<div class="container-fluid">
+	<div class="container">
 
-		{{> alert}}
-		{{> breadcrumbs}}
-
-		{{#if currentUser}}
 		{{> yield}}
-		{{else}}
-		{{> landingPage}}
-		{{/if}}
 		<footer>
-			{{> yield region="footer"}}
+			{{> footer}}
 		</footer>
 	</div>
 </template>
