@@ -1,5 +1,5 @@
 Template.newTaskButton.events({
 	'click #new-task-button': function () {
-		openModal('newTaskModalBody', 'newTaskModalFooter', null);
+		openModal('newTaskModalBody', 'newTaskModalFooter', this);
 	}
 });

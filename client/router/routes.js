@@ -1,6 +1,17 @@
 Router.map(function () {
 	this.route('index', {
-		path: '/'
+		path: '/',
+		subscriptions: function () {
+			if (Meteor.user()) {
+				this.wait(Meteor.subscribe('tags', Meteor.user()._id));
+			}
+			this.render('loading');
+		},
+		data: function () {
+			if (Meteor.user()) {
+				return Tags.find({}, {sort: {name:1}}).fetch();
+			}
+		}
 	});
 	this.route('about', {
 		path: '/about'
@@ -12,6 +23,15 @@ Router.map(function () {
 		path: '/tasks'
 	});
 	this.route('tags', {
-		path: '/tags'
+		path: '/tags',
+		subscriptions: function () {
+			if (Meteor.user()) {
+				this.wait(Meteor.subscribe('tags', Meteor.user()._id));
+			}
+			this.render('loading');
+		},
+		data: function () {
+			if (Meteor.user()) return Tags.find({}, {sort: {name:1}});
+		}
 	});
 });

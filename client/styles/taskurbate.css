@@ -1,3 +1,6 @@
+.hidden{
+		display:none;
+}
 .modal-content{
 		padding-bottom:20px;
 }
@@ -8,6 +11,15 @@
 
 .centered{
 		text-align:center;
+}
+
+
+/*tags*/
+#new-tag-form{
+		margin: 20px 0px -20px 0px;
+}
+.secondary-content>.btn{
+		margin-top: -8px;
 }
 
 footer{

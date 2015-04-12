@@ -1,21 +1,25 @@
 Template.newTaskModalBody.onRendered(function () {
 	$('select').material_select();
-	$('#days-before-due-input').hide();
+	$('#due-starting').datepicker({minDate:0});
+	$('#strict-inputs').hide();
 });
 
 Template.newTaskModalBody.helpers({
 	disabledWithoutTags: function () {
-		if (!this.tag) return 'disabled';
+		if (!Session.get('modal-data')) return 'disabled';
+	},
+	tag: function () {
+		return Session.get('modal-data');
 	}
 });
 Template.newTaskModalBody.events({
 	'click #strict': function () {
 		$('#adaptive-scheduling-explanation').slideUp(300, function () {
-			$('#days-before-due-input').slideDown(300);
+			$('#strict-inputs').slideDown(300);
 		});
 	},
 	'click #adaptive': function () {
-		$('#days-before-due-input').slideUp(300, function () {
+		$('#strict-inputs').slideUp(300, function () {
 			$('#adaptive-scheduling-explanation').slideDown(300);
 		});
 	}
