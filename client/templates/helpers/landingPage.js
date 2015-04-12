@@ -1,7 +1,7 @@
 Template.welcomeMessage.helpers({
 
-	tag: function () {
-		return (this?true:false);
+	anyTags: function () {
+		return this.tags.count();
 	}
 
 });

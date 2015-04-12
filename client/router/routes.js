@@ -1,16 +1,13 @@
 Router.map(function () {
 	this.route('index', {
 		path: '/',
-		subscriptions: function () {
-			if (Meteor.user()) {
-				this.wait(Meteor.subscribe('tags', Meteor.user()._id));
-			}
-			this.render('loading');
-		},
+		controller: LoggedInController,
 		data: function () {
 			if (Meteor.user()) {
-				return Tags.find({}, {sort: {name:1}}).fetch();
+				var foundTags = Tags.find({}, {sort: {name:1}});
+				return {tags: foundTags};
 			}
+			return {};
 		}
 	});
 	this.route('about', {
@@ -24,14 +21,13 @@ Router.map(function () {
 	});
 	this.route('tags', {
 		path: '/tags',
-		subscriptions: function () {
-			if (Meteor.user()) {
-				this.wait(Meteor.subscribe('tags', Meteor.user()._id));
-			}
-			this.render('loading');
-		},
+		controller: LoggedInController,
 		data: function () {
-			if (Meteor.user()) return Tags.find({}, {sort: {name:1}});
+			if (Meteor.user()) {
+				var foundTags = Tags.find({}, {sort: {name:1}});
+				if (foundTags.count()) return {tags: foundTags};
+			}
+			return {};
 		}
 	});
 });

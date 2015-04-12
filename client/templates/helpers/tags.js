@@ -1,16 +1,31 @@
+Template.tags.onRendered(function () {
+	$('#new-tag').focus();
+});
+
 Template.tags.helpers({
+	anyTags: function () {
+		return (this.tags?true:false);
+	},
 	tag: function () {
-		return this;
+		return this.tags;
 	}
 });
 Template.tags.events({
+	'click .create-tag': function () {
+		processNewTagForm();
+	},
+	'submit #new-tag-form': function (e) {
+		e.preventDefault();
+		processNewTagForm();
+	}
+});
+Template.tagCollectionElement.events({
 	'dblclick .tag, click .edit-tag': function () {
 		var id = this._id;
 		var selector = '#'+id;
-		$(selector+'-display').slideUp(300);
-		$(selector+'-edit').slideDown(300, function () {
+		$(selector+'-display').hide();
+		$(selector+'-edit').show();
 			$('#edit-tag-'+id).focus();
-		});
 	},
 	'click .submit-edit-tag-form': function () {
 		processEditTagForm(this._id);
@@ -20,24 +35,22 @@ Template.tags.events({
 		e.preventDefault();
 		processEditTagForm(this._id);
 	},
-	
-	'click .create-tag': function () {
-		processNewTagForm();
-	},
-	'submit #new-tag-form': function (e) {
-		e.preventDefault();
-		processNewTagForm();
-	},
 	'click .delete-tag': function () {
-		Meteor.call('deleteTag', this._id, function (err) {
-			if (err) {
-				Materialize.toast('Error: '+err, 5000);
-			}
-		});
-		Materialize.toast('Deleted tag', 3000);
-
+		if (this.tasks != 0) {
+			openModal('deleteTagModalBody','deleteTagModalFooter', this);
+		}
+		else deleteTag(this._id, this.name);
 	}
 });
+
+deleteTag = function (id, name) {
+	Meteor.call('deleteTag', id, function (err) {
+		if (err) {
+			Materialize.toast('Error: '+err, 5000);
+		}
+	});
+	Materialize.toast('Deleted tag: "'+name+'"', 3000);
+};
 
 var processNewTagForm = function () {
 	var newTag = $('#new-tag').val();
@@ -47,6 +60,11 @@ var processNewTagForm = function () {
 	}
 	else {
 		check(newTag, String);
+		if(newTag.length > 20) {
+			Materialize.toast('Tag must be less than 20 characters...', 3000);
+			editTagInput.focus();
+			return
+		}
 		if (Tags.findOne({name: newTag})) {
 			Materialize.toast('Tag: "'+newTag +'" already exists...', 3000);
 			$('#new-tag').val('').focus();
@@ -54,7 +72,8 @@ var processNewTagForm = function () {
 		}
 		var options = {
 			name: newTag,
-			user: Meteor.user()._id
+			user: Meteor.user()._id,
+			tasks: 0
 		};
 		Meteor.call('newTag', options, function (err) {
 			if (err) {
@@ -75,7 +94,11 @@ var processEditTagForm = function (tagId) {
 	}
 	else {
 		check(tagEdit, String);
-		
+		if(tagEdit.length > 20) {
+			Materialize.toast('Tag must be less than 20 characters...', 3000);
+			editTagInput.focus();
+			return
+		}
 		if (Tags.findOne({_id:{$ne: tagId}, name: tagEdit})) {
 			Materialize.toast('Tag: "'+tagEdit +'" already exists...', 3000);
 			editTagInput.val('').focus();

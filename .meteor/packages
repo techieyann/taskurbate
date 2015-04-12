@@ -17,5 +17,5 @@ mystor:device-detection
 accounts-ui
 accounts-facebook
 accounts-google
-materialize:materialize
 useraccounts:materialize
+materialize:materialize

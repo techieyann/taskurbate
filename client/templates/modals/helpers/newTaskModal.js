@@ -6,22 +6,20 @@ Template.newTaskModalBody.onRendered(function () {
 
 Template.newTaskModalBody.helpers({
 	disabledWithoutTags: function () {
-		if (!Session.get('modal-data')) return 'disabled';
+		if (!this.tags.length) return 'disabled';
 	},
 	tag: function () {
-		return Session.get('modal-data');
+		return this.tags;
 	}
 });
 Template.newTaskModalBody.events({
 	'click #strict': function () {
-		$('#adaptive-scheduling-explanation').slideUp(300, function () {
-			$('#strict-inputs').slideDown(300);
-		});
+		$('#adaptive-scheduling-explanation').slideUp(300);
+		$('#strict-inputs').slideDown(300);
 	},
 	'click #adaptive': function () {
-		$('#strict-inputs').slideUp(300, function () {
-			$('#adaptive-scheduling-explanation').slideDown(300);
-		});
+		$('#strict-inputs').slideUp(300);
+		$('#adaptive-scheduling-explanation').slideDown(300);
 	}
 });
 Template.newTaskModalFooter.events({
