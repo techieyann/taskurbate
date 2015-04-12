@@ -5,3 +5,9 @@ Template.navbar.onRendered(function () {
 		closeOnClick: true
 	});
 });
+
+Template.navbar.helpers({
+	activeRoute: function (route) {
+		return (Router.current().route.getName() == route ? 'active':'');
+	}
+});

@@ -1,4 +1,7 @@
 <template name="tasksDash">
+{{#unless task}}
+{{> welcomeMessage}}
+{{/unless}}
 {{#each task}}
 {{name}}
 {{/each}}
