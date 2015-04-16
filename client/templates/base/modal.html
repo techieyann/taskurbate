@@ -1,5 +1,5 @@
 <template name="modal">
-	<div id="modal" class="modal modal-fixed-footer">
+	<div id="modal" class="modal {{modalFixedFooter}}">
 		<div class="modal-content">
 			{{#if modalBody}}
 			{{> Template.dynamic template=modalBody data=modalData}}

@@ -1,13 +1,13 @@
 <template name="newTaskModalBody">
-	<form>
+	<form class="new-task-form">
 		<div class="row">
 			<div class="input-field col s12 m6">
-				<input placeholder="Name of new task" id="name" type="text">
+				<input placeholder="Name of new task" name="taskName" id="name" type="text">
 				<label for="name">Name</label>
 			</div>
 			<div class="input-field col s12 m6">
-				<select id="tag" {{disabledWithoutTags}}>
-					<option value="misc" selected>Misc.</option>
+				<select id="tag" name="taskTag" {{disabledWithoutTags}}>
+					<option value="0" selected>Misc.</option>
 					{{#each tag}}
 					<option value="{{_id}}">{{name}}</option>
 					{{/each}}
@@ -18,10 +18,10 @@
 		<div class="row">
 			<div class="input-field col s12 m6 l4">
 				<p class="label">Scheduling:</p>
-				<input name="type" type="radio" id="adaptive" checked>
+				<input name="taskScheduleType" type="radio" id="adaptive" value="adaptive" checked>
 				<label for="adaptive">Adaptive</label>
 				<br><br>
-				<input name="type" type="radio" id="strict">
+				<input name="taskScheduleType" type="radio" id="strict" value="strict">
 				<label for="strict">Strict</label>
 			</div>
 			<div class="col s12 m6 l8">
@@ -33,18 +33,18 @@
 				<div id="strict-inputs">
 					<div class="input-field">
 					<label for="days-before-due">Due every (days):</label>
-					<input id="days-before-due" type="number" min="1">
+					<input id="days-before-due" name="taskDaysBeforeDue" type="number" min="1">
 					</div>
 					<div class="input-field">
 					<label for="due-starting">Starting:</label>
-					<input id="due-starting" type="text">
+					<input id="due-starting" name="taskDueStarting" type="text">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<textarea id="description" class="materialize-textarea"></textarea>
+				<textarea id="description" name="taskDescription" class="materialize-textarea"></textarea>
 				<label for="description">Description</label>
 			</div>
 		</div>

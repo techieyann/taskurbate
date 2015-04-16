@@ -1,0 +1,56 @@
+<template name="editTaskModalBody">
+	<form class="edit-task-form">
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<input placeholder="Name of new task" name="taskName" id="name" type="text" value="{{name}}">
+				<label class="active" for="name">Name</label>
+			</div>
+			<div class="input-field col s12 m6">
+				<select id="tag" name="taskTag" {{disabledWithoutTags}}>
+					<option value="0" {{selectedTag 0}}>Misc.</option>
+					{{#each tag}}
+					<option value="{{_id}}" {{selectedTag _id}}>{{name}}</option>
+					{{/each}}
+				</select>
+				<label>Tag as:</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12 m6 l4">
+				<p class="label">Scheduling:</p>
+				<input name="taskScheduleType" type="radio" id="adaptive" value="adaptive" {{checkedSchedule 'adaptive'}}>
+				<label for="adaptive">Adaptive</label>
+				<br><br>
+				<input name="taskScheduleType" type="radio" id="strict" value="strict" {{checkedSchedule 'strict'}}>
+				<label for="strict">Strict</label>
+			</div>
+			<div class="col s12 m6 l8">
+				<br>
+				<div id="adaptive-scheduling-explanation" class="{{scheduleType 'adaptive'}}">
+					<br><br>
+					<p class="label">Due date will adapt based on how frequently it is completed.</p>
+				</div>
+				<div id="strict-inputs" class="{{scheduleType 'strict'}}">
+					<div class="input-field">
+					<label class="active" for="days-before-due">Due every (days):</label>
+					<input id="days-before-due" name="taskDaysBeforeDue" type="number" min="1" value="{{dueEvery}}">
+					</div>
+					<div class="input-field">
+					<label class="active" for="due-starting">Starting:</label>
+					<input id="due-starting" name="taskDueStarting" type="text" value="{{dueNext}}">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12">
+				<textarea id="description" name="taskDescription" class="materialize-textarea">{{description}}</textarea>
+				<label class="active" for="description">Description</label>
+			</div>
+		</div>
+	</form>
+</template>
+<template name="editTaskModalFooter">
+	<a href="#" class="close-modal waves-effect waves-red btn-flat left">Cancel</a>
+	<a href="#" class="edit-task waves-effect waves-green btn-flat right">Edit Task</a>
+</template>

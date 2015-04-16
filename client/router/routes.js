@@ -17,7 +17,18 @@ Router.map(function () {
 		path: '/groups'
 	});
 	this.route('tasks', {
-		path: '/tasks'
+		path: '/tasks',
+		controller: LoggedInController,
+		data: function () {
+			var returnData = {};
+			if (Meteor.user()) {
+				var foundTasks = Tasks.find({}, {sort: {name:1}});
+				if (foundTasks.count())	returnData.tasks = foundTasks;
+				var foundTags = Tags.find({}, {sort: {name:1}});
+				returnData.tags = foundTags;
+			}
+			return returnData;
+		}		
 	});
 	this.route('tags', {
 		path: '/tags',

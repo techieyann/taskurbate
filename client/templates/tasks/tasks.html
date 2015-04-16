@@ -1,0 +1,44 @@
+<template name="tasks">
+	{{#if anyTasks}}
+	<ul id="task-collection" class="collection with-header">
+
+		<li class="collection-header"><h4><i class="mdi-action-assignment left"></i>Tasks:</h4></li>
+
+		{{#each task}}
+		{{> taskCollectionElement}}
+		{{/each}}
+	</ul>
+	{{else}}
+	<p>You don't have any tasks yet! Create one by pushing that big red button down there.</p>
+	{{/if}}
+	{{> newTaskButton}}
+</template>
+
+<template name="taskCollectionElement">
+
+	<li class="collection-item">		
+		<div class="row">
+			<div class="col s9 m11">
+				<span class="task">
+					<a href="#" id="{{_id}}-expand" class="expand left black-text"><i class="mdi-navigation-expand-more small"></i></a>
+					<a href="#" id="{{_id}}-shrink" class="shrink left black-text hidden"><i class="mdi-navigation-expand-less small"></i></a>
+					{{name}} ({{tagByID}})
+				</span>
+			</div>
+			<div class="col s1">
+				<a href="#" class="task-complete black-text"><i class="mdi-action-done small"></i></a>
+			</div>
+		</div>
+		<div id="{{_id}}-modify" class="row hidden centered black-text">
+			<div class="col s4">
+				<a href="#" class="task-description black-text"><i class="mdi-action-description small"></i></a>
+			</div>
+			<div class="col s4">
+				<a href="#" class="edit-task black-text"><i class="mdi-content-create small"></i></a>
+			</div>
+			<div class="col s4">
+				<a href="#" class="delete-task black-text"><i class="mdi-action-delete small"></i></a>
+			</div>
+		</div>
+	</li>
+</template>

@@ -3,5 +3,5 @@ Meteor.publish('tags', function (userId) {
 });
 
 Meteor.publish('tasks', function (userId) {
-	return Tags.find({user: userId});
+	return Tasks.find({user: userId});
 });

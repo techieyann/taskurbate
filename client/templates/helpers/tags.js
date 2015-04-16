@@ -11,10 +11,7 @@ Template.tags.helpers({
 	}
 });
 Template.tags.events({
-	'click .create-tag': function () {
-		processNewTagForm();
-	},
-	'submit #new-tag-form': function (e) {
+	'click .create-tag, submit #new-tag-form': function (e) {
 		e.preventDefault();
 		processNewTagForm();
 	}
@@ -25,19 +22,15 @@ Template.tagCollectionElement.events({
 		var selector = '#'+id;
 		$(selector+'-display').hide();
 		$(selector+'-edit').show();
-			$('#edit-tag-'+id).focus();
+		$('#edit-tag-'+id).focus();
 	},
-	'click .submit-edit-tag-form': function () {
-		processEditTagForm(this._id);
-
-	},
-	'submit .edit-tag-form': function (e) {
+	'click .submit-edit-tag-form, submit .edit-tag-form': function (e) {
 		e.preventDefault();
 		processEditTagForm(this._id);
 	},
 	'click .delete-tag': function () {
 		if (this.tasks != 0) {
-			openModal('deleteTagModalBody','deleteTagModalFooter', this);
+			openModal('deleteTagModalBody','deleteTagModalFooter', false, this);
 		}
 		else deleteTag(this._id, this.name);
 	}
