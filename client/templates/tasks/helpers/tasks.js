@@ -17,6 +17,37 @@ Template.taskCollectionElement.helpers({
 			if (this.lastCompleted.toLocaleDateString() == today()) return true;
 		}
 		return false;
+	}, 
+	dueColor: function () {
+		if (this.dueNext) {
+		var diff = this.dueNext - new Date();
+			if (diff > 3 * (1000 * 60 * 60 * 24)) {
+				return 'green';
+			}
+			if (diff > 2 * (1000 * 60 * 60 * 24)) {
+				return 'light-green';
+			}
+			if (diff > 1 * (1000 * 60 * 60 * 24)) {
+				return 'lime';
+			}
+			if (diff > 0) {
+				return 'yellow';
+			}
+			if (diff < -(3 * (1000 * 60 * 60 * 24))) {
+				return 'red';
+			}
+			if (diff < -(2 * (1000 * 60 * 60 * 24))) {
+				return 'deep-orange';
+			}
+			if (diff < -(1 * (1000 * 60 * 60 * 24))) {
+				return 'orange';
+			}
+			if (diff < 0) {
+				return 'amber';
+			}
+		} else {
+			return 'black';
+		}
 	}
 });
 

@@ -32,6 +32,9 @@ Template.editTaskModalBody.helpers({
 		if (this.schedule == type) return '';
 		return 'hidden';
 	},
+	dueNextFormatted: function () {
+		return this.dueNext.toLocaleDateString();
+	},
 	tag: function () {
 		return Tags.find();
 	}
