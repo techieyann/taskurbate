@@ -12,14 +12,11 @@ Template.taskCollectionElement.onRendered(function () {
 });
 
 Template.taskCollectionElement.helpers({
-	tagByID: function () {
-		var tagID = this.tag;
-		if (tagID == 0) {
-			return 'Misc.';
+	completedToday: function () {
+		if (this.lastCompleted) {
+			if (this.lastCompleted.toLocaleDateString() == today()) return true;
 		}
-		else {
-			return Tags.findOne({_id: tagID}).name;
-		}
+		return false;
 	}
 });
 
@@ -35,6 +32,17 @@ Template.taskCollectionElement.events({
 		$('#'+taskID+'-modify').slideUp(300);
 		$('#'+taskID+'-shrink').hide();
 		$('#'+taskID+'-expand').slideDown(300);
+	},
+	'click .task-complete': function () {
+		var options = {
+			user: Meteor.user()._id,
+			task: this._id,
+			at: new Date()
+		};
+		Meteor.call('completeTask', options, function (err) {
+			if (err) Materialize.toast('Complete task error: '+err);
+		});
+		Materialize.toast('Completed task: "'+this.name+'"', 4000);
 	},
 	'click .task-description': function () {
 		openModal('taskMetaModalBody','taskMetaModalFooter', true, this);

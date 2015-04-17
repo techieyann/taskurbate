@@ -1,7 +1,6 @@
 Template.newTaskModalBody.onRendered(function () {
 	$('select').material_select();
 	$('#due-starting').datepicker({minDate:0});
-	$('#strict-inputs').hide();
 });
 
 Template.newTaskModalBody.helpers({
@@ -14,12 +13,16 @@ Template.newTaskModalBody.helpers({
 });
 Template.newTaskModalBody.events({
 	'click #strict': function () {
-		$('#adaptive-scheduling-explanation').slideUp(300);
-		$('#strict-inputs').slideDown(300);
+		$('#adaptive-explanation, #hybrid-explanation').slideUp(300);
+		$('#strict-explanation, #starting-on, #due-every').slideDown(300);
+	},
+	'click #hybrid': function () {
+		$('#adaptive-explanation, #strict-explanation, #starting-on').slideUp(300);
+		$('#hybrid-explanation, #due-every').slideDown(300);
 	},
 	'click #adaptive': function () {
-		$('#strict-inputs').slideUp(300);
-		$('#adaptive-scheduling-explanation').slideDown(300);
+		$('#hybrid-explanation, #strict-explanation, #due-every, #starting-on').slideUp(300);
+		$('#adaptive-explanation').slideDown(300);
 	},
 	'submit .new-task-form': function (e) {
 		e.preventDefault();
@@ -40,21 +43,23 @@ var processNewTaskForm = function () {
 		$('#name').focus();
 		return;
 	}
-	if (Tasks.findOne({user: Meteor.user()._id, name: parsedData.taskName})) {
+	if (Tasks.findOne({name: parsedData.taskName})) {
 		Materialize.toast('Task named "'+parsedData.taskName+'" already exists...', 4000);
 		$('#name').val('').focus();
 		return;
 	}
-	if (parsedData.taskScheduleType == "strict") {
+	if (parsedData.taskScheduleType != "adaptive") {
 		if (parsedData.taskDaysBeforeDue == "") {
 			Materialize.toast('Number of days before due required for strict scheduling', 4000);
 			$('#days-before-due').focus();
 			return;
 		}
-		if (parsedData.taskDueStarting == "") {
-			Materialize.toast('Starting due date required for strict scheduling', 4000);
-			$('#due-starting').focus();
-			return;
+		if (parsedData.taskScheduleType == "strict") {
+			if (parsedData.taskDueStarting == "") {
+				Materialize.toast('Starting due date required for strict scheduling', 4000);
+				$('#due-starting').focus();
+				return;
+			}
 		}
 	}
 	var options = {
@@ -62,11 +67,15 @@ var processNewTaskForm = function () {
 		name: parsedData.taskName,
 		tag: parsedData.taskTag,
 		schedule: parsedData.taskScheduleType,
-		dueNext: parsedData.taskDueStarting,
-		dueEvery: parsedData.taskDaysBeforeDue,
+		lastCompleted: null,
 		description: parsedData.taskDescription
 	};
-	options.user = Meteor.user()._id;
+	if (parsedData.taskScheduleType != "adaptive") {
+		options.dueEvery = parsedData.taskDaysBeforeDue;
+	}
+	if (parsedData.taskScheduleType == "strict") {
+		options.dueNext = parsedData.taskDueStarting;
+	}
 	Meteor.call('newTask', options, function (err) {
 		if (err) {
 			Materialize.toast('New Task Error: '+err, 4000);

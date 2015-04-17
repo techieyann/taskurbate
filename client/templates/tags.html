@@ -27,13 +27,13 @@
 	<li id="{{_id}}-display" class="collection-item">
 		<div class="row">
 			<div class="col s9 m10">
-				<span class="tag"><i class="mdi-action-label-outline left"></i> {{name}} ({{tasks}})</span>
+				<span class="tag"><i class="mdi-action-label-outline small left"></i> {{name}} ({{tasks}})</span>
 			</div>
 			<div class="col s1">
-				<a href="#" class="edit-tag"><i class="mdi-content-create small"></i></a>
+				<a href="#" class="edit-tag black-text"><i class="mdi-content-create small"></i></a>
 			</div>
 			<div class="col s1">
-				<a href="#" class="delete-tag"><i class="mdi-action-delete small"></i></a>
+				<a href="#" class="delete-tag black-text"><i class="mdi-action-delete small"></i></a>
 			</div>
 		</div>
 	</li>
@@ -46,8 +46,8 @@
 						<input id="edit-tag-{{_id}}" type="text" value="{{name}}" length="20" validate>
 						<label class="active" for="edit-tag-{{_id}}">Tag Name</label>
 					</div>
-					<span class="col s2 m1">
-						<a href="#" class="submit-edit-tag-form right"><i class="mdi-content-create"></i></a>
+					<span class="edit-tag-button col s2 m1">
+						<a href="#" class="submit-edit-tag-form teal-text"><i class="mdi-content-create small"></i></a>
 					</span>
 				</div>
 			</form>

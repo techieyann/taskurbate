@@ -1,18 +1,21 @@
 .hidden{
-		display:none;
+		display: none;
 }
 .modal-content{
-		padding-bottom:20px;
+		padding-bottom: 20px;
 }
 
 .label{
-		color:#9e9e9e;
+		color: #9e9e9e;
 }
 
 .centered{
-		text-align:center;
+		text-align: center;
 }
 
+li>.row{
+		margin-bottom: 0px;
+}
 
 /*tags*/
 #new-tag-form{
@@ -21,7 +24,9 @@
 .secondary-content>.btn{
 		margin-top: -8px;
 }
-
+.edit-tag-button{
+		margin-top: 15px;
+}
 footer{
-		text-align:center;
+		text-align: center;
 }

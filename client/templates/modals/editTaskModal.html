@@ -21,22 +21,26 @@
 				<input name="taskScheduleType" type="radio" id="adaptive" value="adaptive" {{checkedSchedule 'adaptive'}}>
 				<label for="adaptive">Adaptive</label>
 				<br><br>
-				<input name="taskScheduleType" type="radio" id="strict" value="strict" {{checkedSchedule 'strict'}}>
+				<input name="taskScheduleType" type="radio" id="hybrid" value="hybrid"  {{checkedSchedule 'hybrid'}}>
+				<label for="hybrid">Hybrid</label>
+				<br><br>
+				<input name="taskScheduleType" type="radio" id="strict" value="strict"  {{checkedSchedule 'strict'}}>
 				<label for="strict">Strict</label>
 			</div>
 			<div class="col s12 m6 l8">
 				<br>
-				<div id="adaptive-scheduling-explanation" class="{{scheduleType 'adaptive'}}">
-					<br><br>
-					<p class="label">Due date will adapt based on how frequently it is completed.</p>
+				<div id="schedule-explanations">
+					<p id="adaptive-explanation" class="label">Due date will adapt based on how frequently it is completed.</p>
+					<p id="hybrid-explanation" class="label">Due date will always be the set number of days after it was last completed.</p>
+					<p id="strict-explanation" class="label">Due date will always be the set number of days after last due.</p>
 				</div>
-				<div id="strict-inputs" class="{{scheduleType 'strict'}}">
-					<div class="input-field">
-					<label class="active" for="days-before-due">Due every (days):</label>
+				<div id="schedule-inputs">
+					<div id="due-every" class="input-field">
+					<label for="days-before-due" class="active">Due every (days):</label>
 					<input id="days-before-due" name="taskDaysBeforeDue" type="number" min="1" value="{{dueEvery}}">
 					</div>
-					<div class="input-field">
-					<label class="active" for="due-starting">Starting:</label>
+					<div id="starting-on" class="input-field">
+					<label for="due-starting" class="active">Due on:</label>
 					<input id="due-starting" name="taskDueStarting" type="text" value="{{dueNext}}">
 					</div>
 				</div>

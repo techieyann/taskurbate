@@ -1,6 +1,33 @@
 <template name="taskMetaModalBody">
-{{description}}
+	<h4 class="centered"><strong>{{name}}</strong></h4>
+	<div class="row">
+		<div class="col s12 m6">
+			<p><strong>Description:</strong></p>
+			<p>{{description}}</p>
+		</div>
+		<div class="col s12 m6">
+			<p><strong>Schedule:</strong> {{schedule}}</p>
+			{{#if dueData}}
+			<p><strong>Due on:</strong> {{dueNext}}</p>
+			<p><strong>Due every:</strong> {{dueEvery}} day{{daysPlural}}</p>
+			{{/if}}
+		</div>
+	</div>
+	{{#if lastCompleted}}
+	<ul class="collection with-header">
+		<li class="collection-header"><strong>Completed at:</strong></li>
+		{{#each completed}}
+		<li class="collection-item">
+			<i class="mdi-device-access-time left"></i>
+			{{completedOn}}
+			<a href="#" class="remove-completed black-text right"><i class="mdi-content-clear"></i></a>
+		</li>
+		{{/each}}
+	</ul>
+	{{/if}}
+
 </template>
+
 <template name="taskMetaModalFooter">
 	<a href="#" class="close-modal waves-effect waves-teal btn-flat right">Close</a>
 </template>
