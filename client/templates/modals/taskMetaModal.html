@@ -1,25 +1,31 @@
 <template name="taskMetaModalBody">
 	<h4 class="centered"><strong>{{name}}</strong></h4>
 	<div class="row">
+		{{#if description}}
 		<div class="col s12 m6">
 			<p><strong>Description:</strong></p>
 			<p>{{description}}</p>
 		</div>
+		{{/if}}
 		<div class="col s12 m6">
-			<p><strong>Schedule:</strong> {{schedule}}</p>
 			{{#if dueData}}
-			<p><strong>Due on:</strong> {{dueNext}}</p>
-			<p><strong>Due every:</strong> {{dueEvery}} day{{daysPlural}}</p>
+			<p><strong>Due:</strong> {{dueNextFormatted}}</p>
+			<p><strong>Due every:</strong> {{dueEveryFormatted}} day{{daysPlural}}</p>
 			{{/if}}
+			<p><strong>Schedule:</strong> {{schedule}}</p>
 		</div>
 	</div>
 	{{#if lastCompleted}}
 	<ul class="collection with-header">
-		<li class="collection-header"><strong>Completed at:</strong></li>
+		<li class="collection-header"><strong>Completed:</strong></li>
 		{{#each completed}}
 		<li class="collection-item">
-			<i class="mdi-device-access-time left"></i>
+			<i class="mdi-action-event"></i>
 			{{completedOn}}
+			{{#if completedAt}}
+			<i class="mdi-device-access-time"></i>
+			{{completedAt}}
+			{{/if}}
 			<a href="#" class="remove-completed black-text right"><i class="mdi-content-clear"></i></a>
 		</li>
 		{{/each}}

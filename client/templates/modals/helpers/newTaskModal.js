@@ -74,7 +74,7 @@ var processNewTaskForm = function () {
 		options.dueEvery = parsedData.taskDaysBeforeDue;
 	}
 	if (parsedData.taskScheduleType == "strict") {
-		options.dueNext = parsedData.taskDueStarting;
+		options.dueNext = new Date(parsedData.taskDueStarting);
 	}
 	Meteor.call('newTask', options, function (err) {
 		if (err) {

@@ -17,7 +17,7 @@ Meteor.methods({
 		return Tasks.insert(task);
 	},
 	editTask: function (options) {
-		var oldSchedule = Tags.findOne({_id: options.id}).schedule;
+		var oldSchedule = Tasks.findOne({_id: options.id}).schedule;
 		Tasks.update({_id: options.id}, {$set: options.task});
 		if (oldSchedule != options.task.schedule) {
 			updateTaskMeta(options.id);
@@ -25,6 +25,7 @@ Meteor.methods({
 		return;
 	},
 	deleteTask: function (taskId) {
+		Completed.remove({task: taskId});
 		return Tasks.remove({_id: taskId});
 	},
 	completeTask: function (options) {
@@ -55,38 +56,46 @@ var updateTaskMeta = function (taskId) {
 			schedule: currentTask.schedule
 		}
 	};
-	var tasksCompleted = Completed.find({task: taskId}, {sort: {at: -1}});
+	var tasksCompleted = Completed.find({task: taskId}, {sort: {at: 1}});
 	var anyCompleted = false;
-	if (tasksCompleted) {
+	if (tasksCompleted.count()) {
 		anyCompleted = true;
 		var completedArray = tasksCompleted.fetch();
 	}
-	if (currentTask.schedule == 'adaptive') {
-		if (anyCompleted) {
-			options.task.lastCompleted = new Data(completedArray[0].at);
-			
-		} else {
-			options.task.lastCompleted = null;
+	if (anyCompleted) {
+		var lastCompleted = completedArray[completedArray.length-1].at.getTime();
+		options.task.lastCompleted = new Date(lastCompleted);
+		if (currentTask.schedule == 'adaptive') {
+			if (completedArray.length > 1) {
+				var period = 0;
+				for (var i=1; i<completedArray.length; i++) {
+					var diff = completedArray[i].at - completedArray[i-1].at;
+					if (i==1) period = diff;
+					else period = ((period*i) + diff)/(i+1);
+				}
+				options.task.dueEvery = period / (1000 * 60 * 60 * 24);
+				options.task.dueNext = new Date(lastCompleted + period);
+			}
+			else {
+				options.task.dueNext = null;
+				options.task.dueEvery = null;				
+			}
+		} else if (currentTask.schedule == 'hybrid') {
+			options.task.dueNext = new Date(lastCompleted + (currentTask.dueEvery * (1000 * 60 * 60 * 24)));
+		} else if (currentTask.schedule == 'strict') {
+			if (options.task.lastCompleted > currentTask.dueNext) {
+				options.task.dueNext = new Date(currentTask.dueNext.getTime() + (currentTask.dueEvery * (1000 * 60 * 60 * 24)));
+			}
+		}
+	} else {
+		options.task.lastCompleted = null;
+		if (currentTask.schedule != 'strict') {
+			options.task.dueNext = null;
+		}
+		if (currentTask.schedule == 'adaptive'){
 			options.task.dueEvery = null;
-			options.task.dueNext = null;
-		}
-	} else if (currentTask.schedule == 'hybrid') {
-		if (anyCompleted) {
-			options.task.lastCompleted = new Data(completedArray[0].at);
-			
-		} else {
-			options.task.lastCompleted = null;
-			options.task.dueNext = null;
-		}
-	} else if (currentTask.schedule == 'strict') {
-		if (anyCompleted) {
-			options.task.lastCompleted = new Data(completedArray[0].at);
-			
-		} else {
-			options.task.lastCompleted = null;
 		}
 	}
-	console.log(taskId);
 	Meteor.call('editTask', options, function (err) {
 		if (err) throw err;
 	});

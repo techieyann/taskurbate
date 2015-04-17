@@ -100,7 +100,7 @@ var processEditTaskForm = function (taskId) {
 		}
 	};
 	if (parsedData.taskScheduleType != "adaptive") {
-		options.task.dueNext = parsedData.taskDueStarting;
+		options.task.dueNext = new Date(parsedData.taskDueStarting);
 		if (parsedData.taskScheduleType == "strict") {
 			options.task.dueEvery = parsedData.taskDaysBeforeDue;
 		}
