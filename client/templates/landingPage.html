@@ -2,8 +2,17 @@
 	<h4>Welcome to Taskurbate!</h4>
 	<div class="row">
 		{{#unless anyTags}}
-		<div class="col s12 m6">First, add a <a href="{{pathFor 'tags'}}">tag</a> or two so you can organize your tasks.</div>
+		<div class="col s12 m6">
+			First, add a <a href="{{pathFor 'tags'}}">tag</a> or two so you can organize your tasks.
+		</div>
 		{{/unless}}
-		<div class="col s12 m6">Add new tasks by pressing the big red button in the lower right.</div>
+		{{#unless anyCompleted}}
+		<div class="col s12 m6">
+			Add new tasks by pressing the big red button in the lower right.
+		</div>
+		{{/unless}}
+		<div class="col s12">
+			{{> calendar}}
+		</div>
 	</div>
 </template>

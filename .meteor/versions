@@ -22,6 +22,7 @@ facebook@1.2.0
 fastclick@1.0.3
 geojson-utils@1.0.3
 google@1.1.5
+gquemart:meteor-reactive-fullcalendar@1.0.1
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
@@ -52,6 +53,7 @@ mobile-status-bar@1.0.3
 monbro:iron-router-breadcrumb@1.0.7
 mongo@1.1.0
 mrt:chartjs@0.0.6
+mrt:jquery-ui@1.9.2
 mrt:moment@2.8.1
 mystor:device-detection@0.2.0
 npm-bcrypt@0.7.8_2

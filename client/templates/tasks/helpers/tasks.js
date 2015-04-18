@@ -22,16 +22,16 @@ Template.taskCollectionElement.helpers({
 		if (this.dueNext) {
 		var diff = this.dueNext - new Date();
 			if (diff > 3 * (1000 * 60 * 60 * 24)) {
-				return 'green';
+				return 'teal';
 			}
 			if (diff > 2 * (1000 * 60 * 60 * 24)) {
-				return 'light-green';
+				return 'green';
 			}
 			if (diff > 1 * (1000 * 60 * 60 * 24)) {
-				return 'lime';
+				return 'light-green';
 			}
 			if (diff > 0) {
-				return 'yellow';
+				return 'lime';
 			}
 			if (diff < -(3 * (1000 * 60 * 60 * 24))) {
 				return 'red';
