@@ -10,6 +10,9 @@ Router.map(function () {
 			return {};
 		}
 	});
+	this.route('login', {
+		path: '/login'
+	});
 	this.route('about', {
 		path: '/about'
 	});
