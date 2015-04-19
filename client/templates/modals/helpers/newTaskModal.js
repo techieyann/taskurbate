@@ -48,6 +48,17 @@ var processNewTaskForm = function () {
 		$('#name').val('').focus();
 		return;
 	}
+	console.log(parsedData.taskDuration);
+	parsedData.taskDuration = parseInt(parsedData.taskDuration, 10);
+	if (parsedData.taskDuration == NaN) {
+		Materialize.toast('Task duration must be a number', 4000);
+		$('#duration').val('').focus();
+	}
+	if (parsedData.taskDuration <= 0) {
+		Materialize.toast('Task duration must be positive', 4000);
+		$('#duration').val('').focus();
+		return;		
+	}
 	if (parsedData.taskScheduleType != "adaptive") {
 		if (parsedData.taskDaysBeforeDue == "") {
 			Materialize.toast('Number of days before due required for strict scheduling', 4000);
@@ -62,13 +73,16 @@ var processNewTaskForm = function () {
 			}
 		}
 	}
+	var now = new Date();
 	var options = {
 		user: Meteor.user()._id,
 		name: parsedData.taskName,
+		duration: parsedData.taskDuration,
 		tag: parsedData.taskTag,
 		schedule: parsedData.taskScheduleType,
 		lastCompleted: null,
-		description: parsedData.taskDescription
+		description: parsedData.taskDescription,
+		created: now
 	};
 	if (parsedData.taskScheduleType != "adaptive") {
 		options.dueEvery = parsedData.taskDaysBeforeDue;

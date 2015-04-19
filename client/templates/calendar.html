@@ -1,3 +1,27 @@
 <template name="calendar">
+	{{> calendarArrows}}
 	{{> ReactiveFullcalendar options=calendarOptions}}
+	{{> calendarViewControl}}
+</template>
+<template name="calendarArrows">
+	<a href="#" id="prev-arrow" class="black-text left waves-effect waves-teal"><i class="mdi-navigation-chevron-left small"></i></a>
+
+		<div class="right">
+			<a href="#" id="goto-today" class="btn-flat btn-small waves-effect waves-teal">Today</a>
+			<a href="#" id="next-arrow" class="black-text waves-effect waves-teal"><i class="mdi-navigation-chevron-right small"></i></a>
+		</div>
+
+
+</template>
+<template name="calendarViewControl">
+	<div class="row">
+		<div class="input-field col s8 m6 l4  offset-m3 offset-l4">
+			<select id="calendar-view-select" name="calendarView">
+				<option value="month" {{calendarView 'month'}}>Month</option>
+				<option value="basicWeek" {{calendarView 'basicWeek'}}>Week</option>
+				<option value="agendaDay" {{calendarView 'agendaDay'}}>Day</option>
+			</select>
+			<label>View:</label>
+		</div>
+	</div>
 </template>

@@ -1,14 +1,16 @@
+var longestTimeDiff;
+
 Template.tasks.helpers({
 	anyTasks: function () {
+		var furthestDue = Tasks.findOne({}, {sort: {dueNext:-1}});
+		if (furthestDue) {
+			longestTimeDiff = furthestDue.dueNext - Session.get('now');
+		}		
 		return (this.tasks ? true: false);
 	},
 	task: function () {
 		return this.tasks;
 	}
-});
-
-Template.taskCollectionElement.onRendered(function () {
-	$('.tooltipped').tooltip({delay:50});
 });
 
 Template.taskCollectionElement.helpers({
@@ -20,30 +22,27 @@ Template.taskCollectionElement.helpers({
 	}, 
 	dueColor: function () {
 		if (this.dueNext) {
-		var diff = this.dueNext - new Date();
-			if (diff > 3 * (1000 * 60 * 60 * 24)) {
-				return 'teal';
-			}
-			if (diff > 2 * (1000 * 60 * 60 * 24)) {
-				return 'green';
-			}
-			if (diff > 1 * (1000 * 60 * 60 * 24)) {
-				return 'light-green';
-			}
-			if (diff > 0) {
-				return 'lime';
-			}
-			if (diff < -(3 * (1000 * 60 * 60 * 24))) {
+			var diff = this.dueNext - Session.get('now');
+			if (diff < 0) {
 				return 'red';
 			}
-			if (diff < -(2 * (1000 * 60 * 60 * 24))) {
-				return 'deep-orange';
-			}
-			if (diff < -(1 * (1000 * 60 * 60 * 24))) {
+			if (diff < (longestTimeDiff / 5)) {
 				return 'orange';
 			}
-			if (diff < 0) {
+			if (diff < (longestTimeDiff / 4)) {
 				return 'amber';
+			}
+			if (diff < (longestTimeDiff / 3)) {
+				return 'lime';
+			}
+			if (diff < (longestTimeDiff / 2)) {
+				return 'green';
+			}
+			if (diff < (longestTimeDiff)) {
+				return 'teal';
+			}
+			if (diff == longestTimeDiff) {
+				return 'blue';
 			}
 		} else {
 			return 'black';

@@ -17,6 +17,10 @@ li>.row{
 		margin-bottom: 0px;
 }
 
+.fc h2 {
+		font-size: 18px;
+}
+
 #backdate-datepicker{
 		display: inline-block;
 }

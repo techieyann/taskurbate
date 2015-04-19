@@ -33,7 +33,7 @@ Template.editTaskModalBody.helpers({
 		return 'hidden';
 	},
 	dueNextFormatted: function () {
-		return this.dueNext.toLocaleDateString();
+		if (this.dueNext) return this.dueNext.toLocaleDateString();
 	},
 	tag: function () {
 		return Tags.find();
@@ -66,7 +66,7 @@ Template.editTaskModalFooter.events({
 
 
 var processEditTaskForm = function (taskId) {
-	console.log(taskId);
+
 	var formData = $('.edit-task-form').serializeArray();
 	var parsedData = parseFormData(formData);
 	if (parsedData.taskName == "") {
@@ -78,6 +78,17 @@ var processEditTaskForm = function (taskId) {
 		Materialize.toast('Task named "'+parsedData.taskName+'" already exists...', 4000);
 		$('#name').val('').focus();
 		return;
+	}
+	console.log(parsedData.taskDuration);
+	parsedData.taskDuration = parseInt(parsedData.taskDuration, 10);
+	if (parsedData.taskDuration == NaN) {
+		Materialize.toast('Task duration must be a number', 4000);
+		$('#duration').val('').focus();
+	}
+	if (parsedData.taskDuration <= 0) {
+		Materialize.toast('Task duration must be positive', 4000);
+		$('#duration').val('').focus();
+		return;		
 	}
 	if (parsedData.taskScheduleType != "adaptive") {
 		if (parsedData.taskDaysBeforeDue == "") {
@@ -93,13 +104,16 @@ var processEditTaskForm = function (taskId) {
 			}
 		}
 	}
+	var now = new Date();
 	var options = {
 		id: taskId,
 		task: {
 			name: parsedData.taskName,
+			duration: parsedData.taskDuration,
 			tag: parsedData.taskTag,
 			schedule: parsedData.taskScheduleType,
-			description: parsedData.taskDescription
+			description: parsedData.taskDescription,
+			edited: now
 		}
 	};
 	if (parsedData.taskScheduleType != "adaptive") {

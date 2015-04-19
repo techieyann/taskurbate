@@ -1,14 +1,43 @@
+Template.calendarViewControl.onRendered(function () {
+$('#calendar-view-select').material_select();
+});
+
+Template.calendarArrows.events({
+	'click #prev-arrow': function () {
+		$('#calendar').fullCalendar('prev');
+	},
+	'click #next-arrow': function () {
+		$('#calendar').fullCalendar('next');
+	},
+	'click #goto-today': function () {
+		$('#calendar').fullCalendar('today');
+	}
+});
+
+Template.calendarViewControl.events({
+	'change select': function (e) {
+		Session.set('calendar-view', e.target.value);
+		$('#calendar').fullCalendar('changeView', e.target.value);
+	}
+});
+
+Template.calendarViewControl.helpers({
+	calendarView: function (view) {
+		if (Session.equals('calendar-view', view)) return 'selected';
+	}
+});
+
 Template.calendar.helpers({
 	calendarOptions: function () {
 
 		var calOptions = {
 			id: 'calendar',
 			header: {
-				left: 'prev',
-				center: 'month,agendaWeek,agendaDay today',
-				right: 'next'
+				left: '',
+				center: 'title',
+				right: ''
 			},
-			defaultView: 'basicWeek',
+			defaultView: Session.get('calendar-view'),
 			events: function (start, end, timezone, callback) {
 				var taskArray = [];
 				if (Session.get('calendar-view-completed-tasks')) {
@@ -26,7 +55,6 @@ Template.calendar.helpers({
 				callback(taskArray);
 			}
 		};
-		console.log(calOptions);
 		return calOptions;
 	}
 });
@@ -35,47 +63,77 @@ Template.calendar.helpers({
 var completedTasks = function () {
 	var completed = Completed.find({}, {fields: {task: 1, at: 1}});
 	var taskArray = [];
-	var taskNames = {};
+	var taskCache = {};
 	completed.forEach(function (done) {
-		var taskName = taskNames[done.task];
-		if (!taskName) {
-			taskName = Tasks.findOne({_id: done.task});
-			if (taskName)	{
-				taskName = taskName.name;
-				taskNames[done.task] = taskName;
-
-			} else taskName = '';
+		var cachedTask = taskCache[done.task];
+		var taskName = '';
+		var eventTitle = ''; 
+		var taskDuration = 30;
+		if (cachedTask) {
+			taskName = cachedTask.name;
+			taskDuration = cachedTask.duration;
+		} else {
+			var currentTask = Tasks.findOne({_id: done.task});
+			if (currentTask)	{
+				cachedTask = {
+					name: currentTask.name,
+					duration: currentTask.duration
+				};
+				taskCache[done.task] = cachedTask;
+				taskName = cachedTask.name;
+				taskDuration = cachedTask.duration;
+			}
 		}
+		eventTitle = taskDuration+'m '+taskName;
+		var displayDuration;
+		if (taskDuration > 20) displayDuration = taskDuration;
+		else displayDuration = 20;
+		var endAt = new Date(done.at.getTime() + (displayDuration*60*1000));
+
+
 		var calendarObject = {
-			title: taskName,
-			start: done.at
+			title: eventTitle,
+			start: done.at,
+			end: endAt
 		};
 		taskArray.push(calendarObject);
 	});
 	return taskArray;
 };
 
-var taskArray = [];
 var longestTimeDiff = 0;
-var now;
+
 
 var scheduledTasks = function () {
-	now = new Date();
-	taskArray = [];
+	var now = Session.get('now');
+	var taskArray = [];
 	var scheduled = Tasks.find({dueNext: {$ne: null}}, {sort: {dueNext: -1}}).fetch();
 	if (scheduled.length) {
 		longestTimeDiff = scheduled[0].dueNext - now;
-		scheduled.forEach(function (task) {processTaskIntoEvent(task);});
+		scheduled.forEach(function (task) {
+			var newEvent = processTaskIntoEvent(task);
+			taskArray.push(newEvent);
+		});
 	}
 	return taskArray;
 };
 
 var processTaskIntoEvent = function (task) {
+	var eventTitle = task.duration+'m '+task.name;
+	var displayDuration;
+	if (task.duration > 20) displayDuration = task.duration;
+	else displayDuration = 20;
+	var endAt = new Date(task.dueNext.getTime() + (displayDuration*60*1000));
+
+
 	var calendarObject = {
-		title: task.name,
-		start: task.dueNext
+		title: eventTitle,
+		start: task.dueNext,
+		end: endAt
 	};
-	var timeDiff = task.dueNext - now;
+
+
+	var timeDiff = task.dueNext - Session.get('now');
 	
 	if (timeDiff < 0) {
 		calendarObject.color = colors.red;
@@ -106,8 +164,7 @@ var processTaskIntoEvent = function (task) {
 	if (task.dueNext.toLocaleTimeString() == '12:00:00 AM') {
 		calendarObject.allDay = true;
 	}
-	taskArray.push(calendarObject);
-
+	return calendarObject;
 };
 
 var colors = {

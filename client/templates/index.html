@@ -1,6 +1,9 @@
 <template name="index">
 	{{#if currentUser}}
-	{{> tasksDash}}
+	{{#unless task}}
+	{{> welcomeMessage}}
+	{{/unless}}
+	{{> calendar}}
 	{{else}}
 	{{> atForm}}
 	{{/if}}

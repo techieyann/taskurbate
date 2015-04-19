@@ -19,6 +19,7 @@ undoRemoveCompleted = function () {
 		});
 		Materialize.toast('Remove completed undone.', 4000);
 		Session.set('lastCompletedRemoved', '');
+		Session.set('selectedCompletedTask', lastRemoved._id);
 	}
 
 };

@@ -22,7 +22,7 @@ Router.map(function () {
 		data: function () {
 			var returnData = {};
 			if (Meteor.user()) {
-				var foundTasks = Tasks.find({}, {sort: {name:1}});
+				var foundTasks = Tasks.find({}, {sort: {dueNext:1}});
 				if (foundTasks.count())	returnData.tasks = foundTasks;
 				var foundTags = Tags.find({}, {sort: {name:1}});
 				returnData.tags = foundTags;
