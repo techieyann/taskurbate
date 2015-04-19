@@ -79,7 +79,6 @@ var processEditTaskForm = function (taskId) {
 		$('#name').val('').focus();
 		return;
 	}
-	console.log(parsedData.taskDuration);
 	parsedData.taskDuration = parseInt(parsedData.taskDuration, 10);
 	if (parsedData.taskDuration == NaN) {
 		Materialize.toast('Task duration must be a number', 4000);

@@ -50,7 +50,6 @@ Template.selectedTask.events({
 		var task = Session.get('selectedTask');
 		if (task)	{
 			openModal('backdateTaskModalBody','backdateTaskModalFooter', false, task);
-			Session.set('selectedTask', null);
 		}
 	},
 	'click .deselect-task': function () {

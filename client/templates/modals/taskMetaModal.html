@@ -19,23 +19,19 @@
 		{{#if completedTaskSelected}}
 		<ul  class="collection">
 			<li class="collection-item">
-				<div class="row">
-
-					<div class="centered">
-						<div class="left">
-							<a href="#" class="remove-completed black-text"><i class="mdi-action-delete"></i></a>
-						</div>
-						<i class="mdi-action-event"></i>
-						{{completedOn}}
-						{{#if completedAt}}
-						<i class="mdi-device-access-time"></i>
-						{{completedAt}}
-						{{/if}}
-						<div class="right">
-							<a href="#" class="deselect-completed black-text"><i class="mdi-action-highlight-remove"></i></a>
-						</div>
+				<div class="centered">
+					<div class="left">
+						<a href="#" class="remove-completed black-text"><i class="mdi-action-delete small"></i></a>
 					</div>
-
+					<i class="mdi-action-event"></i>
+					{{completedOn}}
+					{{#if completedAt}}
+					<i class="mdi-device-access-time"></i>
+					{{completedAt}}
+					{{/if}}
+					<div class="right">
+						<a href="#" class="deselect-completed black-text"><i class="mdi-action-highlight-remove small"></i></a>
+					</div>
 				</div>
 			</li>
 		</ul>
