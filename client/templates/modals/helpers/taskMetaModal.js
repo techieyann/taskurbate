@@ -7,6 +7,15 @@ Template.taskMetaModalBody.onRendered(function () {
 });
 
 Template.taskMetaModalBody.helpers({
+	tagById: function () {
+		var tagID = this.tag;
+		if (tagID == 0) {
+			return 'Misc.';
+		}
+		else {
+			return Tags.findOne({_id: tagID}).name;
+		}
+	},
 	dueData: function () {
 		if (this.dueNext && this.dueEvery) return true;
 		return false;
