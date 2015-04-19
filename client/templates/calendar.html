@@ -1,4 +1,5 @@
 <template name="calendar">
+	{{> selectedTask}}
 	{{> calendarArrows}}
 	{{> ReactiveFullcalendar options=calendarOptions}}
 	{{> calendarViewControl}}
@@ -15,7 +16,7 @@
 </template>
 <template name="calendarViewControl">
 	<div class="row">
-		<div class="input-field col s8 m6 l4  offset-m3 offset-l4">
+		<div class="input-field col s12 m6 l4  offset-m3 offset-l4">
 			<select id="calendar-view-select" name="calendarView">
 				<option value="month" {{calendarView 'month'}}>Month</option>
 				<option value="basicWeek" {{calendarView 'basicWeek'}}>Week</option>

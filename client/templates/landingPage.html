@@ -1,5 +1,5 @@
 <template name="welcomeMessage">
-	<h4>Welcome to Taskurbate!</h4>
+	<h4>Welcome!</h4>
 	<div class="row">
 		{{#unless anyTags}}
 		<div class="col s12 m6">
@@ -8,7 +8,7 @@
 		{{/unless}}
 		{{#unless anyCompleted}}
 		<div class="col s12 m6">
-			Add new tasks by pressing the big red button in the lower right.
+			Add new <a href="{{pathFor 'tasks'}}">tasks</a> and complete a few. You can do it!
 		</div>
 		{{/unless}}
 	</div>

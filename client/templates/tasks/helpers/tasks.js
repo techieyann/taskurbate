@@ -64,15 +64,7 @@ Template.taskCollectionElement.events({
 		$('#'+taskID+'-expand').slideDown(500);
 	},
 	'click .task-complete': function () {
-		var options = {
-			user: Meteor.user()._id,
-			task: this._id,
-			at: new Date()
-		};
-		Meteor.call('completeTask', options, function (err) {
-			if (err) Materialize.toast('Complete task error: '+err);
-		});
-		Materialize.toast('Completed task: "'+this.name+'"', 4000);
+		completeTask(this._id, this.name);
 	},
 	'click .task-description': function () {
 		openModal('taskMetaModalBody','taskMetaModalFooter', true, this);
@@ -87,6 +79,18 @@ Template.taskCollectionElement.events({
 		openModal('backdateTaskModalBody','backdateTaskModalFooter', false, this);
 	}
 });
+
+completeTask = function (id, name) {
+	var options = {
+		user: Meteor.user()._id,
+		task: id,
+		at: new Date()
+	};
+	Meteor.call('completeTask', options, function (err) {
+		if (err) Materialize.toast('Complete task error: '+err);
+	});
+	Materialize.toast('Completed task: "'+name+'"', 4000);
+};
 
 deleteTask = function (id, name) {
 	Meteor.call('deleteTask', id, function (err) {
