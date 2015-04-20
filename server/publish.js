@@ -9,3 +9,7 @@ Meteor.publish('tasks', function (userId) {
 Meteor.publish('completed', function (userId) {
 	return Completed.find({user: userId});
 });
+
+Meteor.publish('groups', function () {
+	return Groups.find({}, {fields: {password: 0}});
+});

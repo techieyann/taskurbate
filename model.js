@@ -1,8 +1,19 @@
+Groups = new Meteor.Collection('groups');
 Tags = new Meteor.Collection('tags');
 Tasks = new Meteor.Collection('tasks');
 Completed = new Meteor.Collection('completed');
 
+
 Meteor.methods({
+	setNickname: function (nickname) {
+		return Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.nickname":nickname}});
+	},
+	newGroup: function (group) {
+		return Groups.insert(group);
+	},
+	editGroup: function (options) {
+		return Groups.update({_id: options.id}, {$set: options.group});		
+	},
 	newTag: function (tag) {
 		return Tags.insert(tag);
 	},

@@ -31,7 +31,7 @@ Template.selectedTask.helpers({
 			var pluralHours = ' hour';
 			if (hours != 1) pluralHours = ' hours';
 			var due = '';
-			if (hours < 0) due = '- Due ' + hours + pluralHours+ ' ago';
+			if (hours < 0) due = '- Due ' + (-hours) + pluralHours+ ' ago';
 			else due = '- Due in ' + hours + pluralHours;
 			return due;
 		}

@@ -1,4 +1,13 @@
 LoggedInController = RouteController.extend({
+	onBeforeAction: function() {
+		if (!Meteor.user() && this.ready()) {
+			return this.redirect('/login');
+		} else this.next();
+	}
+});
+
+
+DefaultSubscriptions = RouteController.extend({
 	subscriptions: function () {
 		var userId = '';
 		if (Meteor.user()) userId = Meteor.user()._id;
@@ -16,4 +25,4 @@ LoggedInController = RouteController.extend({
 			return this.redirect('/login');
 		} else this.next();
 	}
-}); 
+});

@@ -1,7 +1,7 @@
 Router.map(function () {
 	this.route('index', {
 		path: '/',
-		controller: LoggedInController,
+		controller: DefaultSubscriptions,
 		data: function () {
 			if (Meteor.user()) {
 				var foundTags = Tags.find({}, {sort: {name:1}});
@@ -13,15 +13,36 @@ Router.map(function () {
 	this.route('login', {
 		path: '/login'
 	});
+	this.route('settings', {
+		path: '/settings',
+		controller: LoggedInController,
+		subscriptions: function () {
+			this.wait(Meteor.subscribe('groups'));
+			if (this.ready()) {
+				this.render();
+			}
+
+			this.render('loading');
+		},
+	});
 	this.route('about', {
 		path: '/about'
 	});
 	this.route('groups', {
-		path: '/groups'
+		path: '/groups',
+		controller: LoggedInController,
+		subscriptions: function () {
+			this.wait(Meteor.subscribe('groups'));
+			if (this.ready()) {
+				this.render();
+			}
+
+			this.render('loading');
+		}
 	});
 	this.route('tasks', {
 		path: '/tasks',
-		controller: LoggedInController,
+		controller: DefaultSubscriptions,
 		data: function () {
 			var returnData = {};
 			if (Meteor.user()) {
@@ -35,7 +56,7 @@ Router.map(function () {
 	});
 	this.route('tags', {
 		path: '/tags',
-		controller: LoggedInController,
+		controller: DefaultSubscriptions,
 		data: function () {
 			if (Meteor.user()) {
 				var foundTags = Tags.find({}, {sort: {name:1}});
