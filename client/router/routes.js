@@ -21,13 +21,33 @@ Router.map(function () {
 
 			var foundTags = Tags.find({}, {sort: {name:1}});
 			if (foundTags.count()) returnData.tags =  foundTags;
+			return returnData;
+		}
+
+	});
+	this.route('group', {
+		path: '/groups/:_id',
+		controller: DefaultSubscriptions
+	});
+	this.route('groups', {
+		path: '/groups',
+		controller: LoggedInController,
+		subscriptions: function () {
+			this.wait(Meteor.subscribe('groups'));
+			if (this.ready()) {
+				this.render();
+			}
+
+			this.render('loading');			
+		},
+		data: function () {
+			var returnData = {};
 			if (Meteor.user()) {
 				var groupsArray = Meteor.user().profile.groups;
 				if (groupsArray) returnData.groups = Groups.find({_id: {$in: groupsArray}});
 			}
 			return returnData;
 		}
-
 	});
 	this.route('about', {
 		path: '/about'
