@@ -1,6 +1,6 @@
 Template.navbar.onRendered(function () {
 	$(".button-collapse").sideNav({
-		menuWidth: 300,
+		menuWidth: 175,
 		edge: 'right',
 		closeOnClick: true
 	});
