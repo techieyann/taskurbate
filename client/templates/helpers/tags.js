@@ -1,7 +1,3 @@
-Template.tags.onRendered(function () {
-	$('#new-tag').focus();
-});
-
 Template.tags.helpers({
 	anyTags: function () {
 		return (this.tags?true:false);

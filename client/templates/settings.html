@@ -1,4 +1,16 @@
 <template name="settings">
-<h4>Settings:</h4>
-{{> nicknameForm}}
+	<ul class="collection">
+		<li class="collection-item">
+			<h4><i class="mdi-social-person left"></i>Profile</h4>
+			{{> nicknameForm}}
+		</li>
+		<li class="collection-item">
+			<h4><i class="mdi-image-style left"></i>Tags</h4>
+			{{> tags}}
+		</li>
+		<li class="collection-item">
+			<h4><i class="mdi-social-group left"></i>Groups</h4>
+			{{> groups}}
+		</li>
+	</ul>
 </template>

@@ -23,3 +23,46 @@ undoRemoveCompleted = function () {
 	}
 
 };
+
+undoCompleteTask = function () {
+	var lastCompleted = Session.get('lastCompletedId');
+	if (lastCompleted) {
+		Meteor.call('removeCompleted', lastCompleted, function (err) {
+			if (err) {
+				Materialize.toast('Undo error: '+err, 4000);
+				return;
+			}
+			Materialize.toast('Completed undone.', 4000);
+		});
+
+		Session.set('lastCompletedId', null);
+	}
+};
+
+completeTask = function (id, name) {
+
+	var options = {
+		user: Meteor.user()._id,
+		task: id,
+		at: new Date()
+	};
+	Meteor.call('completeTask', options, function (err, result) {
+		if (err) {
+			Materialize.toast('Complete task error: '+err, 4000);
+			return;
+		}
+		Session.set('lastCompletedId', result);
+		updateTaskMeta(id);
+		Materialize.toast('<span>Completed task: "'+name+'"</span> <a href="#" onclick="undoCompleteTask()" class="btn-flat yellow-text">Undo</a>', 4000);
+	});
+};
+
+deleteTask = function (id, name) {
+	Meteor.call('deleteTask', id, function (err) {
+		if (err) {
+			Materialize.toast('Error: '+err, 5000);
+		}
+	});
+	closeModal();
+	Materialize.toast('Deleted task: "'+name+'"', 3000);
+};

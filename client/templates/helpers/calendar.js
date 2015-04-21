@@ -55,15 +55,15 @@ Template.calendar.helpers({
 				callback(taskArray);
 			},
 			eventClick: function (calEvent, jsEvent, view) {
-				Session.set('selectedTask', null);
-				window.location.hash = '';
-
-				var task = Tasks.findOne({_id: calEvent.id});
-				if (task) {
-					Session.set('selectedTask', task);
+				if(calEvent.type == 'completed') {
+					Router.go('/tasks/'+calEvent.id);
+				} else if (calEvent.type == 'scheduled') {
+					var modalData = {
+						_id: calEvent.id,
+						name: calEvent.name
+					}
+					openModal('completeTaskModalBody', 'completeTaskModalFooter', false, modalData);
 				}
-
-
 			}
 		};
 		return calOptions;
@@ -109,6 +109,7 @@ var completedTasks = function () {
 			id: done.task,
 			type: 'completed'
 		};
+		
 	if (done.at.toLocaleTimeString() == '12:00:00 AM') {
 		calendarObject.allDay = true;
 	}
@@ -147,6 +148,7 @@ var processTaskIntoEvent = function (task) {
 		start: task.dueNext,
 		end: endAt,
 		id: task._id,
+		name: task.name,
 		type: 'scheduled'
 	};
 

@@ -3,6 +3,12 @@ Tags = new Meteor.Collection('tags');
 Tasks = new Meteor.Collection('tasks');
 Completed = new Meteor.Collection('completed');
 
+Meteor.users.deny({
+  update: function() {
+    return true;
+  }
+});
+
 
 Meteor.methods({
 	setNickname: function (nickname) {
@@ -13,6 +19,27 @@ Meteor.methods({
 	},
 	editGroup: function (options) {
 		return Groups.update({_id: options.id}, {$set: options.group});		
+	},
+	joinGroup: function (options) {
+		if (Meteor.isServer) {
+			var group = Groups.findOne({name: options.name});
+			if (group) {
+				if (group.password == options.password) {
+					var userGroups = Meteor.user().profile.groups;
+					if (userGroups) userGroups.push(group._id);
+					else userGroups = [group._id];
+					Meteor.users.update({_id: Meteor.user()._id}, {$set:{
+						"profile.groups": userGroups
+					}});
+					var groupMembers = group.members;
+					var nickname = Meteor.user().profile.nickname;
+					groupMembers[Meteor.user()._id] = nickname;
+					return Groups.update({_id: group._id},{$set: {members: groupMembers}});
+				}
+				else throw new Meteor.Error('Incorrect group password');
+			}
+			throw new Meteor.Error('Could not find group named: "'+options.name+'"');
+		}
 	},
 	newTag: function (tag) {
 		return Tags.insert(tag);
@@ -25,24 +52,26 @@ Meteor.methods({
 		return Tags.remove({_id: tagId});
 	},
 	newTask: function (task) {
-		return Tasks.insert(task);
+		Tasks.insert(task);
+		updateTagMeta(task.tag);
 	},
 	editTask: function (options) {
-		var oldSchedule = Tasks.findOne({_id: options.id}).schedule;
+		var task = Tasks.findOne({_id: options.id})
+		var oldSchedule = task.schedule;
 		Tasks.update({_id: options.id}, {$set: options.task});
+		updateTagMeta(task.tag);
 		if (oldSchedule != options.task.schedule) {
 			updateTaskMeta(options.id);
 		}
-		return;
 	},
 	deleteTask: function (taskId) {
 		Completed.remove({task: taskId});
-		return Tasks.remove({_id: taskId});
+		var tag = Tasks.findOne({_id: taskId}).tag;
+		Tasks.remove({_id: taskId});
+		updateTagMeta(tag);
 	},
 	completeTask: function (options) {
-		Completed.insert(options);
-		updateTaskMeta(options.task);
-		return;
+		return Completed.insert(options);
 	},
 	removeCompleted: function (completedId) {
 		var taskId = Completed.findOne({_id: completedId}).task;
@@ -59,7 +88,14 @@ Meteor.methods({
 	}
 });
 
-var updateTaskMeta = function (taskId) {
+updateTagMeta = function (tagId) {
+	if (tagId != 0) {
+		var taggedTasks = Tasks.find({tag: tagId}).count();
+		Tags.update({_id: tagId}, {$set: {tasks: taggedTasks}});
+	}
+};
+
+updateTaskMeta = function (taskId) {
 	var currentTask = Tasks.findOne({_id: taskId});
 	var options = {
 		id: taskId,

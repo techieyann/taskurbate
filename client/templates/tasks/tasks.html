@@ -26,30 +26,18 @@
 		<div class="row">
 			<div class="col s10 m11">
 				<span class="task">
-					<a href="#" class="task-complete {{dueColor}}-text">
+					<a href="#" class="complete-task {{dueColor}}-text">
 						{{#if completedToday}}
 						<i class="mdi-action-assignment-turned-in small left"></i>
 						{{else}}
 						<i class="mdi-action-done small left"></i>
 						{{/if}}
 					</a>
-					<a href="#" class="task-description black-text">{{name}} <i class="mdi-action-launch"></i></a>
+					<a href="{{pathFor 'task'}}" class="black-text">{{name}} <i class="mdi-action-launch"></i></a>
 				</span>
 			</div>
 			<div class="col s1">
-					<a href="#" id="{{_id}}-expand" class="expand left black-text"><i class="mdi-navigation-expand-more small"></i></a>
-					<a href="#" id="{{_id}}-shrink" class="shrink left black-text hidden"><i class="mdi-navigation-expand-less small"></i></a>
-			</div>
-		</div>
-		<div id="{{_id}}-modify" class="row hidden">
-			<div class="col s4">
 				<a href="#" class="backdate-task {{dueColor}}-text"><i class="mdi-action-event small left"></i></a>
-			</div>
-			<div class="col s4 centered">
-				<a href="#" class="edit-task black-text"><i class="mdi-content-create small"></i></a>
-			</div>
-			<div class="col s4 centered">
-				<a href="#" class="delete-task black-text"><i class="mdi-action-delete small"></i></a>
 			</div>
 		</div>
 	</li>

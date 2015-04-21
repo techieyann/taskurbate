@@ -14,6 +14,7 @@ DefaultSubscriptions = RouteController.extend({
 		this.wait(Meteor.subscribe('tasks', userId));
 		this.wait(Meteor.subscribe('tags', userId));
 		this.wait(Meteor.subscribe('completed', userId));
+		this.wait(Meteor.subscribe('groups'));
 		if (this.ready()) {
 			this.render();
 		}
