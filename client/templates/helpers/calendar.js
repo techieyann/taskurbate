@@ -62,7 +62,7 @@ Template.calendar.helpers({
 						_id: calEvent.id,
 						name: calEvent.name
 					}
-					openModal('completeTaskModalBody', 'completeTaskModalFooter', false, modalData);
+					openModal('completeTaskModalBody', '', false, modalData);
 				}
 			}
 		};

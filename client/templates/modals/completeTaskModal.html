@@ -1,8 +1,18 @@
 <template name="completeTaskModalBody">
-<p class="centered">Complete task: '{{name}}'</p>
-</template>
+		<a href="#" class="backdate-task-show black-text right"><i class="mdi-action-event small"></i></a>
+		<a href="#" class="backdate-task-hide black-text right hidden"><i class="mdi-content-remove small"></i></a>
+	<div class="row centered">
+		<br>
+		Complete task: '{{name}}'
+	</div>
 
-<template name="completeTaskModalFooter">
+	<div id="backdate-row" class="row hidden">
+		<div class="col s12 m6 offset-m3 input-field">
+			<input id="backdate-datepicker" type="text" readonly="true">
+			<label for="backdate-datepicker">Backdate task:</label>
+		</div>
+	</div>
 	<a href="#" class="close-modal waves-effect waves-red btn-flat left">Cancel</a>
 	<a href="#" class="complete-task waves-effect waves-green btn-flat right">Complete Task</a>
+	<a href="#" class="submit-backdate-task waves-effect waves-green btn-flat right hidden">Backdate Task</a>
 </template>
