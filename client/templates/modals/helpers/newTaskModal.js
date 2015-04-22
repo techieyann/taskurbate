@@ -1,17 +1,48 @@
 Template.newTaskModalBody.onRendered(function () {
-	$('select').material_select();
+	$('#group').material_select();
+	$('#tag').material_select();
 	$('#due-starting').datepicker({minDate:0});
 });
 
+
+
 Template.newTaskModalBody.helpers({
 	disabledWithoutTags: function () {
-		if (!this.tags.length) return 'disabled';
+		var group = Session.get('selectedGroup');
+		if (this.tags){
+			if (this.tags[group]){
+				if (this.tags[group].length) {
+
+					return;
+				}
+			}
+		}
+		return 'disabled';
+	},
+	disabledWithoutGroups: function () {
+		if (this.groups) {
+			if (!this.groups.length) return 'disabled';
+		}
 	},
 	tag: function () {
-		return Tags.find();
+		var group = Session.get('selectedGroup');
+		return this.tags[group];
+	},
+	group: function () {
+		return this.groups;
+	},
+	selectedGroup: function (group) {
+		return (Session.equals('selectedGroup', group) ? 'selected': '');
 	}
 });
 Template.newTaskModalBody.events({
+	'change #group': function (e) {
+		Session.set('selectedGroup', $(e.target).val());
+		Tracker.flush();
+	Tracker.afterFlush(function () {
+		$('#tag').material_select();
+	});
+	},
 	'click #strict': function () {
 		$('#adaptive-explanation, #hybrid-explanation').slideUp(300);
 		$('#strict-explanation, #starting-on, #due-every').slideDown(300);
