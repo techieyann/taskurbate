@@ -2,6 +2,7 @@ Router.map(function () {
 	this.route('index', {
 		path: '/',
 		controller: DefaultSubscriptions,
+		layoutTemplate: 'containerlessLayout',
 		data: function () {
 
 				var foundTags = Tags.find({}, {sort: {name:1}});
@@ -27,7 +28,11 @@ Router.map(function () {
 	});
 	this.route('group', {
 		path: '/groups/:_id',
-		controller: DefaultSubscriptions
+		controller: DefaultSubscriptions,
+		data: function () {
+			var returnData = Groups.findOne({_id: this.params._id});
+			return returnData;
+		}
 	});
 	this.route('groups', {
 		path: '/groups',
@@ -65,11 +70,20 @@ Router.map(function () {
 		data: function () {
 			var returnData = {};
 
-				var foundTasks = Tasks.find({}, {sort: {dueNext:1}});
-				if (foundTasks.count())	returnData.tasks = foundTasks;
-				var foundTags = Tags.find({}, {sort: {name:1}});
+			var foundTasks = Tasks.find({}, {sort: {dueNext:1}});
+			if (foundTasks.count())	returnData.tasks = foundTasks;
+			if (Meteor.user()) {
+				var foundGroups = Groups.find().fetch();
+				returnData.groups = foundGroups;
+				var foundTags = {
+					0: Tags.find({group: 0}, {sort: {name:1}}).fetch()
+				};
+				foundGroups.forEach(function (group) {
+					var tags = Tags.find({group: group._id}, {sort: {name:1}}).fetch();
+					foundTags[group._id] = tags;
+				});
 				returnData.tags = foundTags;
-
+			}
 			return returnData;
 		}		
 	});

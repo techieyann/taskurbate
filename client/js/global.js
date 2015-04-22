@@ -53,7 +53,7 @@ completeTask = function (id, name) {
 		}
 		Session.set('lastCompletedId', result);
 		updateTaskMeta(id);
-		Materialize.toast('<span>Completed task: "'+name+'"</span> <a href="#" onclick="undoCompleteTask()" class="btn-flat yellow-text">Undo</a>', 4000);
+		Materialize.toast('Completed: "'+name+'" -- <a href="#" onclick="undoCompleteTask()" class="yellow-text">Undo</a>', 4000);
 	});
 };
 
@@ -64,5 +64,5 @@ deleteTask = function (id, name) {
 		}
 	});
 	closeModal();
-	Materialize.toast('Deleted task: "'+name+'"', 3000);
+	Materialize.toast('Deleted: "'+name+'"', 3000);
 };

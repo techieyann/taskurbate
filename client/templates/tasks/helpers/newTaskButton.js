@@ -1,5 +1,10 @@
 Template.newTaskButton.events({
 	'click #new-task-button': function () {
-		openModal('newTaskModalBody', 'newTaskModalFooter', true, {tags:this.tags.fetch()});
+		var data = {
+			groups: this.groups,
+			tags: this.tags
+		};
+
+		openModal('newTaskModalBody', 'newTaskModalFooter', true, data);
 	}
 });

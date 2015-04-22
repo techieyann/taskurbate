@@ -1,5 +1,5 @@
 Template.calendarViewControl.onRendered(function () {
-$('#calendar-view-select').material_select();
+	$('#calendar-view-select').material_select();
 });
 
 Template.calendarArrows.events({
@@ -62,7 +62,7 @@ Template.calendar.helpers({
 						_id: calEvent.id,
 						name: calEvent.name
 					}
-					openModal('completeTaskModalBody', '', false, modalData);
+					openModal('completeTaskModalBody', 'completeTaskModalFooter', false, modalData);
 				}
 			}
 		};

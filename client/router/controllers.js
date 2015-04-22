@@ -10,11 +10,16 @@ LoggedInController = RouteController.extend({
 DefaultSubscriptions = LoggedInController.extend({
 	subscriptions: function () {
 		var userId = '';
-		if (Meteor.user()) userId = Meteor.user()._id;
-		this.wait(Meteor.subscribe('tasks', userId));
-		this.wait(Meteor.subscribe('tags', userId));
-		this.wait(Meteor.subscribe('completed', userId));
-		this.wait(Meteor.subscribe('groups'));
+		var groups = [];
+
+		if (Meteor.user()) {
+			userId = Meteor.user()._id;
+			groups = Meteor.user().profile.groups;
+		}
+		this.wait(Meteor.subscribe('groups', groups));
+		this.wait(Meteor.subscribe('tasks', userId, groups));
+		this.wait(Meteor.subscribe('tags', userId, groups));
+		this.wait(Meteor.subscribe('completed', userId, groups));
 		if (this.ready()) {
 			this.render();
 		}

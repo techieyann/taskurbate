@@ -1,20 +1,32 @@
 <template name="newTaskModalBody">
 	<form class="new-task-form">
 		<div class="row">
-			<div class="input-field col s12 m6 l4">
+			<div class="input-field col s12 m8">
 				<input placeholder="Name of new task" name="taskName" id="name" type="text" required>
 				<label for="name">Name</label>
 			</div>
-			<div class="input-field col s12 m3 l4">
+			<div class="input-field col s12 m4">
 				<input id="duration" name="taskDuration" type="number" value="30">
 				<label for="duration" class="active">Duration (mins)</label>
 			</div>
-			<div class="input-field col s12 m3 l4">
+		</div>
+		<div class="row">
+			<div class="input-field col s6">
+				<select id="group" name="taskGroup" {{disabledWithoutGroups}}>
+					<option value="0" {{selectedGroup 0}}>Self</option>
+					{{#each group}}
+					<option value="{{_id}}" {{selectedGroup _id}}>{{name}}</option>
+					{{/each}}
+				</select>
+				<label>Group:</label>
+			</div>
+			<div class="input-field col s6">
 				<select id="tag" name="taskTag" {{disabledWithoutTags}}>
 					<option value="0" selected>Misc.</option>
 					{{#each tag}}
 					<option value="{{_id}}">{{name}}</option>
 					{{/each}}
+					{{reInitialize}}
 				</select>
 				<label>Tag as:</label>
 			</div>

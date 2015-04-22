@@ -14,3 +14,14 @@
 		</footer>
 	</div>
 </template>
+
+<template name="containerlessLayout">
+	{{> navbar}}
+	{{> modal}}
+
+		{{> yield}}
+		<footer>
+			{{> footer}}
+		</footer>
+
+</template>

@@ -62,6 +62,7 @@ var processNewTagForm = function () {
 		var options = {
 			name: newTag,
 			user: Meteor.user()._id,
+			group: 0,
 			tasks: 0
 		};
 		Meteor.call('newTag', options, function (err) {

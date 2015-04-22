@@ -1,7 +1,11 @@
 <template name="calendar">
+<div id="index-calendar-wrapper">
+	<div id="index-calendar">
 	{{> calendarArrows}}
 	{{> ReactiveFullcalendar options=calendarOptions}}
 	{{> calendarViewControl}}
+	</div>
+</div>
 </template>
 
 <template name="calendarArrows">

@@ -30,13 +30,13 @@ Template.groupJoinCreate.events({
 		createGroup();
 	},
 	'click #swap-to-join': function () {
-		$('#create-control').hide();
-		$('#join-control').show();
+		$('#create-header, #create-control').hide();
+		$('#join-header, #join-control').show();
 		$('#confirm-password').slideUp(300);
 	},
 	'click #swap-to-create': function () {
-		$('#join-control').hide();
-		$('#create-control').show();
+		$('#join-header, #join-control').hide();
+		$('#create-header, #create-control').show();
 		$('#confirm-password').slideDown(300);
 	}
 });
