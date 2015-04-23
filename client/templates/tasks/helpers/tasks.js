@@ -30,13 +30,13 @@ Template.taskCollectionElement.helpers({
 				return 'lime';
 			}
 			if (diff < (longestTimeDiff / 2)) {
+				return 'lime';
+			}
+			if (diff < (longestTimeDiff/1.25)) {
 				return 'green';
 			}
-			if (diff < (longestTimeDiff)) {
+			else {
 				return 'teal';
-			}
-			if (diff == longestTimeDiff) {
-				return 'blue';
 			}
 		} else {
 			return 'black';
