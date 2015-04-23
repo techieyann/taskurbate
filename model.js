@@ -159,7 +159,11 @@ updateTaskMeta = function (taskId) {
 			options.task.dueNext = new Date(lastCompleted + (currentTask.dueEvery * (1000 * 60 * 60 * 24)));
 		} else if (currentTask.schedule == 'strict') {
 			if (options.task.lastCompleted > currentTask.dueNext) {
-				options.task.dueNext = new Date(currentTask.dueNext.getTime() + (currentTask.dueEvery * (1000 * 60 * 60 * 24)));
+				var dueNext = currentTask.dueNext.getTime() + (currentTask.dueEvery * (1000 * 60 * 60 * 24));
+				while (options.task.lastCompleted.getTime() > dueNext) {
+					dueNext = dueNext + (currentTask.dueEvery * (1000 * 60 * 60 * 24));
+				}
+				options.task.dueNext = new Date(dueNext);
 			}
 		}
 	} else {
