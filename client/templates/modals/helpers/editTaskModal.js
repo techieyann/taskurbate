@@ -1,7 +1,7 @@
 Template.editTaskModalBody.onRendered(function () {
 	$('select').material_select();
 	$('#due-starting').datepicker({minDate:0});
-	var scheduleType = this.data.schedule;
+	var scheduleType = this.data.task.schedule;
 	if (scheduleType == "adaptive") {
 		$('#hybrid-explanation, #strict-explanation, #due-every, #starting-on').hide();
 	}
@@ -14,8 +14,21 @@ Template.editTaskModalBody.onRendered(function () {
 });
 
 Template.editTaskModalBody.helpers({
+	groupName: function () {
+		var groupId = this.group;
+		if (groupId == 'default') return 'Self';
+		var group = Groups.findOne({_id: groupId});
+		if (group) return group.name;
+	},
+	disabledWithoutTags: function () {
+		if (this.tags){
+			console.log(this.tags.length);
+			if (this.tags.length)	return;
+		}
+		return 'disabled';
+	},
 	selectedTag: function (tagId) {
-		if (tagId == 0) {
+		if (tagId == 'default') {
 			if (this.tag == tagId) return 'selected';
 		}
 		else {
@@ -36,7 +49,7 @@ Template.editTaskModalBody.helpers({
 		if (this.dueNext) return this.dueNext.toLocaleDateString();
 	},
 	tag: function () {
-		return Tags.find();
+		return this.tags;
 	}
 });
 
@@ -55,12 +68,12 @@ Template.editTaskModalBody.events({
 	},
 	'submit .edit-task-form': function (e) {
 		e.preventDefault();
-		processEditTaskForm(this._id);
+		processEditTaskForm(this.task._id);
 	}
 });
 Template.editTaskModalFooter.events({
 	'click .edit-task': function () {
-		processEditTaskForm(this._id);
+		processEditTaskForm(this.task._id);
 	}
 });
 
@@ -80,9 +93,10 @@ var processEditTaskForm = function (taskId) {
 		return;
 	}
 	parsedData.taskDuration = parseInt(parsedData.taskDuration, 10);
-	if (parsedData.taskDuration == NaN) {
-		Materialize.toast('Task duration must be a number', 4000);
+	if (!parsedData.taskDuration) {
+		Materialize.toast('Task duration must be a positive number', 4000);
 		$('#duration').val('').focus();
+		return;
 	}
 	if (parsedData.taskDuration <= 0) {
 		Materialize.toast('Task duration must be positive', 4000);
@@ -103,6 +117,8 @@ var processEditTaskForm = function (taskId) {
 			}
 		}
 	}
+	var taskTag = parsedData.taskTag;
+	if (!taskTag) taskTag = 'default';
 	var now = new Date();
 	var options = {
 		id: taskId,

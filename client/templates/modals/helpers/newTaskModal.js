@@ -9,6 +9,8 @@ Template.newTaskModalBody.onRendered(function () {
 Template.newTaskModalBody.helpers({
 	disabledWithoutTags: function () {
 		var group = Session.get('selectedGroup');
+		console.log(this.tags);
+		console.log(group);
 		if (this.tags){
 			if (this.tags[group]){
 				if (this.tags[group].length) {
@@ -80,9 +82,10 @@ var processNewTaskForm = function () {
 		return;
 	}
 	parsedData.taskDuration = parseInt(parsedData.taskDuration, 10);
-	if (parsedData.taskDuration == NaN) {
-		Materialize.toast('Task duration must be a number', 4000);
+	if (!parsedData.taskDuration) {
+		Materialize.toast('Task duration must be a positive number', 4000);
 		$('#duration').val('').focus();
+		return;
 	}
 	if (parsedData.taskDuration <= 0) {
 		Materialize.toast('Task duration must be positive', 4000);
@@ -103,12 +106,17 @@ var processNewTaskForm = function () {
 			}
 		}
 	}
+	var taskTag = parsedData.taskTag;
+	if (!taskTag) taskTag = 'default';
+	var taskGroup = parsedData.taskGroup;
+	if (!taskGroup) taskGroup = 'default';
 	var now = new Date();
 	var options = {
 		user: Meteor.user()._id,
 		name: parsedData.taskName,
 		duration: parsedData.taskDuration,
-		tag: parsedData.taskTag,
+		group: taskGroup,
+		tag: taskTag,
 		schedule: parsedData.taskScheduleType,
 		lastCompleted: null,
 		description: parsedData.taskDescription,

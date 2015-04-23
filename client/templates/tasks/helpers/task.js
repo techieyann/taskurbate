@@ -7,11 +7,20 @@ Template.task.onRendered(function () {
 Template.task.helpers({
 	tagById: function () {
 		var tagID = this.tag;
-		if (tagID == 0) {
+		if (tagID == 'default') {
 			return 'Misc.';
 		}
 		else {
 			return Tags.findOne({_id: tagID}).name;
+		}
+	},
+	groupById: function () {
+		var groupID = this.group;
+		if (groupID == 'default') {
+			return 'Self';
+		}
+		else {
+			return Groups.findOne({_id: groupID}).name;
 		}
 	},
 	dueData: function () {
@@ -28,13 +37,13 @@ Template.task.helpers({
 
 Template.task.events({
 	'click .completed-calendar': function () {
-		openModal('completedCalendarModalBody', 'completedCalendarModalFooter', true, this);
+		openModal('completedCalendarModalBody', 'completedCalendarModalFooter', true, this.task);
 	},
 	'click .edit-task': function () {
 		openModal('editTaskModalBody','editTaskModalFooter', true, this);
 	},
 	'click .delete-task': function () {
-		openModal('deleteTaskModalBody','deleteTaskModalFooter', false, this);
+		openModal('deleteTaskModalBody','deleteTaskModalFooter', false, this.task);
 	},
 	'click .show-calendar': function () {
 		$('.hide-calendar').show();

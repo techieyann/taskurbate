@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="input-field col s6">
 				<select id="group" name="taskGroup" {{disabledWithoutGroups}}>
-					<option value="0" {{selectedGroup 0}}>Self</option>
+					<option value="default" {{selectedGroup 0}}>Self</option>
 					{{#each group}}
 					<option value="{{_id}}" {{selectedGroup _id}}>{{name}}</option>
 					{{/each}}
@@ -22,7 +22,7 @@
 			</div>
 			<div class="input-field col s6">
 				<select id="tag" name="taskTag" {{disabledWithoutTags}}>
-					<option value="0" selected>Misc.</option>
+					<option value="default" selected>Misc.</option>
 					{{#each tag}}
 					<option value="{{_id}}">{{name}}</option>
 					{{/each}}

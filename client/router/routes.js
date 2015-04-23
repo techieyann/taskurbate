@@ -4,11 +4,13 @@ Router.map(function () {
 		controller: DefaultSubscriptions,
 		layoutTemplate: 'containerlessLayout',
 		data: function () {
-
-				var foundTags = Tags.find({}, {sort: {name:1}});
-				return {tags: foundTags};
-
-			return {};
+			var returnData = {
+				tags: Tags.find({group: 'default'}).count(),
+				tasks: Tasks.find().count(),
+				groups: Groups.find().count(),
+				anyDue: Tasks.find({dueNext: {$ne: null}}).count()
+			};
+			return returnData;
 		}
 	});
 	this.route('login', {
@@ -19,19 +21,35 @@ Router.map(function () {
 		controller: DefaultSubscriptions,
 		data: function () {
 			var returnData = {};
-
-			var foundTags = Tags.find({}, {sort: {name:1}});
+			returnData.tagGroup = 'default';
+			var foundTags = Tags.find({group:'default'}, {sort: {name:1}});
 			if (foundTags.count()) returnData.tags =  foundTags;
+
 			return returnData;
 		}
 
+	});
+	this.route('groupMember', {
+		path: '/groups/:groupId/member/:userId',
+		controller: DefaultSubscriptions,
+		data: function () {
+			return Groups.findOne({_id: this.params.groupid});
+		}
 	});
 	this.route('group', {
 		path: '/groups/:_id',
 		controller: DefaultSubscriptions,
 		data: function () {
-			var returnData = Groups.findOne({_id: this.params._id});
-			return returnData;
+			var returnData = {};
+			var group = Groups.findOne({_id: this.params._id});
+			if (group) {
+				returnData.group = group;
+				var foundTags = Tags.find({group: group._id}, {sort: {name:1}});
+				if (foundTags.count()) returnData.tags = foundTags;
+				returnData.tagGroup = group._id;
+				return returnData;
+			} else this.redirect('/groups');
+			
 		}
 	});
 	this.route('groups', {
@@ -61,7 +79,15 @@ Router.map(function () {
 		path: '/tasks/:_id',
 		controller: DefaultSubscriptions,
 		data: function () {
-			return Tasks.findOne({_id: this.params._id});
+			var returnData = {};
+			var task = Tasks.findOne({_id: this.params._id});
+			if (task) {
+				returnData.task = task;
+				var foundTags = Tags.find({group: task.group}, {sort: {name:1}}).fetch();
+				returnData.tags = foundTags;
+				return returnData;
+			}
+			this.redirect('/tasks');
 		}
 	});
 	this.route('tasks', {
@@ -76,7 +102,7 @@ Router.map(function () {
 				var foundGroups = Groups.find().fetch();
 				returnData.groups = foundGroups;
 				var foundTags = {
-					0: Tags.find({group: 0}, {sort: {name:1}}).fetch()
+					default: Tags.find({group: 'default'}, {sort: {name:1}}).fetch()
 				};
 				foundGroups.forEach(function (group) {
 					var tags = Tags.find({group: group._id}, {sort: {name:1}}).fetch();

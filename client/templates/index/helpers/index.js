@@ -1,8 +1,8 @@
 Template.index.helpers({
 	needsWelcoming: function () {
-		var tags = this.tags;
-		var completed = Completed.find().count();
-		if (tags && completed) return false;
-		return true;
+		return !(this.tags && this.tasks && this.groups);
+	},
+	anyDue: function () {
+		return this.anyDue;
 	}
 });
