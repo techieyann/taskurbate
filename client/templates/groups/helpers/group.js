@@ -1,4 +1,7 @@
 Template.group.helpers({
+	anyTasks: function () {
+		return this.tasks.count();
+	},
 	groupMember: function () {
 		var memberArray = [];
 		var members = this.group.members;
@@ -12,3 +15,4 @@ Template.group.helpers({
 		return memberArray;
 	}
 });
+

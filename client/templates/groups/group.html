@@ -4,16 +4,13 @@
 		<h4>
 			<i class="mdi-action-assignment left"></i>Tasks
 		</h4>
+		{{#if anyTasks}}
 		<ul class="row collection">
 			{{#each tasks}}		
 			{{> taskCollectionElement}}
 			{{/each}}
 		</ul>
-		<div class="row">
-			<a class="new-group-task btn-floating btn-large teal right">
-				<i class="large mdi-content-add"></i>
-			</a>
-		</div>
+		{{/if}}
 	</div>
 	<div class="card-panel">
 		<h4><i class="mdi-social-person left"></i>Members</h4>
