@@ -1,11 +1,13 @@
 <template name="tasks">
 	<div class="card-panel">
 		{{#if anyTasks}}
-		<h4>
-			<i class="mdi-action-assignment left"></i>
-			Your Tasks 
-			<a href="#" class="filter-tasks black-text"><i class="mdi-content-filter-list right"></i></a>
-		</h4>
+		<div class="row">
+			<h4>
+				<i class="mdi-action-assignment left"></i>
+				Your Tasks 
+				<a href="#" class="filter-tasks black-text"><i class="mdi-content-filter-list right"></i></a>
+			</h4>
+		</div>
 		<ul id="task-collection" class="row collection">
 			{{#each task}}
 			{{> taskCollectionElement}}
