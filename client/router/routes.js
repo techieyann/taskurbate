@@ -44,6 +44,7 @@ Router.map(function () {
 			var group = Groups.findOne({_id: this.params._id});
 			if (group) {
 				returnData.group = group;
+				returnData.tasks = Tasks.find({group: group._id}, {sort: {dueNext:1}});
 				var foundTags = Tags.find({group: group._id}, {sort: {name:1}});
 				if (foundTags.count()) returnData.tags = foundTags;
 				returnData.tagGroup = group._id;

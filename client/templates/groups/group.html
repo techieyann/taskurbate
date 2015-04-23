@@ -1,16 +1,33 @@
 <template name="group">
-		<div class="card-panel">
-			<h4><i class="mdi-social-group left"></i>{{group.name}} Members</h4>
-			<ul class="collection">
-			{{#each groupMember}}
-			<li class="collection-item"><i class="mdi-social-person left"></i><a href="{{groupMemberPath}}" class="black-text">{{name}} <i class="mdi-action-launch"></i></a></li>
+	<h3><i class="mdi-social-group left"></i>{{group.name}}</h3>
+	<div class="card-panel">
+		<h4>
+			<i class="mdi-action-assignment left"></i>Tasks
+		</h4>
+		<ul class="row collection">
+			{{#each tasks}}		
+			{{> taskCollectionElement}}
 			{{/each}}
-			</ul>
+		</ul>
+		<div class="row">
+			<a class="new-group-task btn-floating btn-large teal right">
+				<i class="large mdi-content-add"></i>
+			</a>
 		</div>
-		<div class="card-panel">
-			<h4><i class="mdi-image-style left"></i>{{group.name}} Tags</h4>
-			{{> tags}}
+	</div>
+	<div class="card-panel">
+		<h4><i class="mdi-social-person left"></i>Members</h4>
+		<ul class="row collection">
+			{{#each groupMember}}
+			<li class="collection-item centered"><a href="{{groupMemberPath}}" class="black-text">{{name}} <i class="mdi-action-launch"></i></a></li>
+			{{/each}}
+		</ul>
+	</div>
+	<div class="card-panel">
+		<h4><i class="mdi-image-style left"></i>Tags</h4>
+		<div class="row">
+		{{> tags}}
 		</div>
-
+	</div>
 
 </template>
