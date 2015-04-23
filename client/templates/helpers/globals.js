@@ -1,4 +1,4 @@
-Template.layout.events = {
+var globalEvents = {
 	'click .logout': function () {
 		Meteor.logout();
 	},
@@ -42,6 +42,9 @@ Template.layout.events = {
 		}
 	}
 };
+
+Template.layout.events = globalEvents;
+Template.containerlessLayout.events = globalEvents;
 
 Template.registerHelper('dueNextFormatted', function () {
 	return this.dueNext.toLocaleDateString();

@@ -1,4 +1,5 @@
 Meteor.startup(function () {
+	$('body').addClass('grey lighten-4');
 	Session.set('now', new Date());
 	Meteor.setInterval(function () {
 		Session.set('now', new Date());

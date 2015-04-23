@@ -76,7 +76,7 @@ Meteor.methods({
 		return Tags.update({_id: options.id}, {$set: {name: options.name}});
 	},
 	deleteTag: function (tagId) {
-		Tasks.update({user: Meteor.user()._id, tag: tagId}, {$set: {tag: '0'}});
+		Tasks.update({user: Meteor.user()._id, tag: tagId}, {$set: {tag: 'default'}});
 		return Tags.remove({_id: tagId});
 	},
 	newTask: function (task) {
@@ -84,7 +84,6 @@ Meteor.methods({
 		updateTagMeta(task.tag);
 	},
 	editTask: function (options) {
-		console.log(options);
 		var task = Tasks.findOne({_id: options.id})
 		var oldSchedule = task.schedule;
 		Tasks.update({_id: options.id}, {$set: options.task});

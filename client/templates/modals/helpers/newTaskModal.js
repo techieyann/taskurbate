@@ -9,8 +9,6 @@ Template.newTaskModalBody.onRendered(function () {
 Template.newTaskModalBody.helpers({
 	disabledWithoutTags: function () {
 		var group = Session.get('selectedGroup');
-		console.log(this.tags);
-		console.log(group);
 		if (this.tags){
 			if (this.tags[group]){
 				if (this.tags[group].length) {
