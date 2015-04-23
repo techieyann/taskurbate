@@ -1,18 +1,23 @@
 <template name="groups">
+
 	{{#if hasNickname}}
 	{{#if anyGroups}}
+	<div class="card-panel">
 	{{> groupList}}
+	</div>
 	{{/if}}
 	{{> groupJoinCreate}}
 	{{else}}
+	<div class="card-panel">
 	<p>Please <a href="{{pathFor 'settings'}}">set a nickname</a> before joining/creating any groups.</p>
+	</div>
 	{{/if}}
 </template>
 
 <template name="groupList">
+	<h4><i class="mdi-social-group left"></i>Your Groups</h4>
+	<ul id="task-collection" class="row collection">
 
-	<ul id="task-collection" class="collection with-header">
-		<li class="collection-header"><h4><i class="mdi-social-group left"></i>Your Groups</h4></li>
 		{{#each group}}
 		<li class="collection-item">
 			<a href="{{pathFor 'group'}}" class="black-text">{{name}} <i class="mdi-action-launch"></i></a>
