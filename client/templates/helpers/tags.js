@@ -9,7 +9,7 @@ Template.tags.helpers({
 Template.tags.events({
 	'click .create-tag, submit #new-tag-form': function (e) {
 		e.preventDefault();
-		processNewTagForm();
+		processNewTagForm(this.tagGroup);
 	}
 });
 Template.tagCollectionElement.events({
@@ -39,9 +39,10 @@ deleteTag = function (id, name) {
 		}
 	});
 	Materialize.toast('Deleted tag: "'+name+'"', 3000);
+	closeModal();
 };
 
-var processNewTagForm = function () {
+var processNewTagForm = function (group) {
 	var newTag = $('#new-tag').val();
 	if (!newTag) {
 		Materialize.toast('A tag needs a name...', 3000);
@@ -54,7 +55,12 @@ var processNewTagForm = function () {
 			editTagInput.focus();
 			return
 		}
-		if (Tags.findOne({name: newTag})) {
+		if (newTag == 'Misc.') {
+			Materialize.toast('Tag: "Misc." already exists...', 3000);
+			$('#new-tag').val('').focus();
+			return;
+		}
+		if (Tags.findOne({$and: [{group: group},{name: newTag}]})) {
 			Materialize.toast('Tag: "'+newTag +'" already exists...', 3000);
 			$('#new-tag').val('').focus();
 			return;
@@ -62,7 +68,7 @@ var processNewTagForm = function () {
 		var options = {
 			name: newTag,
 			user: Meteor.user()._id,
-			group: 0,
+			group: group,
 			tasks: 0
 		};
 		Meteor.call('newTag', options, function (err) {
