@@ -1,10 +1,16 @@
 Template.welcomeMessage.helpers({
-
 	anyTags: function () {
-		return this.tags.count();
+		return this.tags;
 	},
-	anyCompleted: function () {
-		return Completed.find().count();
+	anyTasks: function () {
+		return this.tasks;
+	},
+	tasksButNoneDue: function () {
+		return (this.tasks && !this.anyDue);
+	},
+	anyGroups: function () {
+		return this.groups;
 	}
+
 
 });

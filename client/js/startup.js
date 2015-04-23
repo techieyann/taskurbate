@@ -5,7 +5,7 @@ Meteor.startup(function () {
 	}, 60000);
 	Session.setDefault('lastCompletedRemoved', '');
 	Session.setDefault('selectedCompletedTask', null);
-	Session.setDefault('selectedGroup', 0);
+	Session.setDefault('selectedGroup', 'default');
 	if (Meteor.user()) {
 		Session.setDefault('uid', Meteor.user()._id);
 	}

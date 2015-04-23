@@ -1,7 +1,8 @@
 <template name="index">
 	{{#if needsWelcoming}}
 	{{> welcomeMessage}}
-	{{else}}
+	{{/if}}
+	{{#if anyDue}}
 	{{> calendar}}
 	{{/if}}
 </template>

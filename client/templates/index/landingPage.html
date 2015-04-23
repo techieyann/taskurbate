@@ -1,15 +1,78 @@
 <template name="welcomeMessage">
-	<h4>Welcome!</h4>
+
 	<div class="row">
-		{{#unless anyTags}}
-		<div class="col s12 m6">
-			First, add a <a href="{{pathFor 'settings'}}">tag</a> or two so you can organize your tasks.
+		<div class="col s10 offset-s1">
+			<h3>Welcome!</h3>
 		</div>
-		{{/unless}}
-		{{#unless anyCompleted}}
-		<div class="col s12 m6">
-			Add new <a href="{{pathFor 'tasks'}}">tasks</a> and complete a few. You can do it!
+		<div class="col s10 offset-s1">
+			<div class="row">
+				{{#unless anyTags}}
+				<div class="col s12 m6 l4">
+					<a href="{{pathFor 'settings'}}" class="black-text">
+						<div class="card-panel">
+							<div class="row">
+								<div class="col s12 m4 centered">
+									<i class="mdi-image-style medium"></i>
+								</div>
+								<div class="col s12 m8">
+									<strong>Add a tag or two so you can organize your tasks.</strong>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				{{/unless}}
+				{{#unless anyTasks}}
+				<div class="col s12 m6 l4">
+					<a href="{{pathFor 'tasks'}}" class="black-text">
+						<div class="card-panel">						
+							<div class="row">
+								<div class="col s12 m4 centered">
+									<i class="mdi-action-assignment medium"></i>
+								</div>
+								<div class="col s12 m8">
+									<strong>Add new tasks and start taskurbating.</strong>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				{{/unless}}
+				{{#if tasksButNoneDue}}
+				<div class="col s12 m6 l4">
+					<a href="{{pathFor 'tasks'}}" class="black-text">
+						<div class="card-panel">
+							<div class="row">
+								<div class="col s12 m4 centered">
+									<i class="mdi-action-assignment-turned-in medium"></i>
+								</div>
+								<div class="col s12 m8">
+									<strong>Complete some tasks so that you can view the calendar.</strong>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				{{/if}}
+				{{#unless anyGroups}}
+				<div class="col s12 m6 l4">
+					<a href="{{pathFor 'groups'}}" class="black-text">
+						<div class="card-panel">
+							<div class="row">
+								<div class="col s12 m4 centered">
+									<i class="mdi-social-group medium"></i>
+								</div>
+								<div class="col s12 m8">
+									<strong>Join a group (or create one) and taskurbate with others.</strong>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				{{/unless}}
+			</div>
+			<hr>
 		</div>
-		{{/unless}}
 	</div>
+
 </template>
