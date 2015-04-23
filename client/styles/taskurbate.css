@@ -21,8 +21,18 @@ li>.row{
 		font-size: 18px;
 }
 
+#calendar-card {
+		width: 97%;
+		margin-left: auto;
+		margin-right: auto;
+}
+
 #backdate-datepicker{
 		display: inline-block;
+}
+
+#calendar{
+
 }
 /*tags*/
 #new-tag-form{
