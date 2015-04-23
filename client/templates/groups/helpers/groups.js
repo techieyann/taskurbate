@@ -20,6 +20,11 @@ Template.groupList.helpers({
 	}
 });
 
+Template.groups.events({
+	'click .leave-group': function () {
+		openModal('leaveGroupModalBody', 'leaveGroupModalFooter', false, this);
+	}
+});
 
 
 Template.groupJoinCreate.events({
@@ -61,7 +66,7 @@ var joinGroup = function () {
 	};
 	Meteor.call('joinGroup', options, function (err) {
 		if (err) {
-			Materialize.toast('Join group error: '+err, 4000);
+			Materialize.toast('Join group '+err, 4000);
 			return;
 		}
 		Materialize.toast('Joined group: '+parsedData.groupName, 4000);
@@ -76,10 +81,15 @@ var createGroup = function () {
 		$('#group-name').focus();
 		return;
 	}
-	if (Groups.find({name: parsedData.groupName}).count()) {
-		Materialize.toast('Group name '+parsedData.groupName+' already exists.',3000);
+	if (parsedData.groupName == 'Self') {
+		Materialize.toast('Group: "Self" already exists...',3000);
 		$('#group-name').val('').focus();
 		return;
+	}
+	if (Groups.findOne({name: parsedData.groupName})) {
+			Materialize.toast('Group: "'+parsedData.groupName +'" already exists...', 3000);
+			$('#group-name').val('').focus();
+			return;
 	}
 	if (parsedData.groupPass == '') {
 		Materialize.toast('Group must have a password.',3000);
@@ -99,7 +109,7 @@ var createGroup = function () {
 	};
 	Meteor.call('newGroup', options, function (err) {
 		if (err) {
-			Materialize.toast('Create group error: '+err, 4000);
+			Materialize.toast('Create group '+err, 4000);
 			return;
 		}
 		var group = {
@@ -108,7 +118,7 @@ var createGroup = function () {
 		};
 		Meteor.call('joinGroup', group, function (err) {
 			if (err) {
-				Materialize.toast('Join group error: '+err, 4000);
+				Materialize.toast('Join group '+err, 4000);
 				return;
 			}
 			Materialize.toast('Created group: '+parsedData.groupName, 4000);

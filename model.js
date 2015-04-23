@@ -12,7 +12,17 @@ Meteor.users.deny({
 
 Meteor.methods({
 	setNickname: function (nickname) {
-		return Meteor.users.update({_id: Meteor.user()._id}, {$set: {"profile.nickname":nickname}});
+		var userId = Meteor.user()._id;
+		Meteor.users.update({_id: userId}, {$set: {"profile.nickname":nickname}});
+		var groups = Meteor.user().profile.groups;
+		groups.forEach(function (groupId) {
+			var group = Groups.findOne({_id: groupId});
+			if (group) {
+				var groupMembers = group.members;
+				groupMembers[userId] = nickname;
+				Groups.update({_id: group._id},{$set: {members: groupMembers}});				
+			}
+		});
 	},
 	newGroup: function (group) {
 		return Groups.insert(group);
@@ -41,6 +51,24 @@ Meteor.methods({
 			throw new Meteor.Error('Could not find group named: "'+options.name+'"');
 		}
 	},
+	leaveGroup: function (groupId) {
+		var group = Groups.findOne({_id: groupId});
+		if (group) {
+			var userGroups = Meteor.user().profile.groups;
+			var index = userGroups.indexOf(groupId);
+			if (index > -1) {
+				userGroups.splice(index, 1);
+				Meteor.users.update({_id: Meteor.user()._id}, {$set:{
+					"profile.groups": userGroups
+				}});
+				var groupMembers = group.members;
+				delete groupMembers[Meteor.user()._id];
+				return Groups.update({_id: group._id},{$set: {members: groupMembers}});				
+			}
+			throw new Meteor.Error('Not a member of '+group.name);
+		}
+		throw new Meteor.Error('Could not find group');
+	},
 	newTag: function (tag) {
 		return Tags.insert(tag);
 	},
@@ -48,7 +76,7 @@ Meteor.methods({
 		return Tags.update({_id: options.id}, {$set: {name: options.name}});
 	},
 	deleteTag: function (tagId) {
-		Tasks.update({user: Meteor.user()._id, tag: tagId}, {$set: {tag: 0}});
+		Tasks.update({user: Meteor.user()._id, tag: tagId}, {$set: {tag: '0'}});
 		return Tags.remove({_id: tagId});
 	},
 	newTask: function (task) {
@@ -56,6 +84,7 @@ Meteor.methods({
 		updateTagMeta(task.tag);
 	},
 	editTask: function (options) {
+		console.log(options);
 		var task = Tasks.findOne({_id: options.id})
 		var oldSchedule = task.schedule;
 		Tasks.update({_id: options.id}, {$set: options.task});
@@ -89,7 +118,7 @@ Meteor.methods({
 });
 
 updateTagMeta = function (tagId) {
-	if (tagId != 0) {
+	if (tagId != '0') {
 		var taggedTasks = Tasks.find({tag: tagId}).count();
 		Tags.update({_id: tagId}, {$set: {tasks: taggedTasks}});
 	}
