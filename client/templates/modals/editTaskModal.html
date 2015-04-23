@@ -16,26 +16,32 @@
 		</div>
 
 		<div class="row">
-			{{#with task}}
-			<div class="input-field col s6">
-				<select id="group" name="taskGroup" disabled>
-					<option value="{{group}}" selected >{{groupName}}</option>
-				</select>
-				<label>Group:</label>
 
+			<div class="input-field col s12 m8">
+				<textarea id="description" name="taskDescription" class="materialize-textarea">{{task.description}}</textarea>
+				<label class="active" for="description">Description</label>
 			</div>
+			<div class="col s12 m4">
+				<div class="input-field">
+					{{#with task}}
+					<select id="group" name="taskGroup" disabled>
+						<option value="{{group}}" selected >{{groupName}}</option>
+					</select>
+					<label>Group:</label>
 				{{/with}}
-			<div class="input-field col s6">
-				<select id="tag" name="taskTag" {{disabledWithoutTags}}>
-					<option value="default" {{selectedTag 0}}>Misc.</option>
-					{{#each tag}}
-					<option value="{{_id}}" {{selectedTag _id}}>{{name}}</option>
-					{{/each}}
-				</select>
-				<label>Tag as:</label>
-			</div>
-		</div>
+				</div>
 
+				<div class="input-field">
+					<select id="tag" name="taskTag" {{disabledWithoutTags}}>
+						<option value="default" {{selectedTag 0}}>Misc.</option>
+						{{#each tag}}
+						<option value="{{_id}}" {{selectedTag _id}}>{{name}}</option>
+						{{/each}}
+					</select>
+					<label>Tag as:</label>
+				</div>
+			</div>
+</div>
 		<div class="row">
 {{#with task}}
 			<div class="input-field col s12 m6 l4">
@@ -47,7 +53,7 @@
 				<label for="adaptive">Adaptive</label>
 				<br>
 				<input name="taskScheduleType" type="radio" id="hybrid" value="hybrid"  {{checkedSchedule 'hybrid'}}>
-				<label for="hybrid">Hybrid</label>
+				<label for="hybrid">Lenient</label>
 				<br>
 				<input name="taskScheduleType" type="radio" id="strict" value="strict"  {{checkedSchedule 'strict'}}>
 				<label for="strict">Strict</label>
@@ -57,8 +63,8 @@
 				<br>
 				<div id="schedule-explanations">
 					<p id="adaptive-explanation" class="label">Due date will adapt based on how frequently it is completed.</p>
-					<p id="hybrid-explanation" class="label">Due date will always be the set number of days after it was last completed.</p>
-					<p id="strict-explanation" class="label">Due date will always be the set number of days after last due.</p>
+					<p id="hybrid-explanation" class="label">Due date will always be X days after it was last completed.</p>
+					<p id="strict-explanation" class="label">Due date will always be X days after last due.</p>
 				</div>
 				<div id="schedule-inputs">
 					<div id="due-every" class="input-field">
@@ -73,15 +79,6 @@
 			</div>
 {{/with}}
 		</div>
-		<div class="row">
-{{#with task}}
-			<div class="input-field col s12">
-				<textarea id="description" name="taskDescription" class="materialize-textarea">{{description}}</textarea>
-				<label class="active" for="description">Description</label>
-			</div>
-{{/with}}
-		</div>
-
 	</form>
 
 </template>

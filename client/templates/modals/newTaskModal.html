@@ -11,23 +11,30 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="input-field col s6">
-				<select id="group" name="taskGroup" {{disabledWithoutGroups}}>
-					<option value="default" {{selectedGroup 0}}>Self</option>
-					{{#each group}}
-					<option value="{{_id}}" {{selectedGroup _id}}>{{name}}</option>
-					{{/each}}
-				</select>
-				<label>Group:</label>
+
+			<div class="input-field col s12 m8">
+				<textarea id="description" name="taskDescription" class="materialize-textarea"></textarea>
+				<label for="description">Description</label>
 			</div>
-			<div class="input-field col s6">
-				<select id="tag" name="taskTag" {{disabledWithoutTags}}>
-					<option value="default" selected>Misc.</option>
-					{{#each tag}}
-					<option value="{{_id}}">{{name}}</option>
-					{{/each}}
-				</select>
-				<label>Tag as:</label>
+			<div class="col s12 m4">
+				<div class="input-field">
+					<select id="group" name="taskGroup" {{disabledWithoutGroups}}>
+						<option value="default" {{selectedGroup 0}}>Self</option>
+						{{#each group}}
+						<option value="{{_id}}" {{selectedGroup _id}}>{{name}}</option>
+						{{/each}}
+					</select>
+					<label>Group:</label>
+				</div>
+				<div class="input-field">
+					<select id="tag" name="taskTag" {{disabledWithoutTags}}>
+						<option value="default" selected>Misc.</option>
+						{{#each tag}}
+						<option value="{{_id}}">{{name}}</option>
+						{{/each}}
+					</select>
+					<label>Tag as:</label>
+				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -37,7 +44,7 @@
 				<label for="adaptive">Adaptive</label>
 				<br><br>
 				<input name="taskScheduleType" type="radio" id="hybrid" value="hybrid">
-				<label for="hybrid">Hybrid</label>
+				<label for="hybrid">Lenient</label>
 				<br><br>
 				<input name="taskScheduleType" type="radio" id="strict" value="strict">
 				<label for="strict">Strict</label>
@@ -46,8 +53,8 @@
 				<br>
 				<div id="schedule-explanations">
 					<p id="adaptive-explanation" class="label">Due date will adapt based on how frequently it is completed.</p>
-					<p id="hybrid-explanation" class="label hidden">Due date will always be the set number of days after it was last completed.</p>
-					<p id="strict-explanation" class="label hidden">Due date will always be the set number of days after last due.</p>
+					<p id="hybrid-explanation" class="label hidden">Due date will always be X days after it was last completed.</p>
+					<p id="strict-explanation" class="label hidden">Due date will always be X days after last due.</p>
 				</div>
 				<div id="schedule-inputs">
 					<div id="due-every" class="input-field hidden">
@@ -59,12 +66,6 @@
 					<input id="due-starting" name="taskDueStarting" type="text" readonly="true">
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="input-field col s12">
-				<textarea id="description" name="taskDescription" class="materialize-textarea"></textarea>
-				<label for="description">Description</label>
 			</div>
 		</div>
 	</form>
