@@ -1,4 +1,4 @@
-<template name="welcomeMessage">
+<template name="welcome">
 
 	<div class="row">
 		<div class="col s10 offset-s1">
@@ -6,7 +6,7 @@
 		</div>
 		<div class="col s10 offset-s1">
 			<div class="row">
-				{{#unless anyTags}}
+				{{#unless tags}}
 				<div class="col s12 m6 l4">
 					<a href="{{pathFor 'settings'}}" class="black-text">
 						<div class="card-panel">
@@ -22,7 +22,7 @@
 					</a>
 				</div>
 				{{/unless}}
-				{{#unless anyTasks}}
+				{{#unless tasks}}
 				<div class="col s12 m6 l4">
 					<a href="{{pathFor 'tasks'}}" class="black-text">
 						<div class="card-panel">						
@@ -54,7 +54,7 @@
 					</a>
 				</div>
 				{{/if}}
-				{{#unless anyGroups}}
+				{{#unless groups}}
 				<div class="col s12 m6 l4">
 					<a href="{{pathFor 'groups'}}" class="black-text">
 						<div class="card-panel">
