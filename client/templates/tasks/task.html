@@ -1,5 +1,6 @@
 <template name="task">
 {{#with task}}
+<p class="breadcrumbs"><a href="{{pathFor 'tasks'}}">Tasks</a> > {{name}}</p>
 		<h4>
 			<a href="#" class="complete-task black-text">
 				{{#if completedToday}}
