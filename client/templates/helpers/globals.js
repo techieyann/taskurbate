@@ -56,3 +56,9 @@ Template.registerHelper('completedToday', function () {
 	}
 	return false;
 });
+
+Template.registerHelper('tasksViewIcon', function () {
+	var view = Session.get('tasksView');
+	if (view == 'list') return 'mdi-action-assignment';
+	if (view == 'calendar') return 'mdi-action-event';
+});

@@ -8,7 +8,7 @@
 
 				{{#if currentUser}}
 				<li class="{{activeRoute 'index'}}"><a href="{{pathFor route='index'}}"><i class="mdi-action-home"></i></a></li>
-				<li class="{{activeRoute 'tasks'}}{{activeRoute 'task'}}"><a href="{{pathFor 'tasks'}}"><i class="mdi-action-assignment"></i></a></li>
+				<li class="{{activeRoute 'tasks'}}{{activeRoute 'task'}}"><a href="{{pathFor 'tasks'}}"><i class="{{tasksViewIcon}}"></i></a></li>
 				<li class="{{activeRoute 'groups'}}{{activeRoute 'group'}}{{activeRoute 'groupMember'}}"><a href="{{pathFor route='groups'}}"><i class="mdi-social-group"></i></a></li>
 				<li class="{{activeRoute 'settings'}}"><a href="{{pathFor route='settings'}}"><i class="mdi-action-settings"></i></a></li>
 				<li><a href="#" class="logout"><i class="mdi-action-exit-to-app"></i></a></li>
@@ -21,7 +21,7 @@
 			<ul class="side-nav" id="mobile-side-nav">
 				{{#if currentUser}}
 				<li class="{{activeRoute 'index'}}"><a href="{{pathFor route='index'}}">Home<i class="mdi-action-home right"></i></a></li>
-				<li class="{{activeRoute 'tasks'}}{{activeRoute 'task'}}"><a href="{{pathFor 'tasks'}}">Tasks<i class="mdi-action-assignment right"></i></a></li>
+				<li class="{{activeRoute 'tasks'}}{{activeRoute 'task'}}"><a href="{{pathFor 'tasks'}}">Tasks<i class="{{tasksViewIcon}} right"></i></a></li>
 				<li class="{{activeRoute 'groups'}}{{activeRoute 'group'}}"><a href="{{pathFor route='groups'}}">Groups<i class="mdi-social-group right"></i></a></li>
 				<li class="{{activeRoute 'settings'}}"><a href="{{pathFor route='settings'}}">Settings<i class="mdi-action-settings right"></i></a></li>
 				<li><a href="#" class="logout">Logout<i class="mdi-action-exit-to-app right"></i></a></li>
