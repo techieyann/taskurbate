@@ -4,6 +4,7 @@ Meteor.startup(function () {
 	Meteor.setInterval(function () {
 		Session.set('now', new Date());
 	}, 60000);
+	Session.set('taskFilters', null);
 	Session.setDefault('lastCompletedRemoved', '');
 	Session.setDefault('selectedCompletedTask', null);
 	Session.setDefault('selectedGroup', 'default');

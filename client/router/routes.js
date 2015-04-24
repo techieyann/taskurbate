@@ -97,8 +97,41 @@ Router.map(function () {
 		data: function () {
 			var returnData = {};
 
-			var foundTasks = Tasks.find({}, {sort: {dueNext:1}});
-			if (foundTasks.count())	returnData.tasks = foundTasks;
+			var taskFilters = Session.get('taskFilters');
+			var filters = {$and: [
+				{
+					group: {$nin: []},
+					tag: {$nin: []}
+				},
+				{
+					dueNext: {$ne: null}
+				}
+			]};
+			for (var groupId in taskFilters) {
+				if (taskFilters[groupId].group == 'view') {
+					for (var tagId in taskFilters[groupId].tags) {
+						if (taskFilters[groupId].tags[tagId] == 'hide') {
+							if (tagId == 'default') {
+								var groupTagFilter = {$or:[{
+									group: {$ne:groupId}},
+									{tag: {$ne: tagId}
+								}]};
+								filters.$and.push(groupTagFilter);
+							}
+							else {
+								filters.$and[0].tag.$nin.push(tagId);
+							}
+						}
+					}
+				} else {
+					filters.$and[0].group.$nin.push(groupId);
+				}
+			}
+			var dueTasks = Tasks.find(filters, {sort: {dueNext:1}}).fetch();
+			filters.$and[1].dueNext = null;
+			var unDueTasks = Tasks.find(filters, {sort:{name:1}}).fetch();
+			returnData.tasks = dueTasks.concat(unDueTasks);
+			returnData.anyTasks = Tasks.find().count();
 			if (Meteor.user()) {
 				var foundGroups = Groups.find().fetch();
 				returnData.groups = foundGroups;
