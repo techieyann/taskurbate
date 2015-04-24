@@ -4,29 +4,50 @@
 		<div id="task-filters" class="row hidden">
 			<h4 class="">
 			<i class="mdi-content-filter-list left"></i>
-			Filters
+			View:
 				<a href="#" class="hide-task-filters black-text right"><i class="mdi-navigation-expand-less medium right"></i></a>				
 			</h4>
+			<div class="row centered">
+				<div class="switch">
+					<label>
+						<i class="mdi-action-assignment"></i> List
+						<input id="tasksView" type="checkbox" {{tasksViewChecked 'calendar'}}>
+						<span class="lever"></span>
+						<i class="mdi-action-event"></i> Calendar
+					</label>
+				</div>
+			</div>
 			{{> taskFilters}}
 		</div>
 		<div class="row">
 			<h4>
-				<i class="mdi-action-assignment left"></i>
+				<i class="{{tasksViewIcon}} left"></i>
 				Your Tasks 
 				<a href="#" class="show-task-filters black-text right"><i class="mdi-content-filter-list right"></i></a>
 			</h4>
 		</div>
+		{{#if tasksView 'list'}}
+		{{> list}}
+		{{/if}}
+		{{#if tasksView 'calendar'}}
+		{{> calendar}}
+		{{/if}}
+		{{#if anyDue}}
 
-		<ul id="task-collection" class="row collection">
-			{{#each task}}
-			{{> taskCollectionElement}}
-			{{/each}}
-		</ul>
+		{{/if}}
 		{{else}}
 		<p>You don't have any tasks yet! Create one by pushing that big red button down there.</p>
 		{{/if}}
 	</div>
 	{{> newTaskButton}}
+</template>
+
+<template name="list">
+	<ul id="task-collection" class="row collection">
+		{{#each tasks}}
+		{{> taskCollectionElement}}
+		{{/each}}
+	</ul>
 </template>
 
 <template name="taskCollectionElement">

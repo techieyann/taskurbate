@@ -34,11 +34,14 @@ Template.tasks.helpers({
 		var furthestDue = Tasks.findOne({}, {sort: {dueNext:-1}});
 		if (furthestDue) {
 			longestTimeDiff = furthestDue.dueNext - Session.get('now');
-		}		
+		}
 		return (this.anyTasks ? true: false);
 	},
-	task: function () {
-		return this.tasks;
+	tasksViewChecked: function (view) {
+		return (Session.equals('tasksView', view) ? 'checked':'');
+	},
+	tasksView: function (view) {
+		return Session.equals('tasksView', view)
 	}
 });
 
@@ -50,7 +53,12 @@ Template.tasks.events({
 	'click .hide-task-filters': function () {
 		$('.show-task-filters').slideDown(300);
 		$('#task-filters').slideUp(300);
-	}	
+	},
+	'change #tasksView': function (e) {
+		var view = 'list';
+		if (e.target.checked) view = 'calendar';
+		Session.set('tasksView', view);
+	}
 });
 
 Template.taskCollectionElement.helpers({
