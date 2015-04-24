@@ -7,6 +7,7 @@
 			View:
 				<a href="#" class="hide-task-filters black-text right"><i class="mdi-navigation-expand-less medium right"></i></a>				
 			</h4>
+			{{#if anyDue}}
 			<div class="row centered">
 				<div class="switch">
 					<label>
@@ -17,6 +18,7 @@
 					</label>
 				</div>
 			</div>
+			{{/if}}
 			{{> taskFilters}}
 		</div>
 		<div class="row">
@@ -32,9 +34,9 @@
 		{{#if tasksView 'calendar'}}
 		{{> calendar}}
 		{{/if}}
-		{{#if anyDue}}
 
-		{{/if}}
+
+
 		{{else}}
 		<p>You don't have any tasks yet! Create one by pushing that big red button down there.</p>
 		{{/if}}
