@@ -31,7 +31,6 @@ Template.editTaskModalBody.helpers({
 			if (this.tag == tagId) return 'selected';
 		}
 		else {
-			console.log(Template.parentData());
 			if (Template.parentData().task.tag == tagId) return 'selected';
 		}
 		return '';
