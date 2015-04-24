@@ -39,6 +39,9 @@ Template.task.events({
 	'click .completed-calendar': function () {
 		openModal('completedCalendarModalBody', 'completedCalendarModalFooter', true, this.task);
 	},
+	'click .graph-task': function () {
+		openModal('graphTaskModalBody', 'graphTaskModalFooter', false, this.task);
+	},
 	'click .edit-task': function () {
 		openModal('editTaskModalBody','editTaskModalFooter', true, this);
 	},
