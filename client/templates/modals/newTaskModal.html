@@ -19,7 +19,7 @@
 			<div class="col s12 m4">
 				<div class="input-field">
 					<select id="group" name="taskGroup" {{disabledWithoutGroups}}>
-						<option value="default" {{selectedGroup 0}}>Self</option>
+						<option value="default" {{selectedGroup 'default'}}>Self</option>
 						{{#each group}}
 						<option value="{{_id}}" {{selectedGroup _id}}>{{name}}</option>
 						{{/each}}

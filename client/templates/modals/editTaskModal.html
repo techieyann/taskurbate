@@ -33,7 +33,7 @@
 
 				<div class="input-field">
 					<select id="tag" name="taskTag" {{disabledWithoutTags}}>
-						<option value="default" {{selectedTag 0}}>Misc.</option>
+						<option value="default" {{selectedTag 'default'}}>Misc.</option>
 						{{#each tag}}
 						<option value="{{_id}}" {{selectedTag _id}}>{{name}}</option>
 						{{/each}}

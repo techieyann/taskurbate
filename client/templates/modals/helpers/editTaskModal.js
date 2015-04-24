@@ -22,7 +22,6 @@ Template.editTaskModalBody.helpers({
 	},
 	disabledWithoutTags: function () {
 		if (this.tags){
-			console.log(this.tags.length);
 			if (this.tags.length)	return;
 		}
 		return 'disabled';
@@ -32,8 +31,8 @@ Template.editTaskModalBody.helpers({
 			if (this.tag == tagId) return 'selected';
 		}
 		else {
-			var tag = Template.parentData().tag;
-			if (tag == tagId) return 'selected';
+			console.log(Template.parentData());
+			if (Template.parentData().task.tag == tagId) return 'selected';
 		}
 		return '';
 	},
