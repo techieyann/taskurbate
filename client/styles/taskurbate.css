@@ -21,10 +21,11 @@ li>.row{
 		font-size: 18px;
 }
 
-#calendar-card {
-		width: 97%;
-		margin-left: auto;
-		margin-right: auto;
+@media all and (max-width:600px) {
+		#container-div {
+				width: 100%;
+				padding: 0 5px;
+		}
 }
 
 #backdate-datepicker{
