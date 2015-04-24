@@ -6,22 +6,10 @@
 <template name="layout">
 	{{> navbar}}
 	{{> modal}}
-	<div class="container">
-
+	<div id="container-div" class="container">
 		{{> yield}}
 		<footer>
 			{{> footer}}
 		</footer>
 	</div>
-</template>
-
-<template name="containerlessLayout">
-	{{> navbar}}
-	{{> modal}}
-
-		{{> yield}}
-		<footer>
-			{{> footer}}
-		</footer>
-
 </template>
