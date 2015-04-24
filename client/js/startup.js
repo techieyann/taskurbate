@@ -4,12 +4,14 @@ Meteor.startup(function () {
 	Meteor.setInterval(function () {
 		Session.set('now', new Date());
 	}, 60000);
-	Session.set('taskFilters', null);
+		Session.set('taskFilters', null);
+	Session.set('tasksView', 'list');
 	Session.setDefault('lastCompletedRemoved', '');
 	Session.setDefault('selectedCompletedTask', null);
 	Session.setDefault('selectedGroup', 'default');
 	if (Meteor.user()) {
 		Session.setDefault('uid', Meteor.user()._id);
+
 	}
 	Session.setDefault('calendar-view-completed-tasks', false);
 	Session.setDefault('calendar-view-overdue-tasks', true);

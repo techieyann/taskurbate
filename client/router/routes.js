@@ -2,7 +2,6 @@ Router.map(function () {
 	this.route('index', {
 		path: '/',
 		controller: DefaultSubscriptions,
-		layoutTemplate: 'containerlessLayout',
 		data: function () {
 			var returnData = {
 				tags: Tags.find({group: 'default'}).count(),
@@ -33,7 +32,17 @@ Router.map(function () {
 		path: '/groups/:groupId/member/:userId',
 		controller: DefaultSubscriptions,
 		data: function () {
-			return Groups.findOne({_id: this.params.groupid});
+			var returnData = {};
+			var group = Groups.findOne({_id: this.params.groupId})
+			if (group) {
+				returnData.groupId = this.params.groupId;
+				returnData.groupName = group.name;
+				var userName = group.members[this.params.userId];
+				if (userName) returnData.userName = userName;
+				else this.redirect('/groups/'+this.params.groupId);
+				return returnData;
+			}
+			this.redirect('/groups/');
 		}
 	});
 	this.route('group', {
@@ -144,6 +153,7 @@ Router.map(function () {
 				});
 				returnData.tags = foundTags;
 			}
+			returnData.anyDue = Tasks.find({dueNext: {$ne: null}}).count()
 			return returnData;
 		}		
 	});
