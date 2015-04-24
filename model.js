@@ -81,13 +81,13 @@ Meteor.methods({
 	},
 	newTask: function (task) {
 		Tasks.insert(task);
-		updateTagMeta(task.tag);
+		updateTagMeta({tag:task.tag});
 	},
 	editTask: function (options) {
 		var task = Tasks.findOne({_id: options.id})
 		var oldSchedule = task.schedule;
 		Tasks.update({_id: options.id}, {$set: options.task});
-		updateTagMeta(task.tag);
+		updateTagMeta({group:task.group});
 		if (oldSchedule != options.task.schedule) {
 			updateTaskMeta(options.id);
 		}
@@ -116,11 +116,23 @@ Meteor.methods({
 	}
 });
 
-updateTagMeta = function (tagId) {
-	if (tagId != '0') {
-		var taggedTasks = Tasks.find({tag: tagId}).count();
-		Tags.update({_id: tagId}, {$set: {tasks: taggedTasks}});
+updateTagMeta = function (options) {
+	var tagId = options.tag;
+	var groupId = options.group;
+	if (tagId) {
+		if (tagId != 'default') {
+			var taggedTasks = Tasks.find({tag: tagId}).count();
+			Tags.update({_id: tagId}, {$set: {tasks: taggedTasks}});
+		}
 	}
+	else if (groupId) {
+		var tags = Tags.find({group: groupId});
+		tags.forEach(function (tag) {
+			var taggedTasks = Tasks.find({tag: tag._id}).count();
+			Tags.update({_id: tag._id}, {$set: {tasks: taggedTasks}});			
+		});
+	}
+
 };
 
 updateTaskMeta = function (taskId) {
