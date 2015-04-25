@@ -43,6 +43,8 @@ Template.layout.events({
 	}
 });
 
+
+
 Template.registerHelper('dueNextFormatted', function () {
 	return this.dueNext.toLocaleDateString();
 });

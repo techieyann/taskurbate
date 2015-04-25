@@ -100,7 +100,43 @@ Meteor.methods({
 		updateTagMeta(tag);
 	},
 	completeTask: function (options) {
-		return Completed.insert(options);
+		var task = Tasks.findOne({_id: options.task});
+		if (task) {
+			if (Meteor.isServer) {
+				var groupId = task.group;
+				if (groupId != 'default') {
+					var group = Groups.findOne({_id: groupId});
+					if (group) {
+						var members = group.members;
+						var data = {
+							group: {
+								id: task.group,
+								name: group.name
+							},
+							task: {
+								id: task._id,
+								name: task.name
+							},
+							user: {
+								id: options.user,
+								name: members[options.user]
+							},
+							at: options.at
+						}
+						console.log(members);
+						delete members[options.user];
+						console.log(members);
+						var options = {
+							type: 'completed',
+							meta: data
+						};
+						notifyGroup(members, options);
+					}
+				}
+			}
+			return Completed.insert(options);
+		} throw new Meteor.Error('Specified task not found');
+
 	},
 	removeCompleted: function (completedId) {
 		var taskId = Completed.findOne({_id: completedId}).task;
@@ -114,8 +150,21 @@ Meteor.methods({
 			updateTaskMeta(completed.task);
 			return; 
 		}
+	},
+	removeNotification: function (id) {
+		return Notifications.remove({_id: id});
 	}
 });
+
+var notifyGroup = function (members, options) {
+	for (var userId in members) {
+		Notifications.insert({
+			user: userId,
+			type: options.type,
+			data: options.meta
+		});
+	}
+};
 
 updateTagMeta = function (options) {
 	var tagId = options.tag;
