@@ -1,7 +1,7 @@
 <template name="taskFilters">
 	{{#if groupTasks 'default'}}
 	<ul class="collection">
-		<li class="collection-item row">
+		<li class="collection-item row indigo lighten-3">
 			<a href="#" data-type="group" data-id="default" class="show-only black-text">
 				<i class="mdi-social-person left"></i><strong>Self ({{groupTasks 'default'}})</strong>
 			</a>
@@ -9,7 +9,7 @@
 				<label>
 					<input class="task-filter" data-type="group" data-group="default"
 								 type="checkbox" {{groupChecked 'default'}}>
-					<span class="lever teal darken-4"></span>
+					<span class="lever"></span>
 				</label>
 			</div>
 		</li>
@@ -49,7 +49,7 @@
 	{{#each groups}}
 	{{#if groupTasks _id}}
 	<ul class="collection">
-		<li class="collection-item row">
+		<li class="collection-item row indigo lighten-3">
 			<a href="#" data-type="group" data-id="{{_id}}" class="show-only black-text">
 			<i class="mdi-social-group left"></i><strong>{{name}} ({{groupTasks _id}})</strong>
 			</a>
@@ -57,7 +57,7 @@
 				<label>
 					<input class="task-filter" data-type="group" data-group="{{_id}}"
 								 type="checkbox" {{groupChecked _id}}>
-					<span class="lever teal darken-4"></span>
+					<span class="lever"></span>
 				</label>
 			</div>
 		</li>
