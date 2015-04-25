@@ -143,7 +143,7 @@ var processTaskIntoEvent = function (task) {
 	if (task.duration > 20) displayDuration = task.duration;
 	else displayDuration = 20;
 	var endAt = new Date(task.dueNext.getTime() + (displayDuration*60*1000));
-
+	var longestTimeDiff = Template.parentData().longestTimeDiff;
 
 	var calendarObject = {
 		title: eventTitle,
@@ -156,7 +156,6 @@ var processTaskIntoEvent = function (task) {
 
 
 	var timeDiff = task.dueNext - Session.get('now');
-	
 	if (timeDiff < 0) {
 		calendarObject.color = colors.red;
 		calendarObject.borderColor = colors.redBorder;
