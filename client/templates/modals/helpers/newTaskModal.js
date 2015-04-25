@@ -45,15 +45,15 @@ Template.newTaskModalBody.events({
 	});
 	},
 	'click #strict': function () {
-		$('#adaptive-explanation, #hybrid-explanation').slideUp(300);
+		$('#adaptive-explanation, #lenient-explanation').slideUp(300);
 		$('#strict-explanation, #starting-on, #due-every').slideDown(300);
 	},
-	'click #hybrid': function () {
+	'click #lenient': function () {
 		$('#adaptive-explanation, #strict-explanation, #starting-on').slideUp(300);
-		$('#hybrid-explanation, #due-every').slideDown(300);
+		$('#lenient-explanation, #due-every').slideDown(300);
 	},
 	'click #adaptive': function () {
-		$('#hybrid-explanation, #strict-explanation, #due-every, #starting-on').slideUp(300);
+		$('#lenient-explanation, #strict-explanation, #due-every, #starting-on').slideUp(300);
 		$('#adaptive-explanation').slideDown(300);
 	},
 	'submit .new-task-form': function (e) {

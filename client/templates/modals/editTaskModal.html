@@ -52,8 +52,8 @@
 				<input name="taskScheduleType" type="radio" id="adaptive" value="adaptive" {{checkedSchedule 'adaptive'}}>
 				<label for="adaptive">Adaptive</label>
 				<br>
-				<input name="taskScheduleType" type="radio" id="hybrid" value="hybrid"  {{checkedSchedule 'hybrid'}}>
-				<label for="hybrid">Lenient</label>
+				<input name="taskScheduleType" type="radio" id="lenient" value="lenient"  {{checkedSchedule 'lenient'}}>
+				<label for="lenient">Lenient</label>
 				<br>
 				<input name="taskScheduleType" type="radio" id="strict" value="strict"  {{checkedSchedule 'strict'}}>
 				<label for="strict">Strict</label>
@@ -63,7 +63,7 @@
 				<br>
 				<div id="schedule-explanations">
 					<p id="adaptive-explanation" class="label">Due date will adapt based on how frequently it is completed.</p>
-					<p id="hybrid-explanation" class="label">Due date will always be X days after it was last completed.</p>
+					<p id="lenient-explanation" class="label">Due date will always be X days after it was last completed.</p>
 					<p id="strict-explanation" class="label">Due date will always be X days after last due.</p>
 				</div>
 				<div id="schedule-inputs">

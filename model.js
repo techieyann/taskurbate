@@ -167,7 +167,7 @@ updateTaskMeta = function (taskId) {
 				options.task.dueNext = null;
 				options.task.dueEvery = null;				
 			}
-		} else if (currentTask.schedule == 'hybrid') {
+		} else if (currentTask.schedule == 'lenient') {
 			options.task.dueNext = new Date(lastCompleted + (currentTask.dueEvery * (1000 * 60 * 60 * 24)));
 		} else if (currentTask.schedule == 'strict') {
 			if (options.task.lastCompleted > currentTask.dueNext) {

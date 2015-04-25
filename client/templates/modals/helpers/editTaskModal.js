@@ -3,13 +3,13 @@ Template.editTaskModalBody.onRendered(function () {
 	$('#due-starting').datepicker({minDate:0});
 	var scheduleType = this.data.task.schedule;
 	if (scheduleType == "adaptive") {
-		$('#hybrid-explanation, #strict-explanation, #due-every, #starting-on').hide();
+		$('#lenient-explanation, #strict-explanation, #due-every, #starting-on').hide();
 	}
-	else if (scheduleType == "hybrid") {
+	else if (scheduleType == "lenient") {
 		$('#adaptive-explanation, #strict-explanation, #starting-on').hide();
 	}
 	else if (scheduleType == "strict") {
-		$('#adaptive-explanation, #hybrid-explanation').hide();
+		$('#adaptive-explanation, #lenient-explanation').hide();
 	}
 });
 
@@ -53,15 +53,15 @@ Template.editTaskModalBody.helpers({
 
 Template.editTaskModalBody.events({
 	'click #strict': function () {
-		$('#adaptive-explanation, #hybrid-explanation').slideUp(300);
+		$('#adaptive-explanation, #lenient-explanation').slideUp(300);
 		$('#strict-explanation, #starting-on, #due-every').slideDown(300);
 	},
-	'click #hybrid': function () {
+	'click #lenient': function () {
 		$('#adaptive-explanation, #strict-explanation, #starting-on').slideUp(300);
-		$('#hybrid-explanation, #due-every').slideDown(300);
+		$('#lenient-explanation, #due-every').slideDown(300);
 	},
 	'click #adaptive': function () {
-		$('#hybrid-explanation, #strict-explanation, #due-every, #starting-on').slideUp(300);
+		$('#lenient-explanation, #strict-explanation, #due-every, #starting-on').slideUp(300);
 		$('#adaptive-explanation').slideDown(300);
 	},
 	'submit .edit-task-form': function (e) {
