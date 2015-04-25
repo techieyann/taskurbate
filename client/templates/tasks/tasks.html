@@ -8,8 +8,7 @@
 				<a href="#" class="hide-task-filters black-text right"><i class="mdi-navigation-expand-less medium right"></i></a>				
 			</h4>
 			<div>
-			{{#if anyDue}}
-
+				{{#if calendarViewAvailable}}
 				<div class="switch left">
 					<label>
 						<i class="mdi-action-assignment"></i> List
@@ -18,7 +17,6 @@
 						<i class="mdi-action-event"></i> Calendar
 					</label>
 				</div>
-
 			{{/if}}
 			<a href="#" class="view-all black-text right">View All</a>
 			</div>
