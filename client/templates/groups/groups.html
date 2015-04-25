@@ -6,7 +6,7 @@
 	{{> groupList}}
 	</div>
 	{{/if}}
-	{{> groupJoinCreate}}
+	{{> addGroupButton}}
 	{{else}}
 	<div class="card-panel">
 	<p><a href="{{pathFor 'settings'}}">Set a nickname</a> before joining/creating any groups.</p>
@@ -27,50 +27,6 @@
 	</ul>
 
 
-</template>
-
-<template name="groupJoinCreate">
-
-	<div class="row">
-		<div class="col s12 m6 offset-m3">
-			<div class="card-panel">
-				<div id="join-header">
-					<strong>Join Group:</strong> 
-					<div class="right">
-						or <a href="#" id="swap-to-create">create</a>
-					</div>
-				</div>
-				<div id="create-header" class="hidden">
-					<strong>Create Group:</strong>
-					<div class="right">
-						or <a href="#" id="swap-to-join">join</a>
-					</div>
-				</div>
-				<form id="group-form">
-					<div class="input-field">
-						<input id="group-name" name="groupName" type="text">
-						<label for="group-name">Group name</label>
-					</div>
-					<div class="input-field">
-						<input id="group-pass" name="groupPass" type="password">
-						<label for="group-pass">Password</label>
-					</div>
-					<div id="confirm-password" class="input-field hidden">
-						<input id="group-pass-confirm" name="groupPassConfirm" type="password">
-						<label for="group-pass-pass-configm">Confirm password</label>
-					</div>
-				</form>
-				<div class="row">
-					<div id="join-control">
-						<button id="join-group" class="btn right">Join</button>
-					</div>
-					<div id="create-control" class="hidden">
-						<button id="create-group" class="btn right">Create</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </template>
 
 

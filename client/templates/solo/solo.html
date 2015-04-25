@@ -1,0 +1,13 @@
+<template name="solo">
+	<div class="card-panel">
+		<h4><i class="mdi-social-person left"></i>Your Profile</h4>
+		{{> nicknameForm}}
+	</div>
+	<div class="card-panel">
+		<h4>
+			<i class="mdi-action-assignment left"></i>Your Tasks
+		</h4>
+		{{> tasksByTag}}
+	</div>
+	{{> newTagOrTaskButton}}
+</template>

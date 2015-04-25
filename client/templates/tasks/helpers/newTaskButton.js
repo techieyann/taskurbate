@@ -4,7 +4,6 @@ Template.newTaskButton.events({
 			groups: this.groups,
 			tags: this.tags
 		};
-
 		openModal('newTaskModalBody', 'newTaskModalFooter', true, data);
 	}
 });

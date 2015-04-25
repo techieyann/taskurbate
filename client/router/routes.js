@@ -15,14 +15,29 @@ Router.map(function () {
 	this.route('login', {
 		path: '/login'
 	});
-	this.route('settings', {
-		path: '/settings',
+	this.route('solo', {
+		path: '/solo',
 		controller: DefaultSubscriptions,
 		data: function () {
 			var returnData = {};
-			returnData.tagGroup = 'default';
-			var foundTags = Tags.find({group:'default'}, {sort: {name:1}});
-			if (foundTags.count()) returnData.tags =  foundTags;
+			var foundTags = Tags.find({group:'default'}, {sort: {tasks: -1, name:1}});
+			returnData.anyTasks = Tasks.find({group:'default'}).count();
+			var tasksByTag = {
+				default: Tasks.find({group: 'default', tag: 'default'}, {sort: {name: 1}})
+			};
+
+			if (foundTags.count()) {
+				returnData.tags =  foundTags;
+				foundTags.forEach(function (tag) {
+					tasksByTag[tag._id] = Tasks.find({group: 'default', tag: tag._id}, {sort: {name: 1}});
+				});
+			}
+			returnData.tasksByTag = tasksByTag;
+			returnData.selectedGroup = {
+				_id: 'default',
+				name: 'Self'
+			};
+
 
 			return returnData;
 		}
@@ -53,10 +68,23 @@ Router.map(function () {
 			var group = Groups.findOne({_id: this.params._id});
 			if (group) {
 				returnData.group = group;
-				returnData.tasks = Tasks.find({group: group._id}, {sort: {dueNext:1}});
 				var foundTags = Tags.find({group: group._id}, {sort: {name:1}});
-				if (foundTags.count()) returnData.tags = foundTags;
-				returnData.tagGroup = group._id;
+				returnData.anyTasks = Tasks.find({group:group._id}).count();
+				var tasksByTag = {
+				default: Tasks.find({group: group._id, tag: 'default'}, {sort: {name: 1}})
+				};
+
+				if (foundTags.count()) {
+					returnData.tags =  foundTags;
+					foundTags.forEach(function (tag) {
+						tasksByTag[tag._id] = Tasks.find({group: group._id, tag: tag._id}, {sort: {name: 1}});
+					});
+				}
+				returnData.tasksByTag = tasksByTag;
+				returnData.selectedGroup = {
+					_id: group._id,
+					name: group.name
+				};
 				return returnData;
 			} else this.redirect('/groups');
 			

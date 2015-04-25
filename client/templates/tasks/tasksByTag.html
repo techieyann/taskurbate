@@ -1,0 +1,57 @@
+<template name="tasksByTag">
+		{{#if anyTasks}}
+
+		<ul id="default-ul" class="row collection">
+			<li class="collection-item">
+				<div class="row">
+					<span><i class="mdi-action-label-outline small left"></i><strong>Misc.</strong></span>
+					<span id="modify-default" class="right">
+						{{#if anyTaggedTasks 'default'}}
+						<a href="#" data-tag="default" id="show-tasks-default" class="show-tasks black-text hidden"><i data-tag="default" class="mdi-navigation-expand-more small"></i></a>
+						<a href="#" data-tag="default" id="hide-tasks-default" class="hide-tasks black-text"><i data-tag="default" class="mdi-navigation-expand-less small"></i></a>
+						{{/if}}
+					</span>
+				</div>
+			</li>
+			{{#each taggedTask 'default'}}
+			{{> taskCollectionElement}}
+			{{/each}}
+		</ul>
+		{{#each tags}}
+		<ul id="{{_id}}-ul" class="row collection">
+			<li class="collection-item">
+				<div id="{{_id}}-display" class="row">
+					<span><i class="mdi-action-label-outline small left"></i> <strong>{{name}}</strong></span>
+						<a href="#" class="edit-tag black-text"><i class="mdi-content-create tiny"></i></a>
+						<a href="#" class="delete-tag black-text"><i class="mdi-action-delete tiny"></i></a>
+					<div id="modify-{{_id}}" class="{{_id}}-controls right">
+
+						{{#if anyTaggedTasks _id}}
+						<a href="#" data-tag="{{_id}}" id="show-tasks-{{_id}}" class="show-tasks black-text hidden"><i data-tag="{{_id}}" class="mdi-navigation-expand-more small"></i></a>
+						<a href="#" data-tag="{{_id}}" id="hide-tasks-{{_id}}" class="hide-tasks black-text"><i data-tag="{{_id}}" class="mdi-navigation-expand-less small"></i></a>
+						{{/if}}
+					</div>
+				</div>
+				<div id="{{_id}}-edit" class="hidden">
+					<form class="edit-tag-form">
+						<div class="row">
+							<div class="input-field col s10 m11">
+								<i class="mdi-action-label-outline prefix"></i> 
+								<input id="edit-tag-{{_id}}" type="text" value="{{name}}" length="20" validate>
+								<label class="active" for="edit-tag-{{_id}}">Tag Name</label>
+							</div>
+							<span class="edit-tag-button col s2 m1">
+								<a href="#" class="submit-edit-tag-form teal-text"><i class="mdi-content-create small"></i></a>
+							</span>
+						</div>
+					</form>
+				</div>
+			</li>
+			{{#each taggedTask _id}}
+			{{> taskCollectionElement}}
+			{{/each}}
+		</ul>
+		{{/each}}
+
+		{{/if}}
+</template>

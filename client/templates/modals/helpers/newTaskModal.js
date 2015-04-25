@@ -20,6 +20,7 @@ Template.newTaskModalBody.helpers({
 		return 'disabled';
 	},
 	disabledWithoutGroups: function () {
+		if (this.groupSelectDisabled) return 'disabled';
 		if (this.groups) {
 			if (!this.groups.length) return 'disabled';
 		}
@@ -107,6 +108,7 @@ var processNewTaskForm = function () {
 	var taskTag = parsedData.taskTag;
 	if (!taskTag) taskTag = 'default';
 	var taskGroup = parsedData.taskGroup;
+	if (!taskGroup) taskGroup = Session.get('selectedGroup');
 	if (!taskGroup) taskGroup = 'default';
 	var now = new Date();
 	var options = {
