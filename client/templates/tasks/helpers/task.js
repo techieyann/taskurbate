@@ -41,7 +41,11 @@ Template.task.events({
 		openModal('graphTaskModalBody', 'graphTaskModalFooter', false, this.task);
 	},
 	'click .edit-task': function () {
-		openModal('editTaskModalBody','editTaskModalFooter', true, this);
+		var data = {
+			task: this.task,
+			tags: this.tags
+		};
+		openModal('editTaskModalBody','editTaskModalFooter', true, data);
 	},
 	'click .delete-task': function () {
 		openModal('deleteTaskModalBody','deleteTaskModalFooter', false, this.task);
