@@ -7,9 +7,10 @@
 			View:
 				<a href="#" class="hide-task-filters black-text right"><i class="mdi-navigation-expand-less medium right"></i></a>				
 			</h4>
+			<div>
 			{{#if anyDue}}
-			<div class="row centered">
-				<div class="switch">
+
+				<div class="switch left">
 					<label>
 						<i class="mdi-action-assignment"></i> List
 						<input id="tasksView" type="checkbox" {{tasksViewChecked 'calendar'}}>
@@ -17,8 +18,11 @@
 						<i class="mdi-action-event"></i> Calendar
 					</label>
 				</div>
-			</div>
+
 			{{/if}}
+			<a href="#" class="view-all black-text right">View All</a>
+			</div>
+			<br>
 			{{> taskFilters}}
 		</div>
 		<div class="row">

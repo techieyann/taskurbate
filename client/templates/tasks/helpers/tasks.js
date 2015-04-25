@@ -52,6 +52,17 @@ Template.tasks.events({
 		var view = 'list';
 		if (e.target.checked) view = 'calendar';
 		Session.set('tasksView', view);
+	},
+	'click .view-all': function () {
+		var filters = Session.get('taskFilters');
+		for (var group in filters) {
+			filters[group].group = 'view';
+			for (var tag in filters[group].tags) {
+				filters[group].tags[tag] = 'view';
+			}
+			$('.group-'+group).slideDown(300);
+		}
+		Session.set('taskFilters', filters);
 	}
 });
 
