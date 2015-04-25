@@ -5,7 +5,9 @@ Template.tasksByTag.helpers({
 	anyTaggedTasks: function (tagId) {
 		var data = Template.parentData();
 		if (tagId == 'default') data = this;
-		if(data.tasksByTag[tagId]) return data.tasksByTag[tagId].count();
+		if(data.tasksByTag[tagId]) {
+			return data.tasksByTag[tagId].length;
+		}
 	},
 	taggedTask: function (tagId) {
 		if (tagId == 'default') return this.tasksByTag[tagId];
