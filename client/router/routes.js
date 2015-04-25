@@ -6,7 +6,7 @@ Router.map(function () {
 			var returnData = {
 				tags: Tags.find({group: 'default'}).count(),
 				tasks: Tasks.find().count(),
-				groups: Groups.find().count(),
+				groups: Groups.find().fetch(),
 				anyDue: Tasks.find({dueNext: {$ne: null}}).count()
 			};
 			return returnData;
@@ -22,6 +22,11 @@ Router.map(function () {
 			var returnData = {};
 			var foundTags = Tags.find({group:'default'}, {sort: {tasks: -1, name:1}});
 			returnData.anyTasks = Tasks.find({group:'default'}).count();
+			if (returnData.anyTasks) {
+				var furthestDue = Tasks.findOne({group:'default', dueNext: {$ne: null}}, {sort: {dueNext: -1}});
+
+				if (furthestDue.dueNext) returnData.longestTimeDiff = furthestDue.dueNext - Session.get('now');
+			}
 			var tasksByTag = {
 				default: Tasks.find({group: 'default', tag: 'default'}, {sort: {name: 1}})
 			};
@@ -37,6 +42,7 @@ Router.map(function () {
 				_id: 'default',
 				name: 'Self'
 			};
+			returnData.groups = Groups.find();
 
 
 			return returnData;
@@ -55,6 +61,7 @@ Router.map(function () {
 				var userName = group.members[this.params.userId];
 				if (userName) returnData.userName = userName;
 				else this.redirect('/groups/'+this.params.groupId);
+				returnData.groups = groups.find();
 				return returnData;
 			}
 			this.redirect('/groups/');
@@ -70,6 +77,11 @@ Router.map(function () {
 				returnData.group = group;
 				var foundTags = Tags.find({group: group._id}, {sort: {name:1}});
 				returnData.anyTasks = Tasks.find({group:group._id}).count();
+				if (returnData.anyTasks) {
+					var furthestDue = Tasks.findOne({group:group._id, dueNext: {$ne: null}}, {sort: {dueNext: -1}});
+
+					if (furthestDue) returnData.longestTimeDiff = furthestDue.dueNext - Session.get('now');
+				}
 				var tasksByTag = {
 				default: Tasks.find({group: group._id, tag: 'default'}, {sort: {name: 1}})
 				};
@@ -85,6 +97,7 @@ Router.map(function () {
 					_id: group._id,
 					name: group.name
 				};
+				returnData.groups = Groups.find();
 				return returnData;
 			} else this.redirect('/groups');
 			
@@ -94,7 +107,12 @@ Router.map(function () {
 		path: '/groups',
 		controller: LoggedInController,
 		subscriptions: function () {
-			this.wait(Meteor.subscribe('groups'));
+		var groups = [];
+
+		if (Meteor.user()) {
+			groups = Meteor.user().profile.groups;
+		}
+			this.wait(Meteor.subscribe('groups', groups));
 			if (this.ready()) {
 				this.render();
 			}
@@ -102,11 +120,11 @@ Router.map(function () {
 			this.render('loading');			
 		},
 		data: function () {
-			var returnData = {};
-			if (Meteor.user()) {
-				var groupsArray = Meteor.user().profile.groups;
-				if (groupsArray) returnData.groups = Groups.find({_id: {$in: groupsArray}});
-			}
+
+			var returnData = {
+				groups: Groups.find()
+			};
+
 			return returnData;
 		}
 	});
@@ -123,6 +141,7 @@ Router.map(function () {
 				returnData.task = task;
 				var foundTags = Tags.find({group: task.group}, {sort: {name:1}}).fetch();
 				returnData.tags = foundTags;
+				returnData.groups = Groups.find();
 				return returnData;
 			}
 			this.redirect('/tasks');
@@ -169,6 +188,13 @@ Router.map(function () {
 			var unDueTasks = Tasks.find(filters, {sort:{name:1}}).fetch();
 			returnData.tasks = dueTasks.concat(unDueTasks);
 			returnData.anyTasks = Tasks.find().count();
+			if (returnData.anyTasks) {
+				var furthestDue = Tasks.findOne({dueNext: {$ne: null}}, {sort: {dueNext: -1}});
+				if (furthestDue) {
+					returnData.anyDue = true;
+					returnData.longestTimeDiff = furthestDue.dueNext - Session.get('now');
+				}
+			}
 			if (Meteor.user()) {
 				var foundGroups = Groups.find().fetch();
 				returnData.groups = foundGroups;
@@ -181,7 +207,6 @@ Router.map(function () {
 				});
 				returnData.tags = foundTags;
 			}
-			returnData.anyDue = Tasks.find({dueNext: {$ne: null}}).count()
 			return returnData;
 		}		
 	});

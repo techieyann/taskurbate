@@ -27,14 +27,8 @@ Template.tasks.onRendered(function () {
 	}
 });
 
-var longestTimeDiff;
-
 Template.tasks.helpers({
 	anyTasks: function () {
-		var furthestDue = Tasks.findOne({}, {sort: {dueNext:-1}});
-		if (furthestDue) {
-			longestTimeDiff = furthestDue.dueNext - Session.get('now');
-		}
 		return (this.anyTasks ? true: false);
 	},
 	tasksViewChecked: function (view) {
@@ -69,6 +63,7 @@ Template.taskCollectionElement.helpers({
 		return 'tag';
 	},
 	dueColor: function () {
+		var longestTimeDiff = this.longestTimeDiff;
 		if (this.dueNext) {
 			var diff = this.dueNext - Session.get('now');
 			if (diff < 0) {
