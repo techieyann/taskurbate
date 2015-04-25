@@ -1,7 +1,7 @@
 Router.map(function () {
 	this.route('task', {
 		path: '/tasks/:_id',
-		controller: 'DefaultSubscriptions',
+		controller: 'LoggedInController',
 		data: function () {
 			var returnData = {};
 			var task = Tasks.findOne({_id: this.params._id});
@@ -17,7 +17,7 @@ Router.map(function () {
 	});
 	this.route('tasks', {
 		path: '/tasks',
-		controller: 'DefaultSubscriptions',
+		controller: 'LoggedInController',
 		data: function () {
 			var returnData = {};
 

@@ -1,7 +1,7 @@
 Router.map(function () {
 	this.route('solo', {
 		path: '/solo',
-		controller: 'DefaultSubscriptions',
+		controller: 'LoggedInController',
 		data: function () {
 			var returnData = {};
 			var foundTags = Tags.find({group:'default'}, {sort: {tasks: -1, name:1}});
@@ -35,7 +35,7 @@ Router.map(function () {
 	});
 	this.route('groupMember', {
 		path: '/groups/:groupId/member/:userId',
-		controller: 'DefaultSubscriptions',
+		controller: 'LoggedInController',
 		data: function () {
 			var returnData = {};
 			var group = Groups.findOne({_id: this.params.groupId})
@@ -53,7 +53,7 @@ Router.map(function () {
 	});
 	this.route('group', {
 		path: '/groups/:_id',
-		controller: 'DefaultSubscriptions',
+		controller: 'LoggedInController',
 		data: function () {
 			var returnData = {};
 			var group = Groups.findOne({_id: this.params._id});

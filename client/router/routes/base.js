@@ -1,7 +1,7 @@
 Router.map(function () {
 	this.route('index', {
 		path: '/',
-		controller: 'DefaultSubscriptions',
+		controller: 'LoggedInController',
 		data: function () {
 			var returnData = {
 				tags: Tags.find({group: 'default'}).count(),
