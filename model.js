@@ -123,9 +123,7 @@ Meteor.methods({
 							},
 							at: options.at
 						}
-						console.log(members);
 						delete members[options.user];
-						console.log(members);
 						var options = {
 							type: 'completed',
 							meta: data
