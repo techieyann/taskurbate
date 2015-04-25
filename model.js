@@ -101,8 +101,9 @@ Meteor.methods({
 	},
 	completeTask: function (options) {
 		var task = Tasks.findOne({_id: options.task});
+var completed = Completed.insert(options);
 		if (task) {
-			if (Meteor.isServer) {
+
 				var groupId = task.group;
 				if (groupId != 'default') {
 					var group = Groups.findOne({_id: groupId});
@@ -126,19 +127,21 @@ Meteor.methods({
 						delete members[options.user];
 						var options = {
 							type: 'completed',
+							id: completed,
 							meta: data
 						};
 						notifyGroup(members, options);
 					}
 				}
-			}
-			return Completed.insert(options);
-		} throw new Meteor.Error('Specified task not found');
+
+		}
+			return completed;
 
 	},
 	removeCompleted: function (completedId) {
 		var taskId = Completed.findOne({_id: completedId}).task;
 		Completed.remove({_id: completedId});
+		Notifications.remove({type:'completed', id: completedId});
 		updateTaskMeta(taskId);
 		return;
 	},
@@ -159,6 +162,7 @@ var notifyGroup = function (members, options) {
 		Notifications.insert({
 			user: userId,
 			type: options.type,
+			id: options.id,
 			data: options.meta
 		});
 	}
