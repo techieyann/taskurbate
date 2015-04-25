@@ -25,7 +25,7 @@ Router.map(function () {
 			if (returnData.anyTasks) {
 				var furthestDue = Tasks.findOne({group:'default', dueNext: {$ne: null}}, {sort: {dueNext: -1}});
 
-				if (furthestDue.dueNext) returnData.longestTimeDiff = furthestDue.dueNext - Session.get('now');
+				if (furthestDue) returnData.longestTimeDiff = furthestDue.dueNext - Session.get('now');
 			}
 			var tasksByTag = {
 				default: Tasks.find({group: 'default', tag: 'default'}, {sort: {name: 1}})
