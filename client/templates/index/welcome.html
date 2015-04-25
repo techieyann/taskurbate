@@ -8,7 +8,7 @@
 			<div class="row">
 				{{#unless tags}}
 				<div class="col s12 m6 l4">
-					<a href="{{pathFor 'settings'}}" class="black-text">
+					<a href="{{pathFor 'solo'}}" class="black-text">
 						<div class="card-panel">
 							<div class="row">
 								<div class="col s12 m4 centered">
@@ -38,25 +38,25 @@
 					</a>
 				</div>
 				{{/unless}}
-				{{#if tasksButNoneDue}}
+				{{#unless nicknameSet}}
 				<div class="col s12 m6 l4">
-					<a href="{{pathFor 'tasks'}}" class="black-text">
-						<div class="card-panel">
+					<a href="{{pathFor 'solo'}}" class="black-text">
+						<div class="card-panel">						
 							<div class="row">
 								<div class="col s12 m4 centered">
-									<i class="mdi-action-assignment-turned-in medium"></i>
+									<i class="mdi-social-person medium"></i>
 								</div>
 								<div class="col s12 m8">
-									<strong>Complete some tasks so that you can view the calendar.</strong>
+									<strong>Add a nickname so you can join groups.</strong>
 								</div>
 							</div>
 						</div>
 					</a>
-				</div>
-				{{/if}}
+				</div>				
+				{{else}}
 				{{#unless groups}}
 				<div class="col s12 m6 l4">
-					<a href="{{pathFor 'groups'}}" class="black-text">
+					<a href="#" class="add-group black-text">
 						<div class="card-panel">
 							<div class="row">
 								<div class="col s12 m4 centered">
@@ -69,6 +69,7 @@
 						</div>
 					</a>
 				</div>
+				{{/unless}}
 				{{/unless}}
 			</div>
 			<hr>

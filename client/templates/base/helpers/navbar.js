@@ -4,7 +4,6 @@ Template.navbar.onRendered(function () {
 		edge: 'right',
 		closeOnClick: true
 	});
-	$(".dropdown-button").dropdown({hover:true});
 });
 
 Template.navbar.helpers({
@@ -13,11 +12,5 @@ Template.navbar.helpers({
 	},
 	initDropdown: function () {
 		$(".dropdown-button").dropdown({hover:true});
-	}
-});
-
-Template.navbar.events({
-	'click .add-group': function () {
-		openModal('addGroupModalBody', '', false, null);		
 	}
 });

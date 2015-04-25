@@ -1,4 +1,7 @@
 Template.layout.events({
+	'click .add-group': function () {
+		openModal('addGroupModalBody', '', false, null);		
+	},
 	'click .logout': function () {
 		Meteor.logout();
 	},
@@ -44,6 +47,9 @@ Template.layout.events({
 });
 
 
+Template.registerHelper('nicknameSet', function () {
+	return Meteor.user().profile.nickname;
+});
 
 Template.registerHelper('dueNextFormatted', function () {
 	return this.dueNext.toLocaleDateString();

@@ -18,11 +18,18 @@
 				<li class="{{activeRoute 'tasks'}}{{activeRoute 'task'}}"><a href="{{pathFor 'tasks'}}"><i class="{{tasksViewIcon}} left"></i>Tasks</a></li>
 				<li class="{{activeRoute 'solo'}}"><a href="{{pathFor route='solo'}}"><i class="mdi-social-person left"></i>Solo</a></li>
 				<li class="{{activeRoute 'groups'}}{{activeRoute 'group'}}{{activeRoute 'groupMember'}}">
+					{{#if nicknameSet}}
+
 					{{#if groups}}
 					<a href="#" class="dropdown-button" data-activates="groups-dropdown"><span><i class="mdi-social-group left"></i>Groups<i class="mdi-navigation-arrow-drop-down right"></i></span></a>
 					{{initDropdown}}
+
 					{{else}}
 					<a href="#" class="add-group"><i class="mdi-social-group left"></i>Groups<i class="mdi-content-add right"></i></a>					
+					{{/if}}
+
+					{{else}}
+					<a href="{{pathFor route='groups'}}"><i class="mdi-social-group left"></i>Groups</a>
 					{{/if}}
 				</li>
 				<li><a href="#" class="logout"><i class="mdi-action-exit-to-app left"></i>Logout</a></li>
