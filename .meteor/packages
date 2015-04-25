@@ -21,3 +21,4 @@ useraccounts:materialize
 materialize:materialize
 gquemart:meteor-reactive-fullcalendar
 meteorhacks:fast-render
+service-configuration
