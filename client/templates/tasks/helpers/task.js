@@ -14,14 +14,12 @@ Template.task.helpers({
 			return Tags.findOne({_id: tagID}).name;
 		}
 	},
+	soloGroup: function () {
+		return (this.group == 'default');
+	},
 	groupById: function () {
 		var groupID = this.group;
-		if (groupID == 'default') {
-			return 'Self';
-		}
-		else {
-			return Groups.findOne({_id: groupID}).name;
-		}
+		return Groups.findOne({_id: groupID}).name;
 	},
 	dueData: function () {
 		if (this.dueNext && this.dueEvery) return true;

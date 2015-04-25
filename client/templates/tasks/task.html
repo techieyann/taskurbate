@@ -19,11 +19,17 @@
 		<div class="col s12 m6">
 			<div class="card-panel">
 				<div class="row">
+
 					<div class="col s6">
-						<strong>Group:</strong> {{groupById}}
+						{{#unless soloGroup}}
+						<a href ="/groups/{{group}}" class="black-text"><i class="mdi-social-group left"></i>{{groupById}}<i class="mdi-action-launch"></i></a>
+						{{else}}
+						<a href ="/solo" class="black-text"><i class="mdi-social-person left"></i>Solo<i class="mdi-action-launch"></i></a>
+						{{/unless}}
 					</div>
+
 					<div class="col s6">
-						<strong>Tag:</strong> {{tagById}}
+						<i class="mdi-action-label-outline"></i>{{tagById}}
 					</div>
 				</div>
 				{{#if description}}
