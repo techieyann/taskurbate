@@ -28,8 +28,8 @@ Template.tasks.onRendered(function () {
 });
 
 Template.tasks.helpers({
-	anyTasks: function () {
-		return (this.anyTasks ? true: false);
+	calendarViewAvailable: function () {
+		if (this.anyDue && !Meteor.Device.isPhone()) return true;
 	},
 	tasksViewChecked: function (view) {
 		return (Session.equals('tasksView', view) ? 'checked':'');
@@ -74,7 +74,8 @@ Template.taskCollectionElement.helpers({
 		return 'tag';
 	},
 	dueColor: function () {
-		var longestTimeDiff = this.longestTimeDiff;
+		var longestTimeDiff = Template.parentData().longestTimeDiff;
+
 		if (this.dueNext) {
 			var diff = this.dueNext - Session.get('now');
 			if (diff < 0) {
