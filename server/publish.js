@@ -1,3 +1,7 @@
+Meteor.publish('notifications', function (userId) {
+	return Notifications.find({user: userId});
+});
+
 Meteor.publish('tags', function (userId, groupArray) {
 	return Tags.find({$or: [{user: userId},{group: {$in: groupArray}}]});
 });

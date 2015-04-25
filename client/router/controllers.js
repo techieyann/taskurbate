@@ -16,6 +16,7 @@ DefaultSubscriptions = LoggedInController.extend({
 			userId = Meteor.user()._id;
 			groups = Meteor.user().profile.groups;
 		}
+		this.wait(Meteor.subscribe('notifications', userId));
 		this.wait(Meteor.subscribe('groups', groups));
 		this.wait(Meteor.subscribe('tasks', userId, groups));
 		this.wait(Meteor.subscribe('tags', userId, groups));

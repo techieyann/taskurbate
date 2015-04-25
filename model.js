@@ -2,6 +2,7 @@ Groups = new Meteor.Collection('groups');
 Tags = new Meteor.Collection('tags');
 Tasks = new Meteor.Collection('tasks');
 Completed = new Meteor.Collection('completed');
+Notifications = new Meteor.Collection('notifications');
 
 Meteor.users.deny({
   update: function() {
