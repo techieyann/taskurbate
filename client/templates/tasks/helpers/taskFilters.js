@@ -26,6 +26,43 @@ Template.taskFilters.helpers({
 });
 
 Template.taskFilters.events({
+	'click .show-only': function (e) {
+		var type = e.currentTarget.dataset.type;
+		var filterId = e.currentTarget.dataset.id;
+		var filters = Session.get('taskFilters');
+		if (type == 'group') {
+			for (var id in filters) {
+				if (id == filterId) {
+					filters[id].group = 'view';
+					$('.group-'+id).slideDown(300);
+				}
+				else {
+					filters[id].group = 'hide';
+					$('.group-'+id).slideUp(300);					
+				}
+			}			
+		}
+
+		if (type == 'tag') {
+			var group = e.currentTarget.dataset.group;
+			for (var id in filters) {
+				if (id == group) {
+					filters[id].group = 'view';
+					$('.group-'+id).slideDown(300);
+				}
+				else {
+					filters[id].group = 'hide';
+					$('.group-'+id).slideUp(300);					
+				}
+			}			
+			for (var id in filters[group].tags) {
+				if (id == filterId) filters[group].tags[id] = 'view';
+				else filters[group].tags[id] = 'hide';
+			}
+		}
+		Session.set('taskFilters', filters);
+
+	},
 	'change .task-filter': function (e) {
 		var checked = e.target.checked;
 		var type = e.target.dataset.type;

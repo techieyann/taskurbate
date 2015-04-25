@@ -2,7 +2,9 @@
 	{{#if groupTasks 'default'}}
 	<ul class="collection">
 		<li class="collection-item row">
-			<i class="mdi-social-person left"></i><strong>Self ({{groupTasks 'default'}})</strong>
+			<a href="#" data-type="group" data-id="default" class="show-only black-text">
+				<i class="mdi-social-person left"></i><strong>Self ({{groupTasks 'default'}})</strong>
+			</a>
 			<div class="switch secondary-content">
 				<label>
 					<input class="task-filter" data-type="group" data-group="default"
@@ -13,7 +15,9 @@
 		</li>
 		{{#if defaultTasks 'default'}}
 		<li class="collection-item group-default">
-			<i class="mdi-action-label left"></i>Misc. ({{defaultTasks 'default'}})
+			<a href="#" data-type="tag" data-group="default" data-id="default" class="show-only black-text">
+				<i class="mdi-action-label left"></i>Misc. ({{defaultTasks 'default'}})
+			</a>
 			<div class="switch secondary-content">
 				<label>
 					<input class="task-filter" data-type="tag" data-group="default" data-tag="default"
@@ -26,7 +30,9 @@
 		{{#each selfTag}}
 		{{#if tasks}}
 		<li class="collection-item group-default">
-			<i class="mdi-action-label left"></i>{{name}} ({{tasks}})
+			<a href="#" data-type="tag" data-group="default" data-id="{{_id}}" class="show-only black-text">
+				<i class="mdi-action-label left"></i>{{name}} ({{tasks}})
+			</a>
 			<div class="switch secondary-content">
 				<label>
 					<input class="task-filter" data-type="tag" data-group="default" data-tag="{{_id}}"
@@ -44,7 +50,9 @@
 	{{#if groupTasks _id}}
 	<ul class="collection">
 		<li class="collection-item row">
+			<a href="#" data-type="group" data-id="{{_id}}" class="show-only black-text">
 			<i class="mdi-social-group left"></i><strong>{{name}} ({{groupTasks _id}})</strong>
+			</a>
 			<div class="switch secondary-content">
 				<label>
 					<input class="task-filter" data-type="group" data-group="{{_id}}"
@@ -55,7 +63,9 @@
 		</li>
 		{{#if defaultTasks _id}}
 		<li class="collection-item group-{{_id}}">
-			<i class="mdi-action-label left"></i>Misc. ({{defaultTasks _id}})
+			<a href="#" data-type="tag" data-group="{{group}}" data-id="default" class="show-only black-text">
+				<i class="mdi-action-label left"></i>Misc. ({{defaultTasks _id}})
+			</a>
 			<div class="switch secondary-content">
 				<label>
 					<input class="task-filter" data-type="tag" data-group="{{_id}}" data-tag="default"
@@ -68,7 +78,9 @@
 		{{#each groupTag}}
 		{{#if tasks}}
 		<li class="collection-item group-{{group}}">
+			<a href="#" data-type="tag" data-group="{{group}}" data-id="{{_id}}" class="show-only black-text">
 			<i class="mdi-action-label left"></i>{{name}} ({{tasks}})
+			</a>
 			<div class="switch secondary-content">
 				<label>
 					<input class="task-filter" data-type="tag" data-group="{{group}}" data-tag="{{_id}}"
