@@ -51,6 +51,14 @@ Template.tasks.events({
 		$('#nav-search').slideDown(300);
 		$('#search').focus();
 	},
+	'click #searching-for': function () {
+		$('#search').val(Session.get('searchQuery'));
+		$('#nav-bar').slideUp(300);
+		$('#nav-search').slideDown(300, function () {
+			$('#search').focus();
+		});
+
+	},
 	'click .clear-search': function () {
 		Session.set('searchQuery', null);
 	},

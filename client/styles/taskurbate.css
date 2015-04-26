@@ -30,6 +30,9 @@ li>.row{
 				width: 100%;
 				padding: 0 5px;
 		}
+		#modal {
+				width:100%;
+		}
 }
 
 #backdate-datepicker{
