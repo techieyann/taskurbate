@@ -1,5 +1,6 @@
 <template name="navbar">
 <ul id="groups-dropdown" class="dropdown-content">
+	<li><h5>Groups:</h5></li>
 	{{#each groups}}
   <li><a href="{{pathFor 'group'}}">{{name}}</a></li>
 	{{/each}}

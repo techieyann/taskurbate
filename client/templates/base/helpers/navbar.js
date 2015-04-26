@@ -4,6 +4,7 @@ Template.navbar.onRendered(function () {
 		edge: 'right',
 		closeOnClick: true
 	});
+	$(".dropdown-button").dropdown({hover:false});
 });
 
 Template.navbar.helpers({
@@ -11,6 +12,6 @@ Template.navbar.helpers({
 		return (Router.current().route.getName() == route ? 'active':'');
 	},
 	initDropdown: function () {
-		$(".dropdown-button").dropdown({hover:true});
+		$(".dropdown-button").dropdown({hover:false});
 	}
 });
