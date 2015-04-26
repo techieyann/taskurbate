@@ -21,6 +21,10 @@ li>.row{
 		font-size: 18px;
 }
 
+#tasks-search-display {
+		border-bottom: solid 1px gray;
+}
+
 @media all and (max-width:600px) {
 		#container-div {
 				width: 100%;

@@ -5,7 +5,7 @@
 			<h4 class="">
 			<i class="mdi-content-filter-list left"></i>
 			View:
-				<a href="#" class="hide-task-filters black-text right"><i class="mdi-navigation-expand-less medium right"></i></a>				
+				<a href="#" class="hide-task-filters black-text right"><i class="mdi-navigation-expand-less medium right"></i>  </a>				
 			</h4>
 			<div>
 				{{#if calendarViewAvailable}}
@@ -25,11 +25,22 @@
 		</div>
 		<div class="row">
 			<h4>
-				<i class="{{tasksViewIcon}} left"></i>
-				Your Tasks 
-				<a href="#" class="show-task-filters black-text right"><i class="mdi-content-filter-list right"></i></a>
+				<i class="{{tasksViewIcon}} left"></i>Tasks
+				<a href="#" class="show-task-filters black-text right"><i class="mdi-content-filter-list"></i></a>
+				<a href="#" class="search-tasks black-text right"><i class="mdi-action-search"></i></a>
 			</h4>
 		</div>
+		{{#if searchingFor}}
+    <div class="row">
+			<div  id="tasks-search-display" class="col s12 m6 l4 offset-m3 offset-l4">
+				<h5>
+					<i class="mdi-action-search left"></i>{{searchingFor}}
+					<a href="#" class="clear-search black-text right"><i class="mdi-navigation-close"></i></a>
+				</h5>
+			</div>
+    </div>
+{{/if}}
+
 		{{#if tasksView 'list'}}
 		{{> list}}
 		{{/if}}

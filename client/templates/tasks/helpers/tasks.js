@@ -36,10 +36,24 @@ Template.tasks.helpers({
 	},
 	tasksView: function (view) {
 		return Session.equals('tasksView', view)
+	},
+	searchingFor: function () {
+		var search = Session.get('searchQuery');
+		if (search) return search;
 	}
 });
 
 Template.tasks.events({
+	'click .search-tasks': function () {
+		$('#nav-bar').slideUp(300);
+		$('#search').val('');
+
+		$('#nav-search').slideDown(300);
+		$('#search').focus();
+	},
+	'click .clear-search': function () {
+		Session.set('searchQuery', null);
+	},
 	'click .show-task-filters': function () {
 		$('.show-task-filters').slideUp(300);
 		$('.hide-task-filters, #task-filters').slideDown(300);
