@@ -29,7 +29,6 @@ Template.navbar.events({
 		$('#search').blur();
 	},
 	'keyup #search': function (e) {
-		
-		Session.set('searchQuery', $('#search').val()); 		
+		if(Meteor.Device.isDesktop()) Session.set('searchQuery', $('#search').val()); 		
 	}
 });
