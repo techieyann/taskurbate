@@ -79,20 +79,17 @@ var completedTasks = function () {
 		var cachedTask = taskCache[done.task];
 		var taskName = '';
 		var eventTitle = ''; 
-		var taskDuration = 30;
+		var taskDuration = done.duration;
 		if (cachedTask) {
 			taskName = cachedTask.name;
-			taskDuration = cachedTask.duration;
 		} else {
 			var currentTask = Tasks.findOne({_id: done.task});
 			if (currentTask)	{
 				cachedTask = {
 					name: currentTask.name,
-					duration: currentTask.duration
 				};
 				taskCache[done.task] = cachedTask;
 				taskName = cachedTask.name;
-				taskDuration = cachedTask.duration;
 			}
 		}
 		eventTitle = taskDuration+'m '+taskName;

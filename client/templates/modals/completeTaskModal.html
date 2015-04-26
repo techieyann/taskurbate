@@ -1,24 +1,17 @@
 <template name="completeTaskModalBody">
-		<a href="#" class="backdate-task-show black-text right"><i class="mdi-action-event small"></i></a>
-		<a href="#" class="backdate-task-hide black-text right hidden"><i class="mdi-content-remove small"></i></a>
 	<div class="row centered">
-		<h4>Complete task:</h4>
+		<h4>{{name}}</h4>
 	</div>
 
-	<div class="row centered">
-<a href="#" class="goto-task black-text">{{name}} <i class="mdi-action-launch"></i></a>
-</div>
-
-	<div id="backdate-row" class="row hidden">
-		<div class="col s12 m6 offset-m3 input-field">
-			<input id="backdate-datepicker" type="text" readonly="true">
-			<label for="backdate-datepicker">Backdate task:</label>
+	<div class="row">
+		<div class="input-field col s12 m4 offset-m4">
+			<input id="duration" name="taskDuration" type="number" value="{{duration}}">
+			<label for="duration" class="active">Duration (mins)</label>
 		</div>
 	</div>
 </template>
 
 <template name="completeTaskModalFooter">
 	<a href="#" class="close-modal black-text left">Cancel</a>
-	<a href="#" class="complete-task black-text right">Complete Task</a>
-	<a href="#" class="submit-backdate-task black-text right hidden">Backdate Task</a>
+	<a href="#" class="complete-task-modal black-text right">Complete Task</a>
 </template>

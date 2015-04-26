@@ -1,21 +1,19 @@
-Template.completeTaskModalBody.onRendered(function () {
-	$('#backdate-datepicker').datepicker({maxDate: 0});
-});
-
-Template.completeTaskModalBody.events({
-	'click .goto-task': function (e) {
-		e.preventDefault();
+Template.completeTaskModalFooter.events({
+	'click .complete-task-modal': function () {
+		var duration = parseInt($('#duration').val());
+		console.log(duration);
+		if (!duration) {
+			Materialize.toast('Task duration must be a positive number', 4000);
+			$('#duration').val('').focus();
+			return;
+		}
+		if (duration <= 0) {
+			Materialize.toast('Task duration must be positive', 4000);
+			$('#duration').val('').focus();
+			return;		
+		}
+		
+		completeTask(this._id, duration, this.name);
 		closeModal();
-		Router.go('/tasks/'+this._id);
-	},
-	'click .backdate-task-show': function () {
-		$('.backdate-task-show, .complete-task').hide();
-		$('.backdate-task-hide, .submit-backdate-task').show();
-		$('#backdate-row').slideDown(300);
-	},
-	'click .backdate-task-hide': function () {
-		$('.backdate-task-hide, .submit-backdate-task').hide();
-		$('.backdate-task-show, .complete-task').show();
-		$('#backdate-row').slideUp(300);
 	}
 });

@@ -39,11 +39,12 @@ undoCompleteTask = function () {
 	}
 };
 
-completeTask = function (id, name) {
+completeTask = function (id, duration, name) {
 
 	var options = {
 		user: Meteor.user()._id,
 		task: id,
+		duration: duration,
 		at: new Date()
 	};
 	Meteor.call('completeTask', options, function (err, result) {

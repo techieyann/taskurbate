@@ -1,9 +1,18 @@
 <template name="backdateTaskModalBody">
 	<div class="centered">
 		<div class="row">
-			<div class="col s12 m6 offset-m3 input-field">
+			<h4>{{name}}</h4>
+		</div>
+		<div class="row">
+			<div class="col s12 m4 offset-m4 input-field">
 				<input id="backdate-datepicker" type="text" readonly="true">
-				<label for="backdate-datepicker">{{name}} completed on:</label>
+				<label for="backdate-datepicker">completed on:</label>
+			</div>
+			<div class="row">
+				<div class="input-field col s12 m4 offset-m4">
+					<input id="duration" name="taskDuration" type="number" value="{{duration}}">
+					<label for="duration" class="active">Duration (mins)</label>
+				</div>
 			</div>
 	</div>
 	</div>

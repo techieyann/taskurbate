@@ -101,7 +101,7 @@ Meteor.methods({
 	},
 	completeTask: function (options) {
 		var task = Tasks.findOne({_id: options.task});
-var completed = Completed.insert(options);
+		var completed = Completed.insert(options);
 		if (task) {
 
 				var groupId = task.group;

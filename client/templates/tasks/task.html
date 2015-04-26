@@ -40,12 +40,13 @@
 		</div>
 		<div class="col s12 m6">
 			<div class="card-panel">
-				<p><strong>Duration:</strong> {{duration}} minutes</p>
-				{{#if dueData}}
-				<p><strong>Due:</strong> {{dueNextFormatted}}</p>
-				<p><strong>Due every:</strong> {{dueEveryFormatted}} day{{daysPlural}}</p>
-				{{/if}}
-				<p><strong>Schedule:</strong> {{schedule}}</p>
+				<div class="row">
+					{{#if dueData}}
+					<p><strong>Due:</strong> {{dueNextFormatted}}</p>
+					<p><strong>Due every:</strong> {{dueEveryFormatted}} day{{daysPlural}}</p>
+					{{/if}}
+					<p><strong>Schedule:</strong> {{schedule}}</p>
+				</div>
 			</div>
 		</div>
 	</div>
