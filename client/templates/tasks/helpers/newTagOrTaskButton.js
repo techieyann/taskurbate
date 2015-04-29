@@ -1,4 +1,4 @@
-Template.newTagOrTaskButton.events({
+Template.newGroupTaskButton.events({
 	'click #new-task-button': function () {
 		var group = Template.parentData().selectedGroup;
 		var tagsByGroup = {};
@@ -10,7 +10,11 @@ Template.newTagOrTaskButton.events({
 			groupSelectDisabled: true
 		};
 		openModal('newTaskModalBody', 'newTaskModalFooter', true, data);		
-	},
+	}
+
+});
+
+Template.newGroupTagButton.events({
 	'click #new-tag-button': function () {
 		var data = {
 			group: Template.parentData().selectedGroup._id

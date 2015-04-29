@@ -1,11 +1,13 @@
-<template name="newTagOrTaskButton">
+<template name="newGroupTaskButton">
 	<div class="fixed-action-btn">
-    <a class="btn-floating btn-large red">
+    <a href="#" id="new-task-button" class="btn-floating btn-large waves-effect waves-light red">
       <i class="large mdi-content-add"></i>
     </a>
-		<ul>
-			<li><a id="new-task-button" class="btn-floating red"><i class="mdi-action-assignment"></i></a></li>
-			<li><a id="new-tag-button" class="btn-floating red"><i class="mdi-action-label-outline"></i></a></li>
-		</ul>
   </div>
+</template>
+
+<template name="newGroupTagButton">
+	<div class="row">
+		<a href="#" id="new-tag-button" class="btn-flat waves-effect waves-red left"><i class="mdi-content-add left"></i>New Tag</a>
+	</div>
 </template>
