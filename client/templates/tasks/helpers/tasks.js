@@ -132,4 +132,49 @@ Template.taskCollectionElement.events({
 
 });
 
-
+Template.list.helpers({
+	moreThanOnePage: function () {
+		var numPerPage = Session.get('tasksPerPage');
+		return (this.anyTasks > numPerPage ? true: false);
+	},
+	page: function () {
+		var pages = [];
+		var numPerPage = Session.get('tasksPerPage');
+		var numPages = Math.ceil(this.anyTasks / numPerPage);
+		for (var i=0; i<numPages; i++) {
+			pages.push({
+				num: i+1
+			});
+		}
+		return pages;
+	},
+	activePage: function () {
+		var currentPage = parseInt(Router.current().params.query.page);
+		if (!currentPage) currentPage = 1;
+		return (currentPage == this.num ? 'active': '');
+	},
+	firstPage: function () {
+		var currentPage = parseInt(Router.current().params.query.page);
+		if (!currentPage) currentPage = 1;
+		return (currentPage == 1 ? 'disabled': '');
+	},
+	lastPage: function () {
+		var numPerPage = Session.get('tasksPerPage');
+		var numPages = Math.ceil(this.anyTasks / numPerPage);
+		var currentPage = parseInt(Router.current().params.query.page);
+		if (!currentPage) currentPage = 1;
+		return (currentPage == numPages ? 'disabled': '');
+	},
+	prevPage: function () {
+		var currentPage = parseInt(Router.current().params.query.page);
+		if (!currentPage) currentPage = 1;
+		return (currentPage == 1 ? 1: currentPage-1);		
+	},
+	nextPage: function () {
+		var numPerPage = Session.get('tasksPerPage');
+		var numPages = Math.ceil(this.anyTasks / numPerPage);
+		var currentPage = parseInt(Router.current().params.query.page);
+		if (!currentPage) currentPage = 1;
+		return (currentPage == numPages ? currentPage: currentPage+1);		
+	}
+});

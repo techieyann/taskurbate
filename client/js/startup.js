@@ -6,6 +6,7 @@ Meteor.startup(function () {
 	}, 60000);
 		Session.set('taskFilters', null);
 	Session.set('tasksView', 'list');
+	Session.set('tasksPerPage', 10);
 	Session.setDefault('lastCompletedRemoved', '');
 	Session.setDefault('selectedCompletedTask', null);
 	Session.setDefault('selectedGroup', 'default');
