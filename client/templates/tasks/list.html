@@ -1,0 +1,43 @@
+<template name="list">
+	{{#if moreThanOnePage}}
+	<div class="row">
+	<ul class="pagination">
+		<li class="{{firstPage}}">
+			<a href="#" class="page-changer waves-effect" data-page="{{prevPage}}">
+				<i class="mdi-navigation-chevron-left"></i>
+			</a>
+		</li>
+
+		{{#each page}}
+		<li class="{{activePage}} ">
+			<a href="#" class="page-changer waves-effect" data-page="{{num}}">
+				{{num}}
+			</a>
+		</li>
+		{{/each}}
+		<li class="{{lastPage}}">
+			<a href="#" class="page-changer waves-effect" data-page="{{nextPage}}">
+				<i class="mdi-navigation-chevron-right"></i>
+			</a>
+		</li>
+
+	</ul>
+	</div>
+	{{/if}}
+	<ul id="task-collection" class="row collection">
+		{{#each tasksInPage}}
+		{{> taskCollectionElement}}
+		{{/each}}
+	</ul>
+	<div class="row">
+		<div class="input-field col s12 m6 l4  offset-m3 offset-l4">
+			<select id="list-tasks-per-page-select" name="listTasksPerPage">
+				<option value="5" {{tasksPerPage '5'}}>Five</option>
+				<option value="10" {{tasksPerPage '10'}}>Ten</option>
+				<option value="15" {{tasksPerPage '15'}}>Fifteen</option>
+				<option value="20" {{tasksPerPage '20'}}>Twenty</option>
+			</select>
+			<label>Tasks/Page:</label>
+		</div>
+	</div>	
+</template>
