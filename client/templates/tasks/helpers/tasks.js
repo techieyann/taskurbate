@@ -133,6 +133,15 @@ Template.taskCollectionElement.events({
 });
 
 Template.list.helpers({
+	tasksInPage: function () {
+		var currentPage = Session.get('tasksPage');
+		var numPerPage = Session.get('tasksPerPage');
+		var tasks = this.tasks.slice((currentPage-1)*numPerPage, numPerPage);
+		if (this.tasks.length <= currentPage*numPerPage) 
+			tasks = this.tasks.slice((currentPage-1)*numPerPage);
+
+		return tasks;
+	},
 	moreThanOnePage: function () {
 		var numPerPage = Session.get('tasksPerPage');
 		return (this.anyTasks > numPerPage ? true: false);
@@ -149,32 +158,35 @@ Template.list.helpers({
 		return pages;
 	},
 	activePage: function () {
-		var currentPage = parseInt(Router.current().params.query.page);
-		if (!currentPage) currentPage = 1;
+		var currentPage = Session.get('tasksPage');
 		return (currentPage == this.num ? 'active': '');
 	},
 	firstPage: function () {
-		var currentPage = parseInt(Router.current().params.query.page);
-		if (!currentPage) currentPage = 1;
+		var currentPage = Session.get('tasksPage');
 		return (currentPage == 1 ? 'disabled': '');
 	},
 	lastPage: function () {
 		var numPerPage = Session.get('tasksPerPage');
 		var numPages = Math.ceil(this.anyTasks / numPerPage);
-		var currentPage = parseInt(Router.current().params.query.page);
-		if (!currentPage) currentPage = 1;
+		var currentPage = Session.get('tasksPage');
 		return (currentPage == numPages ? 'disabled': '');
 	},
 	prevPage: function () {
-		var currentPage = parseInt(Router.current().params.query.page);
-		if (!currentPage) currentPage = 1;
-		return (currentPage == 1 ? 1: currentPage-1);		
+		var currentPage = Session.get('tasksPage');
+		return (currentPage == 1 ? 1: currentPage-1);
 	},
 	nextPage: function () {
 		var numPerPage = Session.get('tasksPerPage');
 		var numPages = Math.ceil(this.anyTasks / numPerPage);
-		var currentPage = parseInt(Router.current().params.query.page);
-		if (!currentPage) currentPage = 1;
+		var currentPage = Session.get('tasksPage');
 		return (currentPage == numPages ? currentPage: currentPage+1);		
+	}
+});
+
+Template.list.events({
+	'click .page-changer': function (e) {
+		var newPage = parseInt(e.currentTarget.dataset.page);
+		if (!newPage) newPage = 1;
+		Session.set('tasksPage', newPage);
 	}
 });

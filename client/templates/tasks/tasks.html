@@ -61,22 +61,32 @@
 
 <template name="list">
 	<ul id="task-collection" class="row collection">
-		{{#each tasks}}
+		{{#each tasksInPage}}
 		{{> taskCollectionElement}}
 		{{/each}}
 	</ul>
 	{{#if moreThanOnePage}}
 	<div class="row center-align">
 	<ul class="pagination">
-		<li class="{{firstPage}} waves-effect">
-			<a href="?page={{prevPage}}">
+		<li class="{{firstPage}}">
+			<a href="#" class="page-changer waves-effect" data-page="{{prevPage}}">
 				<i class="mdi-navigation-chevron-left"></i>
 			</a>
 		</li>
+
 		{{#each page}}
-    <li class="{{activePage}}"><a href="?page={{num}}">{{num}}</a></li>
+		<li class="{{activePage}} ">
+			<a href="#" class="page-changer waves-effect" data-page="{{num}}">
+				{{num}}
+			</a>
+		</li>
 		{{/each}}
-    <li class="{{lastPage}} waves-effect"><a href="?page={{nextPage}}"><i class="mdi-navigation-chevron-right"></i></a></li>
+		<li class="{{lastPage}}">
+			<a href="#" class="page-changer waves-effect" data-page="{{nextPage}}">
+				<i class="mdi-navigation-chevron-right"></i>
+			</a>
+		</li>
+
 	</ul>
 	</div>
 	{{/if}}
