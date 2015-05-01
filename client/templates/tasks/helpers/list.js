@@ -7,6 +7,11 @@ Template.list.helpers({
 		var currentPage = Session.get('tasksPage');
 		var numPerPage = Session.get('tasksPerPage');
 		var start = (currentPage-1)*numPerPage;
+		if (start > this.tasks.length) {
+			Session.set('tasksPage', 1);
+			currentPage = 1;
+			start = 0;
+		}
 		var end = (currentPage-1)*numPerPage + numPerPage;
 		if (end > this.tasks.length) end = this.tasks.length;
 	
