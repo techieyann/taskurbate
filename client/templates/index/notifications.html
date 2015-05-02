@@ -22,28 +22,30 @@
 			</li>
 		</ul>		
 		{{/if}}
-		{{#if notifications}}
-		<ul class="collection row">
-			{{#each notifications}}
-			<li class="collection-item">
-				<div class="row">
-					<div class="col s10 m11">
-						{{#if completedNotification}}
-						{{#with data}}
-						<a href="/groups/{{group.id}}"><strong><i class="mdi-social-group"></i>{{group.name}}</strong></a>:<br>
-						<a href="/groups/{{group.id}}/member/{{user.id}}">{{user.name}}</a> completed
-						<a href="tasks/{{task.id}}">{{task.name}}</a> on {{formattedDatetime at}}
-						{{/with}}
-						{{/if}}
-					</div>
-					<div class="col s2 m1">
-						<a href="#" class="close-notification black-text"><i class="mdi-navigation-close small"></i></a>
-					</div>
-				</div>
-			</li>
+		{{#each notifications}}
+
+		<div class="card-panel">
+
+			<h5><a href="/groups/{{id}}"><strong><i class="mdi-social-group"></i>{{name}}</strong></a>:</h5>
+
+			{{#each byMember}}
+			<ul class="collection with-header">
+				<li class="collection-header"><strong><a href="/groups/{{groupId}}/member/{{id}}">{{name}}</a> completed:</strong></li>
+				{{#each memberNotification}}
+
+				<li class="collection-item">
+					<a href="tasks/{{data.task.id}}">{{data.task.name}}</a> on {{formattedDatetime data.at}}
+					<a href="#" class="close-notification black-text secondary-content"><i class="mdi-navigation-close small"></i></a>
+				</li>
+
+				{{/each}}
+			</ul>
 			{{/each}}
-		</ul>
-		{{/if}}
+		</div>
+
+		{{/each}}
+
+
 		{{else}}
 		<strong>You're all caught up, keep up the good work!</strong>
 		{{/if}}
