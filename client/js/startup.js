@@ -1,3 +1,16 @@
+$(document).ready(function () {
+	var head = $('head');
+
+  var meta = $('meta');
+  head.append(meta.clone());
+  meta.remove();
+  var title = $('title');
+  head.append(title.clone());
+  title.remove();
+
+	$('head>style, .spinner').remove();
+
+});
 Meteor.startup(function () {
 	$('body').addClass('grey lighten-4');
 	Session.set('now', new Date());
@@ -19,7 +32,5 @@ Meteor.startup(function () {
 	Session.setDefault('calendar-view-overdue-tasks', true);
 	Session.setDefault('calendar-view-due-tasks', true);
 	Session.setDefault('calendar-view', 'basicWeek');
-	$(document).ready(function () {
 
-	});
 });
