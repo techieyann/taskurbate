@@ -1,7 +1,6 @@
 Template.completeTaskModalFooter.events({
 	'click .complete-task-modal': function () {
 		var duration = parseInt($('#duration').val());
-		console.log(duration);
 		if (!duration) {
 			Materialize.toast('Task duration must be a positive number', 4000);
 			$('#duration').val('').focus();
