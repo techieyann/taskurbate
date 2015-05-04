@@ -31,6 +31,6 @@ Meteor.startup(function () {
 	Session.setDefault('calendar-view-completed-tasks', false);
 	Session.setDefault('calendar-view-overdue-tasks', true);
 	Session.setDefault('calendar-view-due-tasks', true);
-	Session.setDefault('calendar-view', 'basicWeek');
+	Session.setDefault('calendar-view', 'agendaWeek');
 
 });

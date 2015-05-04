@@ -14,10 +14,21 @@ Template.calendarArrows.events({
 	}
 });
 
+Template.calendarViewControl.helpers({
+	calendarViewTasksChecked: function (view) {
+		return (Session.equals('calendar-view-'+view+'-tasks', true) ? 'checked':'');
+	}
+});
+
 Template.calendarViewControl.events({
 	'change select': function (e) {
 		Session.set('calendar-view', e.target.value);
 		$('#calendar').fullCalendar('changeView', e.target.value);
+	},
+	'change .viewCheckbox': function (e) {
+		var view = e.target.dataset.view;
+		var val = e.target.checked;
+		Session.set('calendar-view-'+view+'-tasks', val);
 	}
 });
 
@@ -60,6 +71,7 @@ Template.calendar.helpers({
 				} else if (calEvent.type == 'scheduled') {
 					var modalData = {
 						_id: calEvent.id,
+						duration: calEvent.duration,
 						name: calEvent.name
 					}
 					openModal('completeTaskModalBody', 'completeTaskModalFooter', false, modalData);
@@ -148,6 +160,7 @@ var processTaskIntoEvent = function (task) {
 		end: endAt,
 		id: task._id,
 		name: task.name,
+		duration: task.duration,
 		type: 'scheduled'
 	};
 
@@ -179,7 +192,7 @@ var processTaskIntoEvent = function (task) {
 		calendarObject.borderColor = colors.tealBorder;
 		calendarObject.textColor = 'black';	
 	}
-	if (task.dueNext.toLocaleTimeString() == '12:00:00 AM') {
+	if (task.schedule == 'strict') {
 		calendarObject.allDay = true;
 	}
 	return calendarObject;
