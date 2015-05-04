@@ -40,7 +40,7 @@ undoCompleteTask = function () {
 };
 
 completeTask = function (id, duration, name) {
-	var now = Session.get('now');
+	var now = new Date();
 	var options = {
 		user: Meteor.user()._id,
 		task: id,

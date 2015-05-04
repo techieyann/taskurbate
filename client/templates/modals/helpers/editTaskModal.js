@@ -129,11 +129,14 @@ var processEditTaskForm = function (taskId) {
 			edited: now
 		}
 	};
-	if (parsedData.taskScheduleType != "adaptive") {
+	if (parsedData.taskScheduleType == "lenient") {
 		options.task.dueNext = new Date(parsedData.taskDueStarting);
-		if (parsedData.taskScheduleType == "strict") {
-			options.task.dueEvery = parsedData.taskDaysBeforeDue;
-		}
+
+	}
+	if (parsedData.taskScheduleType == "strict") {
+		options.task.dueEvery = parsedData.taskDaysBeforeDue;
+		var due = new Date(parsedData.taskDueStarting);
+		options.dueNext = new Date(due.getTime() + (1000 * 60 * 60 * 24) - 1);
 	}
 	Meteor.call('editTask', options, function (err) {
 		if (err) {
