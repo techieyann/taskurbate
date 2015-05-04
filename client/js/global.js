@@ -40,12 +40,12 @@ undoCompleteTask = function () {
 };
 
 completeTask = function (id, duration, name) {
-
+	var now = Session.get('now');
 	var options = {
 		user: Meteor.user()._id,
 		task: id,
 		duration: duration,
-		at: new Date()
+		at: new Date(now.getTime() - (duration * 60 * 1000))
 	};
 	Meteor.call('completeTask', options, function (err, result) {
 		if (err) {
