@@ -222,7 +222,9 @@ updateTaskMeta = function (taskId) {
 		} else if (currentTask.schedule == 'lenient') {
 			options.task.dueNext = new Date(lastCompleted + (currentTask.dueEvery * (1000 * 60 * 60 * 24)));
 		} else if (currentTask.schedule == 'strict') {
-			if (options.task.lastCompleted > currentTask.dueNext) {
+			var dayLastCompleted = new Date(options.task.lastCompleted.toDateString());
+			var dayDue = new Date(currentTask.dueNext.toDateString());
+			if (dayLastCompleted >= dayDue) {
 				var dueNext = currentTask.dueNext.getTime() + (currentTask.dueEvery * (1000 * 60 * 60 * 24));
 				while (options.task.lastCompleted.getTime() > dueNext) {
 					dueNext = dueNext + (currentTask.dueEvery * (1000 * 60 * 60 * 24));
