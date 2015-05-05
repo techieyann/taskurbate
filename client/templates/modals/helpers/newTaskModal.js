@@ -129,7 +129,6 @@ var processNewTaskForm = function () {
 		var due = new Date(parsedData.taskDueStarting);
 		options.dueNext = new Date(due.getTime() + (1000 * 60 * 60 * 24) - 1);
 	}
-	console.log(options);
 	Meteor.call('newTask', options, function (err) {
 		if (err) {
 			Materialize.toast('New Task Error: '+err, 4000);
