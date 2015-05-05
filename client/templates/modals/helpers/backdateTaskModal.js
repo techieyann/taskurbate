@@ -28,6 +28,7 @@ Template.backdateTaskModalFooter.events({
 			duration: duration,
 			at: new Date(backdate)
 		};
+		if (this.group != 'default') options.group = this.group;
 		var name = this.name;
 		var id = this._id;
 		Meteor.call('completeTask', options, function (err, result) {

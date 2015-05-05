@@ -1,7 +1,9 @@
 Template.tasks.onRendered(function () {
-	if (Session.equals('taskFilters', null)) {
-		var filters = {};
+	var filters = Session.get('taskFilters');
+	if (!filters) {
+		filters = {};
 		var tags = this.data.tags;
+
 		for (var groupId in tags) {
 			var groupTags = tags[groupId];
 			var groupFilters = {
@@ -16,9 +18,16 @@ Template.tasks.onRendered(function () {
 			};
 		}
 		Session.set('taskFilters', filters);
+		if (!tags) {
+			filters.default = {
+				group: 'view',
+				tags: {
+					default: 'view'
+				}
+			}
+		}
 	}
 	else {
-		var filters = Session.get('taskFilters');
 		for (var group in filters) {
 			if (filters[group].group == 'hide') {
 				$('.group-'+group).hide();

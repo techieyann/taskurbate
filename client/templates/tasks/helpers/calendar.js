@@ -84,6 +84,8 @@ Template.calendar.helpers({
 
 
 var completedTasks = function () {
+
+
 	var completed = Completed.find({}, {fields: {task: 1, duration: 1, at: 1}});
 	var taskArray = [];
 	var taskCache = {};

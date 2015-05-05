@@ -12,7 +12,7 @@ Template.completeTaskModalFooter.events({
 			return;		
 		}
 		
-		completeTask(this._id, duration, this.name);
+		completeTask(this._id, duration, this.name, this.group);
 		closeModal();
 	}
 });

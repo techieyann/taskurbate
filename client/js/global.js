@@ -39,7 +39,7 @@ undoCompleteTask = function () {
 	}
 };
 
-completeTask = function (id, duration, name) {
+completeTask = function (id, duration, name, group) {
 	var now = new Date();
 	var options = {
 		user: Meteor.user()._id,
@@ -47,6 +47,7 @@ completeTask = function (id, duration, name) {
 		duration: duration,
 		at: new Date(now.getTime() - (duration * 60 * 1000))
 	};
+	if (group != 'default') options.group = group;
 	Meteor.call('completeTask', options, function (err, result) {
 		if (err) {
 			Materialize.toast('Complete task error: '+err, 4000);

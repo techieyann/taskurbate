@@ -19,12 +19,12 @@ Template.list.helpers({
 	},
 	moreThanOnePage: function () {
 		var numPerPage = Session.get('tasksPerPage');
-		return (this.anyTasks > numPerPage ? true: false);
+		return (this.tasks.length > numPerPage ? true: false);
 	},
 	page: function () {
 		var pages = [];
 		var numPerPage = Session.get('tasksPerPage');
-		var numPages = Math.ceil(this.anyTasks / numPerPage);
+		var numPages = Math.ceil(this.tasks.length / numPerPage);
 		for (var i=0; i<numPages; i++) {
 			pages.push({
 				num: i+1
@@ -42,7 +42,7 @@ Template.list.helpers({
 	},
 	lastPage: function () {
 		var numPerPage = Session.get('tasksPerPage');
-		var numPages = Math.ceil(this.anyTasks / numPerPage);
+		var numPages = Math.ceil(this.tasks.length / numPerPage);
 		var currentPage = Session.get('tasksPage');
 		return (currentPage == numPages ? 'disabled': '');
 	},
@@ -52,7 +52,7 @@ Template.list.helpers({
 	},
 	nextPage: function () {
 		var numPerPage = Session.get('tasksPerPage');
-		var numPages = Math.ceil(this.anyTasks / numPerPage);
+		var numPages = Math.ceil(this.tasks.length / numPerPage);
 		var currentPage = Session.get('tasksPage');
 		return (currentPage == numPages ? currentPage: currentPage+1);		
 	},
