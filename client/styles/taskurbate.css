@@ -31,7 +31,10 @@ li>.row{
 				padding: 0 5px;
 		}
 		#modal {
-				width:100%;
+				width:95%;
+				height:95%;
+				max-height:95%;
+				top:2.5% !important;
 		}
 }
 
