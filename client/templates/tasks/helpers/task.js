@@ -7,11 +7,13 @@ Template.task.onRendered(function () {
 Template.task.helpers({
 	tagById: function () {
 		var tagID = this.tag;
-		if (tagID == 'default') {
-			return 'Misc.';
-		}
-		else {
-			return Tags.findOne({_id: tagID}).name;
+		if (tagID) {
+			if (tagID == 'default') {
+				return 'Misc.';
+			}
+			else {
+				return Tags.findOne({_id: tagID}).name;
+			}
 		}
 	},
 	soloGroup: function () {
