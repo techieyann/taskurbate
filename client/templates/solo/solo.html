@@ -2,10 +2,15 @@
 	<div class="card-panel">
 		<h4>
 			<i class="mdi-action-assignment left"></i>Your Tasks
-
+			{{#if anyTasks}}
+			<a href="#" id="show-tasks" class="show-tasks black-text right hidden"><i class="mdi-navigation-expand-more small"></i></a>
+			<a href="#" id="hide-tasks" class="hide-tasks black-text right"><i class="mdi-navigation-expand-less small"></i></a>
+			{{/if}}
 		</h4>
-		{{> tasksByTag}}
-		{{> newGroupTagButton}}
+		<div id="solo-tasks">
+			{{> tasksByTag}}
+			{{> newGroupTagButton}}
+		</div>
 	</div>
 	<div class="card-panel">
 		<h4><i class="mdi-social-person left"></i>Your Profile</h4>

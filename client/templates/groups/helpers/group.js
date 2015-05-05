@@ -13,3 +13,15 @@ Template.group.helpers({
 	}
 });
 
+Template.group.events({
+	'click #hide-tasks': function () {
+		$('#hide-tasks').hide();
+		$('#show-tasks').show();
+		$('#group-tasks').slideUp(300);
+	},
+	'click #show-tasks': function () {
+		$('#show-tasks').hide();
+		$('#hide-tasks').show();
+		$('#group-tasks').slideDown(300);
+	}
+});
