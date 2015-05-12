@@ -56,6 +56,7 @@ mongo@1.1.0
 mrt:chartjs@0.0.6
 mrt:jquery-ui@1.9.2
 mrt:moment@2.8.1
+multiply:iron-router-progress@1.0.1
 mystor:device-detection@0.2.0
 npm-bcrypt@0.7.8_2
 oauth@1.1.4

@@ -52,15 +52,15 @@
 
 			<ul class="side-nav" id="mobile-side-nav">
 				{{#if currentUser}}
-				<li class="{{activeRoute 'index'}}"><a href="{{pathFor route='index'}}">Home<i class="mdi-action-home right"></i></a></li>
-				<li class="{{activeRoute 'tasks'}}{{activeRoute 'task'}}"><a href="{{pathFor 'tasks'}}">Tasks<i class="{{tasksViewIcon}} right"></i></a></li>
-				<li class="{{activeRoute 'solo'}}"><a href="{{pathFor route='solo'}}">Solo<i class="mdi-social-person right"></i></a></li>
-				<li class="{{activeRoute 'groups'}}{{activeRoute 'group'}}"><a href="{{pathFor route='groups'}}">Groups<i class="mdi-social-group right"></i></a></li>
+				<li class="{{activeRoute 'index'}}"><a href="{{pathFor route='index'}}" class="waves-effect">Home<i class="mdi-action-home right"></i></a></li>
+				<li class="{{activeRoute 'tasks'}}{{activeRoute 'task'}}"><a href="{{pathFor 'tasks'}}" class="waves-effect">Tasks<i class="{{tasksViewIcon}} right"></i></a></li>
+				<li class="{{activeRoute 'solo'}}"><a href="{{pathFor route='solo'}}" class="waves-effect">Solo<i class="mdi-social-person right"></i></a></li>
+				<li class="{{activeRoute 'groups'}}{{activeRoute 'group'}}"><a href="{{pathFor route='groups'}}" class="waves-effect">Groups<i class="mdi-social-group right"></i></a></li>
 
 				<li><a href="#" class="logout">Logout<i class="mdi-action-exit-to-app right"></i></a></li>
 				{{else}}
-				<li class="{{activeRoute 'about'}}"><a href="{{pathFor route='about'}}">About<i class="mdi-action-speaker-notes right"></i></a></li>
-				<li class="{{activeRoute 'login'}}"><a href="{{pathFor route='login'}}">Login<i class="mdi-social-person right"></i></a></li>
+				<li class="{{activeRoute 'about'}}"><a href="{{pathFor route='about'}}" class="waves-effect">About<i class="mdi-action-speaker-notes right"></i></a></li>
+				<li class="{{activeRoute 'login'}}"><a href="{{pathFor route='login'}}" class="waves-effect">Login<i class="mdi-social-person right"></i></a></li>
 				{{/if}}
 			</ul>
 

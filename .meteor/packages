@@ -22,3 +22,4 @@ materialize:materialize
 gquemart:meteor-reactive-fullcalendar
 service-configuration
 meteorhacks:inject-initial
+multiply:iron-router-progress
