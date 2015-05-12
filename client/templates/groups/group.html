@@ -22,5 +22,27 @@
 			{{/each}}
 		</ul>
 	</div>
+	{{#if isDesktop}}
+	<div class="card-panel">
+		<h4><i class="mdi-notification-event-note left"></i>Completed</h4>		
+		<div id="group-calendar">
+			{{> calendarArrows}}
+			{{> ReactiveFullcalendar options=calendarOptions}}
+			<div class="row">
+				{{> calendarViewControl}}
+				<div class="input-field col s6 m3">
+
+					<select id="calendar-member-view-select" name="calendarMemberView">
+						<option value="everyone" {{memberView 'everyone'}}>Everyone</option>
+						{{#each groupMember}}
+						<option value="{{id}}" {{memberView id}}>{{name}}</option>
+						{{/each}}
+					</select>
+					<label>Member:</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{/if}}
 	{{> newGroupTaskButton}}
 </template>

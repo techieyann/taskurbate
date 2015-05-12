@@ -14,9 +14,16 @@ Template.calendarArrows.events({
 	}
 });
 
-Template.calendarViewControl.helpers({
+Template.calendarViewTypeControl.helpers({
 	calendarViewTasksChecked: function (view) {
 		return (Session.equals('calendar-view-'+view+'-tasks', true) ? 'checked':'');
+	}
+});
+Template.calendarViewTypeControl.events({
+	'change .viewCheckbox': function (e) {
+		var view = e.target.dataset.view;
+		var val = e.target.checked;
+		Session.set('calendar-view-'+view+'-tasks', val);
 	}
 });
 
@@ -24,13 +31,10 @@ Template.calendarViewControl.events({
 	'change select': function (e) {
 		Session.set('calendar-view', e.target.value);
 		$('#calendar').fullCalendar('changeView', e.target.value);
-	},
-	'change .viewCheckbox': function (e) {
-		var view = e.target.dataset.view;
-		var val = e.target.checked;
-		Session.set('calendar-view-'+view+'-tasks', val);
 	}
 });
+
+
 
 Template.calendarViewControl.helpers({
 	calendarView: function (view) {
@@ -83,10 +87,12 @@ Template.calendar.helpers({
 });
 
 
-var completedTasks = function () {
+completedTasks = function (groupId, userId) {
+	var filters = {};
+	if (groupId) filters.group = groupId;
+	if (userId) filters.user = userId;
 
-
-	var completed = Completed.find({}, {fields: {task: 1, duration: 1, at: 1}});
+	var completed = Completed.find(filters, {fields: {task: 1, duration: 1, at: 1}});
 	var taskArray = [];
 	var taskCache = {};
 	completed.forEach(function (done) {
