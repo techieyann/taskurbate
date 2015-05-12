@@ -8,33 +8,35 @@
 				<a href="#" class="hide-task-filters black-text right"><i class="mdi-navigation-expand-less medium right"></i>  </a>				
 			</h4>
 			<div>
-				{{#if calendarViewAvailable}}
-				<div class="switch left">
-					<label>
-						<i class="mdi-action-assignment"></i> List
-						<input id="tasksView" type="checkbox" {{tasksViewChecked 'calendar'}}>
-						<span class="lever"></span>
-						<i class="mdi-action-event"></i> Calendar
-					</label>
-				</div>
-			{{/if}}
 			<a href="#" class="view-all black-text right">View All</a>
 			</div>
 			<br>
-			{{#if calendarView}}
-
-			{{/if}}
 			{{> taskFilters}}
 		</div>
-		<div class="row">
+		<div class="">
 			<h4>
 				<i class="{{tasksViewIcon}} left"></i>Tasks
 				<a href="#" class="show-task-filters black-text right"><i class="mdi-content-filter-list"></i></a>
 				{{#unless searchingFor}}
-				<a href="#" class="search-tasks black-text right"><i class="mdi-action-search"></i></a>
+				<a href="#" class="search-tasks black-text right"><i class="mdi-action-search small"></i></a>
 				{{/unless}}
 			</h4>
 		</div>
+
+
+
+		{{#if calendarViewAvailable}}
+			<div class="switch">
+				<label>
+					<i class="mdi-action-assignment"></i> List
+					<input id="tasksView" type="checkbox" {{tasksViewChecked 'calendar'}}>
+					<span class="lever"></span>
+					<i class="mdi-action-event"></i> Calendar
+				</label>
+			</div>
+
+			{{/if}}
+
 		{{#if searchingFor}}
     <div class="row">
 			<div  id="tasks-search-display" class="col s12 m6 l4 offset-m3 offset-l4">
@@ -44,7 +46,7 @@
 				</h5>
 			</div>
     </div>
-{{/if}}
+		{{/if}}
 
 		{{#if tasksView 'list'}}
 		{{> list}}
