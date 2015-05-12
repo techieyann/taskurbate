@@ -35,3 +35,11 @@ var loaderStyle = '<meta name="viewport" content="width=device-width,maximum-sca
 var loaderBody2 = '<body><div class="spinner"></div></body>';
 Inject.rawHead('loader-style', loaderStyle);
 Inject.rawHead('loader-body2', loaderBody2);
+
+Meteor.startup(function () {
+	var groupTasks = Tasks.find({group:{$ne: 'default'}});
+	groupTasks.forEach(function (task) {
+		Completed.update({group: {$exists: false}, task: task._id}, {$set: {group: task.group}});
+	});
+
+});
