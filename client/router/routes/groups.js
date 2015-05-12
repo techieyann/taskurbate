@@ -83,7 +83,6 @@ Router.map(function () {
 				};
 				returnData.groups = Groups.find();
 				Session.set('calendar-group-id', group._id);
-				Session.set('calendar-member-view', 'everyone');
 				return returnData;
 			} else this.redirect('/groups');
 			
