@@ -9,11 +9,11 @@ Template.layout.events({
 		closeModal();
 	},
 	'click .complete-task': function () {
-		openModal('completeTaskModalBody', 'completeTaskModalFooter', false, this);
+		openModal('completeTaskModalBody', 'completeTaskModalFooter', true, this);
 	},
 
 	'click .backdate-task': function () {
-		openModal('backdateTaskModalBody','backdateTaskModalFooter', false, this);
+		openModal('backdateTaskModalBody','backdateTaskModalFooter', true, this);
 	}
 });
 
