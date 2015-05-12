@@ -1,3 +1,30 @@
+Template.solo.helpers({
+	calendarOptions: function () {
+		var groupId = 'default';
+		var calOptions = {
+			id: 'calendar',
+			header: {
+				left: '',
+				center: 'title',
+				right: ''
+			},
+			defaultView: Session.get('calendar-view'),
+			events: function (start, end, timezone, callback) {
+				var taskArray = [];
+				var completedEvents = completedTasks(groupId);
+				if (completedEvents.length) {
+					taskArray.push.apply(taskArray, completedEvents);
+				}
+				callback(taskArray);
+			},
+			eventClick: function (calEvent, jsEvent, view) {
+				Router.go('/tasks/'+calEvent.id);
+			}
+		};
+		return calOptions;
+	}
+});
+
 Template.solo.events({
 	'click #hide-tasks': function () {
 		$('#hide-tasks').hide();

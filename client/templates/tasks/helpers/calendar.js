@@ -89,7 +89,10 @@ Template.calendar.helpers({
 
 completedTasks = function (groupId, userId) {
 	var filters = {};
-	if (groupId) filters.group = groupId;
+	if (groupId) {
+		if (groupId == 'default') filters.group = {$exists: false};
+		else filters.group = groupId;
+	}
 	if (userId) filters.user = userId;
 
 	var completed = Completed.find(filters, {fields: {task: 1, duration: 1, at: 1}});

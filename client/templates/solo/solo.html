@@ -16,5 +16,17 @@
 		<h4><i class="mdi-social-person left"></i>Your Profile</h4>
 		{{> nicknameForm}}
 	</div>
+	{{#if isDesktop}}
+	<div class="card-panel">
+		<h4><i class="mdi-notification-event-note left"></i>Completed</h4>		
+		<div id="group-calendar">
+			{{> calendarArrows}}
+			{{> ReactiveFullcalendar options=calendarOptions}}
+			<div class="row">
+				{{> calendarViewControl}}
+			</div>
+		</div>
+	</div>
+	{{/if}}
 	{{> newGroupTaskButton}}
 </template>
