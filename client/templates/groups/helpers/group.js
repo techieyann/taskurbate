@@ -10,6 +10,7 @@ Template.group.helpers({
 				groupMemberPath: '/groups/'+groupId+'/member/'+key
 			});
 		}
+		if (!members[Session.get('calendar-member-view')]) Session.set('calendar-member-view', 'everyone');
 		return memberArray;
 	},
 	memberView: function (member) {
