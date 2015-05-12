@@ -28,10 +28,7 @@ Meteor.startup(function () {
 		Session.setDefault('uid', Meteor.user()._id);
 		Session.setDefault('taskFilters', null);
 	}
-	Session.setDefault('calendar-view-completed-tasks', false);
-	Session.setDefault('calendar-view-overdue-tasks', true);
-	Session.setDefault('calendar-view-due-tasks', true);
-	Session.setDefault('calendar-view', 'agendaWeek');
+	Session.setDefault('calendar-view', 'month');
 	Session.setDefault('calendar-member-view', 'everyone');
 
 });

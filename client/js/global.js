@@ -68,3 +68,55 @@ deleteTask = function (id, name) {
 	closeModal();
 	Materialize.toast('Deleted: "'+name+'"', 3000);
 };
+
+
+completedTasks = function (groupId, userId) {
+	var filters = {};
+	if (groupId) {
+		if (groupId == 'default') filters.group = {$exists: false};
+		else filters.group = groupId;
+	}
+	if (userId) filters.user = userId;
+
+	var completed = Completed.find(filters, {fields: {task: 1, duration: 1, at: 1}});
+	var taskArray = [];
+	var taskCache = {};
+	completed.forEach(function (done) {
+		var cachedTask = taskCache[done.task];
+		var taskName = '';
+		var eventTitle = ''; 
+		var taskDuration = done.duration;
+		if (cachedTask) {
+			taskName = cachedTask.name;
+		} else {
+			var currentTask = Tasks.findOne({_id: done.task});
+			if (currentTask)	{
+				cachedTask = {
+					name: currentTask.name,
+				};
+				taskCache[done.task] = cachedTask;
+				taskName = cachedTask.name;
+			}
+		}
+		eventTitle = taskDuration+'m '+taskName;
+		var displayDuration;
+		if (taskDuration > 20) displayDuration = taskDuration;
+		else displayDuration = 20;
+		var endAt = new Date(done.at.getTime() + (displayDuration*60*1000));
+
+
+		var calendarObject = {
+			title: eventTitle,
+			start: done.at,
+			end: endAt,
+			id: done.task,
+			type: 'completed'
+		};
+		
+	if (done.at.toLocaleTimeString() == '12:00:00 AM') {
+		calendarObject.allDay = true;
+	}
+		taskArray.push(calendarObject);
+	});
+	return taskArray;
+};
