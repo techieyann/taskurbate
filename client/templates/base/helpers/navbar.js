@@ -17,7 +17,7 @@ Template.navbar.helpers({
 		return (Router.current().route.getName() == route ? 'active':'');
 	},
 	initDropdown: function () {
-		$('.dropdown-button').dropdown({hover:false});
+			$('.dropdown-button').dropdown({hover:false});
 	}
 });
 

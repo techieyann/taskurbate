@@ -1,4 +1,7 @@
 Template.solo.helpers({
+	calendarViewAvailable: function () {
+		return (Meteor.Device.isDesktop() && Completed.find({group: {$exists: false}}).count());
+	},
 	calendarOptions: function () {
 		var groupId = 'default';
 		var calOptions = {

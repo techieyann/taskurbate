@@ -22,7 +22,7 @@
 			{{/each}}
 		</ul>
 	</div>
-	{{#if isDesktop}}
+	{{#if calendarViewAvailable}}
 	<div class="card-panel">
 		<h4><i class="mdi-notification-event-note left"></i>Completed</h4>		
 		<div id="group-calendar">
@@ -37,9 +37,11 @@
 						{{#each groupMember}}
 						<option value="{{id}}" {{memberView id}}>{{name}}</option>
 						{{/each}}
+
 					</select>
 					<label>Member:</label>
 				</div>
+				{{reInitMemberSelect}}
 			</div>
 		</div>
 	</div>

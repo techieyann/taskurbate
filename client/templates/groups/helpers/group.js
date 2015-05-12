@@ -1,12 +1,8 @@
-Template.group.onRendered(function () {
-	$('#calendar-member-view-select').material_select();
-});
-
 Template.group.helpers({
 	groupMember: function () {
 		var memberArray = [];
 		var members = this.group.members;
-		var groupId = this.group._id;
+		var groupId = Session.get('calendar-group-id');
 		for (var key in members) {
 			memberArray.push({
 				name: members[key],
@@ -19,11 +15,15 @@ Template.group.helpers({
 	memberView: function (member) {
 		return (Session.equals('calendar-member-view', member) ? 'selected':'');
 	},
+	reInitMemberSelect: function () {
+		Tracker.afterFlush(function () {
+			$('#calendar-member-view-select').material_select();
+		});
+	},
+	calendarViewAvailable: function () {
+		return (Meteor.Device.isDesktop() && Completed.find({group: Session.get('calendar-group-id')}).count());
+	},
 	calendarOptions: function () {
-		var groupId = this.group._id;
-		var memberView = Session.get('member-calendar-view');
-		var userId = null;
-		if (memberView != 'everyone') userId = memberView;
 		var calOptions = {
 			id: 'calendar',
 			header: {
@@ -33,6 +33,10 @@ Template.group.helpers({
 			},
 			defaultView: Session.get('calendar-view'),
 			events: function (start, end, timezone, callback) {
+				var groupId = Session.get('calendar-group-id');
+				var memberView = Session.get('calendar-member-view');
+				var userId = null;
+				if (memberView != 'everyone') userId = memberView;
 				var taskArray = [];
 				var completedEvents = completedTasks(groupId, userId);
 				if (completedEvents.length) {
