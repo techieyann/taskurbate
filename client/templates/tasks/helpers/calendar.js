@@ -25,7 +25,7 @@ Template.calendarViewControl.events({
 
 Template.calendarViewControl.helpers({
 	calendarView: function (view) {
-		if (Session.equals('calendar-view', view)) return 'selected';
+		return (Session.equals('calendar-view', view) ? 'selected':'');
 	}
 });
 
@@ -56,7 +56,7 @@ Template.calendar.helpers({
 						_id: calEvent.id,
 						duration: calEvent.duration,
 						name: calEvent.name
-					}
+					};
 					openModal('completeTaskModalBody', 'completeTaskModalFooter', true, modalData);
 				}
 			}
