@@ -36,10 +36,3 @@ var loaderBody2 = '<body><div class="spinner"></div></body>';
 Inject.rawHead('loader-style', loaderStyle);
 Inject.rawHead('loader-body2', loaderBody2);
 
-Meteor.startup(function () {
-	var groupTasks = Tasks.find({group:{$ne: 'default'}});
-	groupTasks.forEach(function (task) {
-		Completed.update({task: task._id, group: {$exists: false}}, {$set: {group: task.group}}, {multi: true});
-	});
-
-});
