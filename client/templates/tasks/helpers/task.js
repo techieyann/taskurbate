@@ -5,23 +5,8 @@ Template.task.onRendered(function () {
 });
 
 Template.task.helpers({
-	tagById: function () {
-		var tagID = this.tag;
-		if (tagID) {
-			if (tagID == 'default') {
-				return 'Misc.';
-			}
-			else {
-				return Tags.findOne({_id: tagID}).name;
-			}
-		}
-	},
 	soloGroup: function () {
 		return (this.group == 'default');
-	},
-	groupById: function () {
-		var groupID = this.group;
-		return Groups.findOne({_id: groupID}).name;
 	},
 	dueData: function () {
 		if (this.dueNext && this.dueEvery) return true;

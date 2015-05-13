@@ -77,7 +77,6 @@ completedTasks = function (groupId, userId) {
 		else filters.group = groupId;
 	}
 	if (userId) filters.user = userId;
-	console.log(filters);
 	var completed = Completed.find(filters, {fields: {task: 1, duration: 1, at: 1}});
 	var taskArray = [];
 	var taskCache = {};

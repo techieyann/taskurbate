@@ -24,7 +24,7 @@ Template.tasks.onRendered(function () {
 				tags: {
 					default: 'view'
 				}
-			}
+			};
 		}
 	}
 	else {
@@ -38,17 +38,17 @@ Template.tasks.onRendered(function () {
 
 Template.tasks.helpers({
 	calendarViewAvailable: function () {
-		if (this.anyDue && !Meteor.Device.isPhone()) return true;
+		return (this.anyDue && !Meteor.Device.isPhone());
 	},
 	tasksViewChecked: function (view) {
 		return (Session.equals('tasksView', view) ? 'checked':'');
 	},
 	tasksView: function (view) {
-		return Session.equals('tasksView', view)
+		return Session.equals('tasksView', view);
 	},
 	searchingFor: function () {
 		var search = Session.get('searchQuery');
-		if (search) return search;
+		return (search ? search:'');
 	}
 });
 
@@ -98,12 +98,6 @@ Template.tasks.events({
 });
 
 Template.taskCollectionElement.helpers({
-	groupById: function () {
-		return 'group';
-	},
-	tagById: function () {
-		return 'tag';
-	},
 	dueColor: function () {
 		var longestTimeDiff = Template.parentData().longestTimeDiff;
 
