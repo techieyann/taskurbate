@@ -38,3 +38,21 @@ Template.registerHelper('tasksViewIcon', function () {
 	if (view == 'list') return 'mdi-action-assignment';
 	if (view == 'calendar') return 'mdi-action-event';
 });
+
+Template.registerHelper('tagById', function () {
+	var tagID = this.tag;
+	if (tagID) {
+		if (tagID == 'default')	return 'Misc.';
+		var tag = Tags.findOne({_id: tagID});
+		if (tag) return tag.name;
+	}
+});
+
+Template.registerHelper('groupById', function () {
+	var groupID = this.group;
+	if (groupID) {
+		if (groupID == 'default') return 'Self';
+		var group = Groups.findOne({_id: groupID});
+		if (group) return group.name;
+	}
+});
