@@ -55,7 +55,10 @@ Template.calendar.helpers({
 					var modalData = {
 						_id: calEvent.id,
 						duration: calEvent.duration,
-						name: calEvent.name
+						name: calEvent.name,
+						group: calEvent.group,
+						tag: calEvent.tag,
+						description: calEvent.description
 					};
 					openModal('completeTaskModalBody', 'completeTaskModalFooter', true, modalData);
 				}
@@ -99,6 +102,9 @@ var processTaskIntoEvent = function (task) {
 		id: task._id,
 		name: task.name,
 		duration: task.duration,
+		description: task.description,
+		tag: task.tag,
+		group: task.group,
 		type: 'scheduled'
 	};
 
