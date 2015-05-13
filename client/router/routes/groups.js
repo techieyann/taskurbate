@@ -38,7 +38,7 @@ Router.map(function () {
 		controller: 'DefaultSubscriptions',
 		data: function () {
 			var returnData = {};
-			var group = Groups.findOne({_id: this.params.groupId})
+			var group = Groups.findOne({_id: this.params.groupId});
 			if (group) {
 				returnData.groupId = this.params.groupId;
 				returnData.groupName = group.name;
@@ -85,7 +85,6 @@ Router.map(function () {
 				Session.set('calendar-group-id', group._id);
 				return returnData;
 			} else this.redirect('/groups');
-			
 		}
 	});
 	this.route('groups', {
