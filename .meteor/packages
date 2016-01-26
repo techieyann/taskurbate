@@ -4,22 +4,38 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
+meteor-base             # Packages every Meteor app needs to have
+mobile-experience       # Packages for a great mobile UX
+mongo                   # The database Meteor supports right now
+blaze-html-templates    # Compile .html files into Meteor Blaze views
+session                 # Client-side reactive dictionary for your app
+jquery                  # Helpful client-side library
+tracker                 # Meteor's client-side reactive programming library
+
+standard-minifiers      # JS/CSS minifiers run for production mode
+es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
+
+autopublish             # Publish all data to the clients (for prototyping)
+insecure                # Allow all DB writes from clients (for prototyping)
+kadira:flow-router
+kadira:blaze-layout
+reactive-dict
+reactive-var
+momentjs:moment
+fabienb4:autoform-semantic-ui
 accounts-password
-iron:router
-jquery
-less
-mizzao:jquery-ui
-monbro:iron-router-breadcrumb
-mrt:chartjs
-mrt:moment
-mystor:device-detection
-accounts-ui
-accounts-facebook
-accounts-google
-useraccounts:materialize
-materialize:materialize
-gquemart:meteor-reactive-fullcalendar
-service-configuration
-meteorhacks:inject-initial
-multiply:iron-router-progress
+useraccounts:flow-routing
+alanning:roles
+reywood:publish-composite
+percolate:momentum
+aldeed:autoform
+aldeed:simple-schema
+dburles:collection-helpers
+useraccounts:bootstrap
+twbs:bootstrap
+aldeed:collection2
+aldeed:autoform-bs-button-group-input
+arkham:comments-ui
+mdg:validated-method
+percolate:synced-cron
