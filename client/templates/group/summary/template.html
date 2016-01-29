@@ -1,0 +1,32 @@
+<template name="groupSummary">
+  <div class="row">
+
+      <h1 class="col-xs-12">
+        {{group.name}}
+        <span class="pull-right">
+        {{#if groupAdmin}}
+        <a href="{{pathFor 'editGroup' groupId=group._id}}" class="btn btn-default">
+          {{> glyphicon icon='pencil'}}
+          Edit Group
+        </a>
+        {{/if}}
+        </span>
+      </h1>
+
+      {{#if quota}}
+      <div class="{{centeredColumn}}">
+        <h3 class="text-center">Quota Completed</h3>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{quotaCompleted}}" aria-valuemin="0" aria-valuemax="{{group.weeklyQuota}}" style="min-width: 2em; width: {{percentCompleted}}%">
+            {{percentCompleted}}%
+          </div>
+        </div>
+        {{humanDate weekStart}}
+        <div class="pull-right">{{humanDate weekEnd}}</div>
+        <hr>
+      </div>
+      {{/if}}
+
+
+  </div>
+  </template>

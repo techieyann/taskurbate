@@ -1,0 +1,16 @@
+<template name="taskurbateLayout">
+  {{> navbar}}
+  <div id="content-container" class="container-fluid">
+    {{#momentum plugin="slide-height"}}
+    {{> Template.dynamic template=main}}
+    {{/momentum}}
+    {{> footer}}
+  </div>
+  <div id="modal" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {{> Template.dynamic template=modalHelper data=dataHelper}}
+      </div>
+    </div>
+  </div>
+</template>

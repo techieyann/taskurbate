@@ -1,0 +1,20 @@
+<template name="newGroup">
+  <div class="row">
+    <div class="{{centeredColumnSmall}}">
+      {{#autoForm collection='Groups' id='newGroupForm' type='method' meteormethod='Groups.methods.newGroup'}}
+      <fieldset>
+        <legend class="text-center">
+          Create a new Group
+          (or <a href="{{pathFor 'joinGroup'}}">join one</a>)
+        </legend>
+        {{> afQuickField name='name'}}
+        {{> afQuickField name='accessCode'}}
+        {{> afQuickField name='quota'}}
+      </fieldset>
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary">Create Group</button>
+      </div>
+      {{/autoForm}}
+    </div>
+  </div>
+</template>

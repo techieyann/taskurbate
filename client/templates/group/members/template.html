@@ -1,0 +1,36 @@
+<template name="memberSummary">
+  <h4>Members:</h4>
+  {{#each member in memberArray}}
+  <div class="well">
+    <div class="row">
+      <div class="col-sm-6">
+        {{member.name}}
+        {{#if member.lastCompleted}}
+        <br>
+        Last Completed:<br>
+        {{#with member.lastCompleted}}
+        <a href="{{pathFor taskPage taskId='task._id'}}">task.name</a> at {{humanDate at}}
+        {{/with}}
+        {{/if}}
+      </div>
+
+      {{#if quota}}
+      <div class="col-sm-6 text-center">
+        Total quota performance:
+        {{member.lifetimeQuotaDiff}}
+      </div>
+      <div class="col-sm-12 text-center">
+        Weekly quota:
+        <br>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{member.completed}}" aria-valuemin="0" aria-valuemax="{{member.weeklyQuota}}" style="min-width: 2em; width: {{percentCompleted}}%">
+            {{percentCompleted}}%
+          </div>
+        </div>
+      </div>
+
+      {{/if}}
+    </div>
+  </div>
+  {{/each}}
+</template>

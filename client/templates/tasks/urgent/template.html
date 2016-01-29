@@ -1,0 +1,7 @@
+<template name="urgentTasks">
+  {{#each task in taskArray}}
+  <div class="row">
+    {{task.name}} -- Due: {{humanDate task.due}}
+  </div>
+  {{/each}}
+</template>

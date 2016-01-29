@@ -1,0 +1,19 @@
+<template name="listTasks">
+  <h4>Tasks:</h4>
+  {{#each tag in tagsWithTasks}}
+  <div id="panel-{{tag._id}}" class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{tag.name}}</h3>
+    </div>
+    <div class="panel-body">
+      <ul class="list-group">
+        {{#each task in (tagGroup tag)}}
+        <li class="list-group-item">
+          {{task.name}} -- Due: {{humanDate task.date}} -- Weight: {{taskWeight task}}
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+  {{/each}}
+</template>

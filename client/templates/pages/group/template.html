@@ -1,0 +1,5 @@
+<template name="groupPage">
+  {{#each groupId in groupArray}}
+  {{> groupDashboard (dashOptions groupId)}}
+  {{/each}}
+</template>

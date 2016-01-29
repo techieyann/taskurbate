@@ -1,0 +1,18 @@
+<template name="landingPage">
+  <div class="row">
+
+    <div class="jumbotron {{centeredColumn}}">
+    {{#if currentUser}}
+      {{else}}
+      <h2>Hello world!</h2>
+      <p>Let me tell you all about the awesomeness that is taskurbate.</p>
+      <p>Look at the pretty screenshots</p>
+      <p class="text-right">
+        <a class="btn btn-primary btn-lg" href="{{pathFor 'sign-up'}}">
+          Sign me up!
+        </a>
+      </p>
+      {{/if}}
+    </div>
+  </div>
+</template>

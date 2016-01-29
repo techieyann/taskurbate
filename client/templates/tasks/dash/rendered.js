@@ -1,0 +1,3 @@
+Template.tasksDash.onRendered(function () {
+
+});

@@ -1,0 +1,18 @@
+<template name="tasksDash">
+  <div class="row">
+    <div class="col-sm-4 col-md-3">
+      {{> listTags tagArray=tags group=group}}
+      {{#if isAdmin}}
+      <br>
+      {{> newTag group=group}}
+      {{/if}}
+    </div>
+    <hr class="visible-xs">
+    <div class="col-sm-8 col-md-9">
+      <button id="new-task-button" class="btn btn-default pull-right">
+        {{> glyphicon icon='plus'}} Task
+      </button>
+      {{> listTasks tasks=tasks tags=tags}}
+    </div>
+  </div>
+</template>

@@ -1,0 +1,10 @@
+<template name="groupDashboard">
+  {{> groupSummary group=group}}
+  {{> urgentTasks taskArray=tasks}}
+  <div class="row">
+    <div class="col-sm-8 col-md-9">
+      {{> memberSummary memberArray=members group=group}}
+      <hr class="visible-xs">
+    </div>
+  </div>
+</template>

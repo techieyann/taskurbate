@@ -1,0 +1,11 @@
+<template name="listTags">
+  <h4>Tags:</h4>
+  <div id="tag-nav">
+    <ul class="nav">
+      {{#each tag in tagArray}}
+      {{> displayTag tag=tag admin=isAdmin editing=(editingTag tag) edit=setEditTag}}
+      {{/each}}
+    </ul>
+  </div>
+
+</template>

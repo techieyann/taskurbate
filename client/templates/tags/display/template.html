@@ -1,0 +1,36 @@
+<template name="displayTag">
+  <li id="{{tag._id}}">
+
+    {{#if editing}}
+    <form class="edit-tag-form">
+      <div class="col-xs-9 col-sm-7">
+        <input id="input-{{tag._id}}" class="edit-tag-name form-control" type="text" value="{{tag.name}}">
+        </div>
+      <div class="col-xs-3 col-sm-5 text-center">
+        <div class="btn-group">
+          <button type="submit" class="submit-edit-tag btn btn-xs btn-default">{{> glyphicon icon='ok'}}</button>
+          <button class="cancel-edit-tag btn btn-xs btn-default">{{> glyphicon icon='remove'}}</button>
+        </div>
+      </div>
+    </form>
+    {{else}}
+    <div class="col-xs-9 col-sm-7">
+    {{tag.name}}
+    {{#if numTasks tag}}
+    (<a href="#panel-{{tag._id}}">{{numTasks tag}}</a>)
+    {{/if}}
+    </div>
+
+    {{#if editable tag}}
+    <div class="col-xs-3 col-sm-5 text-center">
+      <div class="btn-group">
+        <button class="edit-tag btn btn-xs btn-default">{{> glyphicon icon='pencil'}}</button>
+        <button class="delete-tag btn btn-xs btn-default">{{> glyphicon icon='trash'}}</button>
+      </div>
+    </div>
+    {{/if}}
+
+    {{/if}}
+
+  </li>
+  </template>

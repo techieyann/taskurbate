@@ -48,12 +48,3 @@ SyncedCron.add({
     });
   }
 });
-
-const memberPresenceInRange = (memberId, start, end) => {
-  let daysAbsent = 0;
-  const vacations = Vacations.find({userId: memberId, startDate: {$lt: end}, endDate: {$gt: start}}).fetch();
-  vacations.forEach( (vacation) => {
-    daysAbsent += vacation.daysGoneInRange(start, end);
-  });
-  return daysAbsent / Math.round((end-start)/(1000*60*60*24));
-};

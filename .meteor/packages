@@ -39,3 +39,8 @@ aldeed:autoform-bs-button-group-input
 arkham:comments-ui
 mdg:validated-method
 percolate:synced-cron
+arillo:flow-router-helpers
+sergeyt:typeahead
+check
+rajit:bootstrap3-datepicker
+aldeed:autoform-bs-datepicker
