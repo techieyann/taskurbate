@@ -1,0 +1,15 @@
+<template name="editTag">
+  <form class="edit-tag-form">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-btn">
+          <button type="submit" class="submit-edit-tag btn btn-success">{{> glyphicon icon='ok'}}</button>
+        </div>
+        <input id="input-{{tag._id}}" class="edit-tag-name form-control" type="text" value="{{tag.name}}">
+        <div class="input-group-btn">
+          <button class="cancel-edit-tag btn btn-default">{{> glyphicon icon='remove'}}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</template>

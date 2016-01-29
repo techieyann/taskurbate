@@ -7,9 +7,9 @@
     </div>
     <div class="panel-body">
       <ul class="list-group">
-        {{#each task in (tagGroup tag)}}
+        {{#each taskByGroup in (tagGroup tag)}}
         <li class="list-group-item">
-          {{task.name}} -- Due: {{humanDate task.date}} -- Weight: {{taskWeight task}}
+          {{> displayTask task=taskByGroup tags=tags}}
         </li>
         {{/each}}
       </ul>

@@ -1,0 +1,10 @@
+<template name="displayTask">
+  {{task.name}} -- Due: {{humanDate task.date}} -- Points: {{taskWeight task}} --  
+  {{#if isAdmin}}
+    <button type="button" class="edit-task btn btn-default">{{> glyphicon icon='pencil'}}</button>
+  <div class="btn-group">
+
+    <button type="button" class="delete-task btn btn-default">{{> glyphicon icon='trash'}}</button>
+  </div>
+  {{/if}}
+</template>

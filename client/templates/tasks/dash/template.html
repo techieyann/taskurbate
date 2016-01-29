@@ -1,12 +1,17 @@
 <template name="tasksDash">
   <div class="row">
     <div class="col-sm-4 col-md-3">
-      {{> listTags tagArray=tags group=group}}
-      {{#if isAdmin}}
-      <br>
-      {{> newTag group=group}}
-      {{/if}}
+      <div class="row">
+        <div class="col-xs-8 col-xs-offset-2 col-sm-12 col-sm-offset-0">
+          {{> listTags tagArray=tags group=group}}
+          {{#if isAdmin}}
+          <br>
+          {{> newTag group=group}}
+          {{/if}}
+        </div>
+      </div>
     </div>
+
     <hr class="visible-xs">
     <div class="col-sm-8 col-md-9">
       <button id="new-task-button" class="btn btn-default pull-right">

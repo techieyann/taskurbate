@@ -7,7 +7,7 @@ Template.registerHelper('centeredColumnSmall', () => {
 });
 
 Template.registerHelper('humanDate', (date) => {
-  return moment(date).format('MMM Do');
+    return (date && moment(date).format('MMM Do'));
 });
 
 Template.registerHelper('weekStart', () => {
@@ -19,8 +19,6 @@ Template.registerHelper('weekEnd', () => {
 });
 
 Template.registerHelper('isAdmin', () => {
-  const instance = Template.instance();
-  if (instance.data.group)
-    return instance.data.group.userIsAdmin();
-  return false;
+  const groups = Roles.getGroupsForUser(Meteor.user(), 'admin');
+  return !!groups.length;
 });

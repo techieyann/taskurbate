@@ -4,7 +4,6 @@ Template.listTasks.helpers({
     const tasks = Template.instance().data.tasks;
     if (tags) {
       return tags.filter( (tag) => {
-        console.log(tag.numTasks());
         return (tag.numTasks() > 0);
       });
     }
@@ -16,8 +15,5 @@ Template.listTasks.helpers({
         return task.tagId == tag._id;
       });
     }
-  },
-  taskWeight: (task) => {
-    return task.quotaValue();
   }
 });
